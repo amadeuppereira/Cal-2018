@@ -2,7 +2,7 @@
 
 using namespace std;
 
-void menu () {
+void menu() {
 
     while(1){
         int option = -1;
@@ -43,7 +43,7 @@ void menu () {
     }
 }
 
-void submenu_1 (){
+void submenu_1(){
     while(1) {
         int option = -1;
         cout << endl;
@@ -79,7 +79,7 @@ void submenu_1 (){
     }
 }
 
-void submenu_2 (){
+void submenu_2(){
     while(1) {
         int option = -1;
         cout << endl;
