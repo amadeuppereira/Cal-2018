@@ -1,4 +1,8 @@
 /Debug/
-.cproject
-.project
-.settings
+/.cproject
+/.project
+/.settings
+/cmake-build-debug
+/.idea
+/CMakeLists.txt
+/.vs/

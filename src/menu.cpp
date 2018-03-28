@@ -23,7 +23,7 @@ void menu () {
 
         switch(option){
             case 0:
-                exit(0);
+                return;
             case 1:
                 submenu_1 ();
                 break;
