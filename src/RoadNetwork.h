@@ -1,18 +1,16 @@
 #ifndef SRC_ROADNETWORK_H_
 #define SRC_ROADNETWORK_H_
 
-#include "Graph.h"
-#include "iostream"
-#include "fstream"
-#include "sstream"
-#include "string"
-#include <float.h>
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <string>
 #include <algorithm>
+#include "Graph.h"
 
 class RoadNetwork {
 private:
 	Graph<unsigned> graph;
-	//GraphViewer * gv;
 	int sourceID;
 	int destinyID;
 
