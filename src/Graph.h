@@ -7,6 +7,7 @@
 #include <vector>
 #include <queue>
 #include <string>
+#include <math.h>
 
 using namespace std;
 
@@ -37,7 +38,9 @@ public:
 	Vertex(T in, double lon, double lat);
 	friend class Graph<T>;
 
-	void addEdge(Vertex<T> *d, double w, string n, T id, bool block);
+	T getInfo() const;
+	vector<Edge<T> > getAdj() const;
+	void addEdge(Vertex<T> *d, double w, bool tw, string n, T id, bool block);
 	bool removeEdgeTo(Vertex<T> *d);
 
 	string getName() const;
@@ -48,15 +51,26 @@ public:
 };
 
 template <class T>
-Vertex<T>::Vertex(T in, double lon, double lat): info(in), latitude(lat), longitude(lon) {}
+Vertex<T>::Vertex(T in, double lat, double lon): info(in), latitude(lat), longitude(lon) {}
+
+template <class T>
+T Vertex<T>::getInfo() const {
+	return info;
+}
+
+template <class T>
+vector<Edge<T> > Vertex<T>::getAdj() const {
+	return adj;
+}
+
 
 /*
  * Auxiliary function to add an outgoing edge to a vertex (this),
  * with a given destination vertex (d) and edge weight (w).
  */
 template <class T>
-void Vertex<T>::addEdge(Vertex<T> *d, double w, string n, T id, bool block) {
-	adj.push_back(Edge<T>(d, w, n, id, block));
+void Vertex<T>::addEdge(Vertex<T> *d, double w, bool tw, string n, T id, bool block) {
+	adj.push_back(Edge<T>(d, w, tw, n, id, block));
 }
 
 /*
@@ -95,9 +109,6 @@ double Vertex<T>::getLatitude() const{
 }
 
 
-
-
-
 /*
  * ================================================================================================
  * Class Edge - Vias
@@ -120,6 +131,8 @@ public:
 	friend class Vertex<T>;
 
 	T getId() const;
+	Vertex<T>* getDest() const;
+	bool getTwoWays() const;
 	double getWeight() const;
 	string getName() const;
 	bool getBlocked() const;
@@ -131,6 +144,16 @@ Edge<T>::Edge(Vertex<T> *d, double w, bool tw, string n, T id, bool block): dest
 template <class T>
 T Edge<T>::getId() const{
 	return id;
+}
+
+template <class T>
+Vertex<T>* Edge<T>::getDest() const{
+	return dest;
+}
+
+template <class T>
+bool Edge<T>::getTwoWays() const{
+	return two_ways;
 }
 
 template <class T>
@@ -151,7 +174,6 @@ bool Edge<T>::getBlocked() const{
 
 
 
-
 /*
  * ================================================================================================
  * Class Graph
@@ -167,6 +189,8 @@ class Graph {
 	bool dfsIsDAG(Vertex<T> *v) const;
 
 public:
+	vector<Vertex<T> *> getVertexSet() const;
+	int getIndex(const T &v) const;
 	int getNumVertex() const;
 	bool addVertex(const T &in, double lon, double lat);
 	bool removeVertex(const T &in);
@@ -180,7 +204,23 @@ public:
 	int maxNewChildren(const T &source, T &inf) const;
 	bool isDAG() const;
 
+	int calculateDist(T id1, T id2) const;
+
 };
+
+template <class T>
+vector<Vertex<T> *> Graph<T>::getVertexSet() const {
+	return vertexSet;
+}
+
+template <class T>
+int Graph<T>::getIndex(const T &v) const{
+	for (int i = 0; i < this->vertexSet.size(); i++)
+		if(this->vertexSet[i]->info == v)
+			return i;
+
+	return -1;
+}
 
 template <class T>
 int Graph<T>::getNumVertex() const {
@@ -221,7 +261,7 @@ bool Graph<T>::addEdge(const T &sourc, const T &dest, double w, bool tw, string 
 	auto v2 = findVertex(dest);
 	if (v1 == NULL || v2 == NULL)
 		return false;
-	v1->addEdge(v2,w, tw, n, id, block);
+	v1->addEdge(v2, w, tw, n, id, block);
 	return true;
 }
 
@@ -443,6 +483,22 @@ bool Graph<T>::dfsIsDAG(Vertex<T> *v) const {
 	v->processing = false;
 	return true;
 }
+
+template <class T>
+int Graph<T>::calculateDist(T id1, T id2) const{
+	Vertex<T> *v1 = findVertex(id1);
+	Vertex<T> *v2 = findVertex(id2);
+
+	double long1 = v1->getLongitude();
+	double lat1 = v1->getLatitude();
+	double long2 = v2->getLongitude();
+	double lat2 = v2->getLatitude();
+
+	double dist = sqrt(pow((long1 - long2), 2) + pow((lat1 - lat2), 2));
+
+	return floor(dist * 1000);
+}
+
 
 
 

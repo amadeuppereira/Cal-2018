@@ -7,13 +7,14 @@
 #include <string>
 #include <algorithm>
 #include "Graph.h"
+#include "graphviewer.h"
+#include "Utils.h"
 
-#define W_WIDTH 600;
-#define W_HEIGHT 600;
 
 class RoadNetwork {
 private:
-	Graph<unsigned> graph;
+	Graph<unsigned long long> graph;
+	GraphViewer *gv;
 	int sourceID;
 	int destinyID;
 
@@ -27,10 +28,8 @@ public:
 	int getSourceId() const;
 	void setSourceId(int sourceId);
 	void readOSM();
+	void convertToGV();
 };
-
-
-
 
 
 
