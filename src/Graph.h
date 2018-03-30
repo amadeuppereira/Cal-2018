@@ -47,7 +47,6 @@ public:
 	void setName(string name);
 	double getLongitude() const;
 	double getLatitude() const;
-
 };
 
 template <class T>
@@ -136,6 +135,7 @@ public:
 	double getWeight() const;
 	string getName() const;
 	bool getBlocked() const;
+	void setBlocked(bool blocked);
 };
 
 template <class T>
@@ -169,6 +169,11 @@ string Edge<T>::getName() const{
 template <class T>
 bool Edge<T>::getBlocked() const{
 	return blocked;
+}
+
+template <class T>
+void Edge<T>::setBlocked(bool blocked) {
+	this->blocked = blocked;
 }
 
 

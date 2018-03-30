@@ -1,14 +1,16 @@
 #include <iostream>
 #include <string>
-#include "RoadNetwork.h"
 #include "menu.h"
+#include "Interface.h"
 
 using namespace std;
 int main()
 {
 	//menu();
-	RoadNetwork* test = new RoadNetwork();
-	test->readOSM();
-	test->convertToGV();
+	//RoadNetwork* test = new RoadNetwork();
+	//test->readOSM();
+	//test->convertToGV();
+	Interface* test = new Interface();
+	test->roadsBlocked();
 	return 0;
 }

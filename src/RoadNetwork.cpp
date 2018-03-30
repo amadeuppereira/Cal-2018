@@ -54,7 +54,6 @@ void RoadNetwork::readOSM() {
 		getline(linestream, data, ';');
 		longitude = atof(data.c_str());
 
-		//cout << "node_id:" << id << ", lat: " << latitude << ", long: " << longitude << endl;
 		graph.addVertex(id,latitude,longitude);
 	}
 	fNodes.close();
@@ -81,7 +80,6 @@ void RoadNetwork::readOSM() {
 		node2_id = atof(data.c_str());
 
 
-		//cout << "road_id:" << id << ", node1_id: " << node1_id << ", node2_id: " << node2_id << endl;
 		links.push_back(Link(id, node1_id, node2_id));
 
 	}
@@ -113,8 +111,6 @@ void RoadNetwork::readOSM() {
 		else
 			two_ways = false;
 
-
-		//cout << "road_id:" << id << ", name: " << name << ", two_ways: " << two_ways << endl;
 
 		for(unsigned int i = 0; i < links.size(); i++) {
 			if(links.at(i).edgeID == id) {
@@ -185,3 +181,42 @@ void RoadNetwork::convertToGV() {
 	gv->rearrange();
 
 }
+
+const Graph<unsigned long long>& RoadNetwork::getGraph() const {
+	return graph;
+}
+
+set<string> RoadNetwork::getEdgesNames(){
+    set<string> edge_names;
+    for(size_t i  = 0; i < graph.getVertexSet().size(); i++){
+    	for(size_t n = 0; n < graph.getVertexSet().at(i)->getAdj().size(); n++){
+    		if(graph.getVertexSet().at(i)->getAdj().at(n).getName() != "")
+    			edge_names.insert(graph.getVertexSet().at(i)->getAdj().at(n).getName());
+    	}
+    }
+    return edge_names;
+}
+
+bool RoadNetwork::getEdgeBlockedStatus(string name){
+    for(size_t i  = 0; i < graph.getVertexSet().size(); i++){
+    	for(size_t n = 0; n < graph.getVertexSet().at(i)->getAdj().size(); n++){
+    		if(graph.getVertexSet().at(i)->getAdj().at(n).getName() != "")
+    			if(graph.getVertexSet().at(i)->getAdj().at(n).getName() == name)
+    				return graph.getVertexSet().at(i)->getAdj().at(n).getBlocked();
+    	}
+    }
+    return false;
+}
+
+void RoadNetwork::setEdgeBlocked(string edge_name, bool blocked){
+    for(size_t i  = 0; i < graph.getVertexSet().size(); i++){
+    	for(size_t n = 0; n < graph.getVertexSet().at(i)->getAdj().size(); n++){
+    		if(graph.getVertexSet().at(i)->getAdj().at(n).getName() != "")
+    			if(graph.getVertexSet().at(i)->getAdj().at(n).getName() == edge_name){
+    				graph.getVertexSet().at(i)->getAdj().at(n).setBlocked(blocked);
+    			}
+    	}
+    }
+}
+
+

@@ -9,6 +9,7 @@
 #include "Graph.h"
 #include "graphviewer.h"
 #include "Utils.h"
+#include <set>
 
 
 class RoadNetwork {
@@ -29,6 +30,13 @@ public:
 	void setSourceId(int sourceId);
 	void readOSM();
 	void convertToGV();
+
+	const Graph<unsigned long long>& getGraph() const;
+
+	set<string> getEdgesNames();
+	bool getEdgeBlockedStatus(string name);
+
+	void setEdgeBlocked(string edge_name, bool blocked);
 };
 
 
