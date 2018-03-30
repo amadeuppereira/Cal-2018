@@ -1,7 +1,7 @@
 ﻿#ifndef _GRAPH_VIEWER_H_
 #define _GRAPH_VIEWER_H_
 
-#ifdef linux
+#ifdef __linux__
 #include <unistd.h>
 #else
 #include <winsock2.h>
@@ -313,7 +313,7 @@ public:
 	 */
 	bool rearrange();
 
-#ifdef linux
+#ifdef __linux__
 	static pid_t procId;
 #endif
 

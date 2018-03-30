@@ -112,9 +112,10 @@ class Edge {
 	string name;
 	T id;
 	bool blocked;
+	bool two_ways;
 
 public:
-	Edge(Vertex<T> *d, double w, string n, T id, bool block);
+	Edge(Vertex<T> *d, double w, bool tw, string n, T id, bool block);
 	friend class Graph<T>;
 	friend class Vertex<T>;
 
@@ -125,7 +126,7 @@ public:
 };
 
 template <class T>
-Edge<T>::Edge(Vertex<T> *d, double w, string n, T id, bool block): dest(d), weight(w), id(id), name(n), blocked(block) {}
+Edge<T>::Edge(Vertex<T> *d, double w, bool tw, string n, T id, bool block): dest(d), weight(w), two_ways(tw), id(id), name(n), blocked(block) {}
 
 template <class T>
 T Edge<T>::getId() const{
@@ -170,7 +171,7 @@ public:
 	bool addVertex(const T &in, double lon, double lat);
 	bool removeVertex(const T &in);
 
-	bool addEdge(const T &sourc, const T &dest, double w, string n, T id, bool block);
+	bool addEdge(const T &sourc, const T &dest, double w, bool tw, string n, T id, bool block);
 	bool removeEdge(const T &sourc, const T &dest);
 
 	vector<T> dfs() const;
@@ -215,12 +216,12 @@ bool Graph<T>::addVertex(const T &in, double lon, double lat) {
  * Returns true if successful, and false if the source or destination vertex does not exist.
  */
 template <class T>
-bool Graph<T>::addEdge(const T &sourc, const T &dest, double w, string n, T id, bool block) {
+bool Graph<T>::addEdge(const T &sourc, const T &dest, double w, bool tw, string n, T id, bool block) {
 	auto v1 = findVertex(sourc);
 	auto v2 = findVertex(dest);
 	if (v1 == NULL || v2 == NULL)
 		return false;
-	v1->addEdge(v2,w, n, id, block);
+	v1->addEdge(v2,w, tw, n, id, block);
 	return true;
 }
 
