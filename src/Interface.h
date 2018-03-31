@@ -7,11 +7,18 @@
 class Interface {
 private:
 	RoadNetwork* roadnetwork;
+	unsigned long long sourceID;
+	unsigned long long destinyID;
 public:
 	Interface();
 	virtual ~Interface();
+	unsigned long long getDestinyId() const;
+	void setDestinyId(int destinyId);
+	unsigned long long getSourceId() const;
+	void setSourceId(int sourceId);
 
 	void roadsBlocked();
+	void calculatePath();
 
 };
 

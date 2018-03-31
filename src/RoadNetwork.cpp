@@ -11,22 +11,6 @@ RoadNetwork::~RoadNetwork() {
 	// TODO Auto-generated destructor stub
 }
 
-int RoadNetwork::getDestinyId() const {
-	return destinyID;
-}
-
-void RoadNetwork::setDestinyId(int destinyId) {
-	destinyID = destinyId;
-}
-
-int RoadNetwork::getSourceId() const {
-	return sourceID;
-}
-
-void RoadNetwork::setSourceId(int sourceId) {
-	sourceID = sourceId;
-}
-
 void RoadNetwork::readOSM() {
 	string nodesFile = "nodes.txt";
 	string edgesFile = "edges.txt";
@@ -124,7 +108,7 @@ void RoadNetwork::readOSM() {
 		}
 	}
 	fEdges.close();
-
+	graph.floydWarshallShortestPath();
 }
 
 void RoadNetwork::convertToGV() {
@@ -186,17 +170,6 @@ const Graph<unsigned long long>& RoadNetwork::getGraph() const {
 	return graph;
 }
 
-set<string> RoadNetwork::getEdgesNames(){
-    set<string> edge_names;
-    for(size_t i  = 0; i < graph.getVertexSet().size(); i++){
-    	for(size_t n = 0; n < graph.getVertexSet().at(i)->getAdj().size(); n++){
-    		if(graph.getVertexSet().at(i)->getAdj().at(n).getName() != "")
-    			edge_names.insert(graph.getVertexSet().at(i)->getAdj().at(n).getName());
-    	}
-    }
-    return edge_names;
-}
-
 bool RoadNetwork::getEdgeBlockedStatus(string name){
     for(size_t i  = 0; i < graph.getVertexSet().size(); i++){
     	for(size_t n = 0; n < graph.getVertexSet().at(i)->getAdj().size(); n++){
@@ -213,10 +186,33 @@ void RoadNetwork::setEdgeBlocked(string edge_name, bool blocked){
     	for(size_t n = 0; n < graph.getVertexSet().at(i)->getAdj().size(); n++){
     		if(graph.getVertexSet().at(i)->getAdj().at(n).getName() != "")
     			if(graph.getVertexSet().at(i)->getAdj().at(n).getName() == edge_name){
-    				graph.getVertexSet().at(i)->getAdj().at(n).setBlocked(blocked);
+    				graph.setEdgeBlocked(graph.getVertexSet().at(i)->getAdj().at(n).getId(),blocked);
     			}
     	}
     }
+}
+
+double RoadNetwork::getWeightOfPath(unsigned long long nodeStartID, unsigned long long nodeDestinationID) {
+	vector<unsigned long long> graphPath = graph.getfloydWarshallPath(nodeStartID, nodeDestinationID);
+	cout << "vector path size: " << graphPath.size() << endl;
+	unsigned long long nodeID;
+	double totalWeight = 0;
+
+	for (unsigned int i = 0; i < graphPath.size(); i++) {
+		nodeID = graph.getIndex(graphPath[i]);
+
+		if (i + 1 < graphPath.size()) {
+			vector<Edge<unsigned long long> > adj = graph.getVertex(graphPath[i])->getAdj();
+			for (unsigned int j = 0; j < adj.size(); j++) {
+				if (adj[j].getDest()->getInfo() == graph.getVertex(graphPath[i + 1])->getInfo()) {
+					totalWeight += adj[j].getWeight();
+					break;
+				}
+			}
+		}
+	}
+
+	return totalWeight;
 }
 
 

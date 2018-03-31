@@ -8,6 +8,10 @@
 #include <queue>
 #include <string>
 #include <math.h>
+#include <set>
+#include <list>
+#include <limits>
+#include <climits>
 
 using namespace std;
 
@@ -15,6 +19,8 @@ template <class T> class Edge;
 template <class T> class Graph;
 template <class T> class Vertex;
 
+#define INF std::numeric_limits<double>::max()
+const int INT_INFINITY = INT_MAX;
 
 /*
  * ================================================================================================
@@ -33,6 +39,8 @@ class Vertex {
 	string name;
 	double latitude;
 	double longitude;
+	double dist = 0;
+	Vertex<T> *path = NULL;
 
 public:
 	Vertex(T in, double lon, double lat);
@@ -193,10 +201,13 @@ class Graph {
 	Vertex<T> *findVertex(const T &in) const;
 	bool dfsIsDAG(Vertex<T> *v) const;
 
+	int ** W;   //weight
+	int ** P;   //path
 public:
 	vector<Vertex<T> *> getVertexSet() const;
 	int getIndex(const T &v) const;
 	int getNumVertex() const;
+	Vertex<T>* getVertex(const T &v) const;
 	bool addVertex(const T &in, double lon, double lat);
 	bool removeVertex(const T &in);
 
@@ -210,7 +221,14 @@ public:
 	bool isDAG() const;
 
 	int calculateDist(T id1, T id2) const;
+	set<string> getEdgesNames() const;
+	void setEdgeBlocked(const T &v, bool b);
 
+	vector<T> getPath(const T &origin, const T &dest) const;
+	vector<T> getfloydWarshallPath(const T &origin, const T &dest);
+	void getfloydWarshallPathAux(int index1, int index2, vector<T> & res);
+	int edgeCost(int vOrigIndex, int vDestIndex);
+	void floydWarshallShortestPath();
 };
 
 template <class T>
@@ -230,6 +248,13 @@ int Graph<T>::getIndex(const T &v) const{
 template <class T>
 int Graph<T>::getNumVertex() const {
 	return vertexSet.size();
+}
+
+template <class T>
+Vertex<T>* Graph<T>::getVertex(const T &v) const {
+	for(unsigned int i = 0; i < vertexSet.size(); i++)
+		if (vertexSet[i]->info == v) return vertexSet[i];
+	return NULL;
 }
 
 /*
@@ -504,8 +529,150 @@ int Graph<T>::calculateDist(T id1, T id2) const{
 	return floor(dist * 1000);
 }
 
+template <class T>
+set<string> Graph<T>::getEdgesNames() const{
+    set<string> edge_names;
+    for(size_t i  = 0; i < vertexSet.size(); i++){
+    	for(size_t n = 0; n < vertexSet.at(i)->getAdj().size(); n++){
+    		if(vertexSet.at(i)->getAdj().at(n).getName() != "")
+    			edge_names.insert(vertexSet.at(i)->getAdj().at(n).getName());
+    	}
+    }
+    return edge_names;
+}
+
+template<class T>
+void Graph<T>::setEdgeBlocked(const T &v, bool b) {
+	for (unsigned int i = 0; i < vertexSet.size(); i++) {
+		for (unsigned int j = 0; j < vertexSet[i]->adj.size(); j++) {
+			if (vertexSet[i]->adj[j].id == v)
+				vertexSet[i]->adj[j].blocked = b;
+		}
+	}
+}
+
+
+template <class T>
+vector<T> Graph<T>::getPath(const T &origin, const T &dest) const {
+	vector<T> res;
+	auto v = findVertex(dest);
+	if (v == nullptr || v->dist == INF) // missing or disconnected
+		return res;
+	for (; v != nullptr; v = v->path)
+		res.push_back(v->info);
+	reverse(res.begin(), res.end());
+	return res;
+}
+
+template<class T>
+vector<T> Graph<T>::getfloydWarshallPath(const T &origin, const T &dest){
+
+	int originIndex = -1, destinationIndex = -1;
+
+	for(unsigned int i = 0; i < vertexSet.size(); i++)
+	{
+		if(vertexSet[i]->info == origin)
+			originIndex = i;
+		if(vertexSet[i]->info == dest)
+			destinationIndex = i;
+
+		if(originIndex != -1 && destinationIndex != -1)
+			break;
+	}
+
+
+	vector<T> res;
+
+	//se nao foi encontrada solucao possivel, retorna lista vazia
+	if(W[originIndex][destinationIndex] == INT_INFINITY)
+		return res;
+
+	res.push_back(vertexSet[originIndex]->info);
+
+	//se houver pontos intermedios...
+	if(P[originIndex][destinationIndex] != -1)
+	{
+		int intermedIndex = P[originIndex][destinationIndex];
+
+		getfloydWarshallPathAux(originIndex, intermedIndex, res);
+
+		res.push_back(vertexSet[intermedIndex]->info);
+
+		getfloydWarshallPathAux(intermedIndex,destinationIndex, res);
+	}
+
+	res.push_back(vertexSet[destinationIndex]->info);
+
+
+	return res;
+}
 
 
 
+template<class T>
+void Graph<T>::getfloydWarshallPathAux(int index1, int index2, vector<T> & res)
+{
+	if(P[index1][index2] != -1)
+	{
+		getfloydWarshallPathAux(index1, P[index1][index2], res);
+
+		res.push_back(vertexSet[P[index1][index2]]->info);
+
+		getfloydWarshallPathAux(P[index1][index2],index2, res);
+	}
+}
+
+template<class T>
+int Graph<T>::edgeCost(int vOrigIndex, int vDestIndex)
+{
+	if(vertexSet.at(vOrigIndex) == vertexSet.at(vDestIndex))
+		return 0;
+
+	for(unsigned int i = 0; i < vertexSet.at(vOrigIndex)->adj.size(); i++)
+	{
+		if(vertexSet.at(vOrigIndex)->adj.at(i).dest == vertexSet.at(vDestIndex)){
+			if(vertexSet.at(vOrigIndex)->adj.at(i).blocked)
+				continue;
+			else return vertexSet.at(vOrigIndex)->adj.at(i).weight;
+		}
+	}
+
+	return INT_INFINITY;
+}
+
+template<class T>
+void Graph<T>::floydWarshallShortestPath() {
+
+	W = new int * [vertexSet.size()];
+	P = new int * [vertexSet.size()];
+	for(unsigned int i = 0; i < vertexSet.size(); i++)
+	{
+		W[i] = new int[vertexSet.size()];
+		P[i] = new int[vertexSet.size()];
+		for(unsigned int j = 0; j < vertexSet.size(); j++)
+		{
+			W[i][j] = edgeCost(i,j);
+			P[i][j] = -1;
+		}
+	}
+
+
+	for(unsigned int k = 0; k < vertexSet.size(); k++)
+		for(unsigned int i = 0; i < vertexSet.size(); i++)
+			for(unsigned int j = 0; j < vertexSet.size(); j++)
+			{
+				//se somarmos qualquer coisa ao valor INT_INFINITY, ocorre overflow, o que resulta num valor negativo, logo nem convém considerar essa soma
+				if(W[i][k] == INT_INFINITY || W[k][j] == INT_INFINITY)
+					continue;
+
+				int val = min ( W[i][j], W[i][k]+W[k][j] );
+				if(val != W[i][j])
+				{
+					W[i][j] = val;
+					P[i][j] = k;
+				}
+			}
+
+}
 
 #endif /* GRAPH_H_ */

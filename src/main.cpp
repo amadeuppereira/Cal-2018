@@ -11,6 +11,6 @@ int main()
 	//test->readOSM();
 	//test->convertToGV();
 	Interface* test = new Interface();
-	test->roadsBlocked();
+	test->calculatePath();
 	return 0;
 }
