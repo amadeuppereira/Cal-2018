@@ -2,7 +2,7 @@
 #include "Utils.h"
 
 
-LimitCoords getLimitCoords(Graph<unsigned long long> g) {
+LimitCoords getLimitCoords(Graph<int> g) {
 	LimitCoords l;
 
 //Initializes minimum value with highest possible
@@ -12,7 +12,7 @@ LimitCoords getLimitCoords(Graph<unsigned long long> g) {
 	double maxLat = -FLT_MAX;
 	double maxLong = -FLT_MAX;
 
-	vector<Vertex<unsigned long long> *> vertex = g.getVertexSet();
+	vector<Vertex<int> *> vertex = g.getVertexSet();
 	for (int i = 0; i < g.getNumVertex(); i++) {
 		if (vertex[i]->getLatitude() < minLat)
 			minLat = vertex[i]->getLatitude();

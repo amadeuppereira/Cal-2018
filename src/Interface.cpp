@@ -88,5 +88,41 @@ void Interface::calculatePath(){
     cout << "-----------------------------------" << endl;
     cout << endl;
 
-    cout << "Distancia: " << roadnetwork->getWeightOfPath(251207206, 5465509804) << endl;
+    for(int i = 0; i < roadnetwork->getGraph().getVertexSet().size(); i++){
+    	cout << i + 1 << ". " << roadnetwork->getGraph().getVertexSet().at(i)->getName() << endl;
+    }
+    int origem, destino;
+    cout << endl;
+    cout << "Indique a origem do percurso: ";
+    cin >> origem;
+    while(origem > roadnetwork->getGraph().getVertexSet().size() || origem < 1){
+    	cout << "Opcão Inválida. Introduza uma nova origem: ";
+    	cin.clear();
+    	cin.ignore(1000, '\n');
+    	cin >> origem;
+    }
+    cout << "Indique o destino do percurso: ";
+    cin >> destino;
+    while(destino > roadnetwork->getGraph().getVertexSet().size() || destino < 1){
+    	cout << "Opcão Inválida. Introduza um novo destino: ";
+    	cin.clear();
+    	cin.ignore(1000, '\n');
+    	cin >> destino;
+    }
+
+    origem = roadnetwork->getGraph().getVertexSet().at(origem - 1)->getInfo();
+    destino = roadnetwork->getGraph().getVertexSet().at(destino - 1)->getInfo();
+
+    cout << endl;
+    cout << "PERCURSO:" << endl;
+    vector<string> nodes_path = roadnetwork->getNodesPathVector(origem, destino);
+    vector<string> edges_path = roadnetwork->getEdgesPathVector(origem, destino);
+    for(int i = 0; i < nodes_path.size(); i++){
+    	cout << "---> " << nodes_path.at(i) << endl;
+    	if(i < nodes_path.size() - 1)
+    		cout << "  - " << edges_path.at(i) << endl;
+    }
+    cout << endl;
+
+    cout << "DISTANCIA APROXIMADA DO PERCURSO: " << roadnetwork->getWeightOfPath(origem, destino) << " km" << endl;
 }

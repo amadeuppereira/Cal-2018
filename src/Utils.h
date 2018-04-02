@@ -22,8 +22,8 @@
 
 class Link {
 public:
-	unsigned long long edgeID, nodeID1, nodeID2;
-	Link(unsigned long long e, unsigned long long n1, unsigned long long n2) {
+	int edgeID, nodeID1, nodeID2;
+	Link(int e, int n1, int n2) {
 		edgeID = e;
 		nodeID1 = n1;
 		nodeID2 = n2;
@@ -41,7 +41,7 @@ struct LimitCoords
 /**
  * Stores in a LimitCoords struct the max coordinate values of map graph g
  */
-LimitCoords getLimitCoords(Graph<unsigned long long> g);
+LimitCoords getLimitCoords(Graph<int> g);
 int resizeLat(double lat, LimitCoords l, float windowH);
 int resizeLong(double lon, LimitCoords l, float windowW);
 

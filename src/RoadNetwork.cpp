@@ -17,7 +17,8 @@ void RoadNetwork::readOSM() {
 	string connectionsFile = "connections.txt";
 
 	string line;
-	unsigned long long id;
+	int id;
+	string name;
 
 	ifstream fNodes;
 	fNodes.open(nodesFile);
@@ -34,11 +35,13 @@ void RoadNetwork::readOSM() {
 		getline(linestream, data, ';');
 		id = atof(data.c_str());
 		getline(linestream, data, ';');
+		name = data;
+		getline(linestream, data, ';');
 		latitude = atof(data.c_str());
 		getline(linestream, data, ';');
 		longitude = atof(data.c_str());
 
-		graph.addVertex(id,latitude,longitude);
+		graph.addVertex(id,name,latitude,longitude);
 	}
 	fNodes.close();
 
@@ -49,7 +52,7 @@ void RoadNetwork::readOSM() {
 		exit(1);
 	}
 
-	unsigned long long node1_id, node2_id;
+	int node1_id, node2_id;
 	vector<Link> links;
 
 	while (getline(fConnections, line)) {
@@ -77,7 +80,7 @@ void RoadNetwork::readOSM() {
 		exit(1);
 	}
 
-	string name;
+	name = "";
 	bool two_ways;
 	bool blocked = false;
 
@@ -98,7 +101,7 @@ void RoadNetwork::readOSM() {
 
 		for(unsigned int i = 0; i < links.size(); i++) {
 			if(links.at(i).edgeID == id) {
-				int w = graph.calculateDist(links.at(i).nodeID1, links.at(i).nodeID2);
+				double w = graph.calculateDist(links.at(i).nodeID1, links.at(i).nodeID2);
 
 				graph.addEdge(links.at(i).nodeID1, links.at(i).nodeID2, w, two_ways, name, id, blocked);
 				if(two_ways) {
@@ -108,19 +111,18 @@ void RoadNetwork::readOSM() {
 		}
 	}
 	fEdges.close();
-	graph.floydWarshallShortestPath();
 }
 
 void RoadNetwork::convertToGV() {
 
 	gv = new GraphViewer(GV_WIDTH, GV_HEIGHT, false);
-	gv->setBackground("viseu.png");
+	gv->setBackground("mapa.png");
 	gv->createWindow(GV_WIDTH, GV_WIDTH);
 	gv->defineVertexColor("blue");
 	gv->defineEdgeColor("black");
 	LimitCoords l = getLimitCoords(graph);
 
-	vector<Vertex<unsigned long long> *> vertexes = graph.getVertexSet();
+	vector<Vertex<int> *> vertexes = graph.getVertexSet();
 	for (int i = 0; i < graph.getNumVertex(); i++) {
 
 
@@ -140,7 +142,7 @@ void RoadNetwork::convertToGV() {
 
 	int srcNode, dstNode;
 	for (int i = 0; i < graph.getNumVertex(); i++) {
-		vector<Edge<unsigned long long> > adjEdges = vertexes[i]->getAdj();
+		vector<Edge<int> > adjEdges = vertexes[i]->getAdj();
 		for (unsigned int j = 0; j < adjEdges.size(); j++) {
 			srcNode = graph.getIndex(vertexes[i]->getInfo());
 			dstNode = graph.getIndex(adjEdges[j].getDest()->getInfo());
@@ -166,7 +168,7 @@ void RoadNetwork::convertToGV() {
 
 }
 
-const Graph<unsigned long long>& RoadNetwork::getGraph() const {
+const Graph<int>& RoadNetwork::getGraph() const {
 	return graph;
 }
 
@@ -192,27 +194,42 @@ void RoadNetwork::setEdgeBlocked(string edge_name, bool blocked){
     }
 }
 
-double RoadNetwork::getWeightOfPath(unsigned long long nodeStartID, unsigned long long nodeDestinationID) {
-	vector<unsigned long long> graphPath = graph.getfloydWarshallPath(nodeStartID, nodeDestinationID);
-	cout << "vector path size: " << graphPath.size() << endl;
-	unsigned long long nodeID;
+double RoadNetwork::getWeightOfPath(int nodeStartID, int nodeDestinationID) {
 	double totalWeight = 0;
-
-	for (unsigned int i = 0; i < graphPath.size(); i++) {
-		nodeID = graph.getIndex(graphPath[i]);
-
-		if (i + 1 < graphPath.size()) {
-			vector<Edge<unsigned long long> > adj = graph.getVertex(graphPath[i])->getAdj();
-			for (unsigned int j = 0; j < adj.size(); j++) {
-				if (adj[j].getDest()->getInfo() == graph.getVertex(graphPath[i + 1])->getInfo()) {
-					totalWeight += adj[j].getWeight();
-					break;
-				}
-			}
+	graph.dijkstraShortestPath(nodeStartID);
+	vector<int> graphPath = graph.getPath(nodeStartID,nodeDestinationID);
+	for(size_t i = 0; i < graphPath.size(); i++){
+		for(size_t n = 0; n < graph.getVertex(graphPath.at(i))->getAdj().size(); n++){
+			if(i < graphPath.size() - 1)
+				if(graph.getVertex(graphPath.at(i))->getAdj().at(n).getDest()->getName() == graph.getVertex(graphPath.at(i + 1))->getName())
+					totalWeight += graph.getVertex(graphPath.at(i))->getAdj().at(n).getWeight();
 		}
 	}
-
 	return totalWeight;
+}
+
+vector<string> RoadNetwork::getNodesPathVector(int nodeStartID, int nodeDestinationID){
+	vector<string> ret;
+	graph.dijkstraShortestPath(nodeStartID);
+	vector<int> graphPath = graph.getPath(nodeStartID,nodeDestinationID);
+	for(size_t i = 0; i < graphPath.size(); i++){
+		ret.push_back(graph.getVertex(graphPath.at(i))->getName());
+	}
+	return ret;
+}
+
+vector<string> RoadNetwork::getEdgesPathVector(int nodeStartID, int nodeDestinationID){
+	vector<string> ret;
+	graph.dijkstraShortestPath(nodeStartID);
+	vector<int> graphPath = graph.getPath(nodeStartID,nodeDestinationID);
+	for(size_t i = 0; i < graphPath.size(); i++){
+		for(size_t n = 0; n < graph.getVertex(graphPath.at(i))->getAdj().size(); n++){
+			if(i < graphPath.size() - 1)
+				if(graph.getVertex(graphPath.at(i))->getAdj().at(n).getDest()->getName() == graph.getVertex(graphPath.at(i + 1))->getName())
+					ret.push_back(graph.getVertex(graphPath.at(i))->getAdj().at(n).getName());
+		}
+	}
+	return ret;
 }
 
 

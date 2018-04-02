@@ -1,107 +1,21 @@
-23223070;Rua Miguel Bombarda;False
-33063543;Largo de Santa Cristina;False
-33085491;Rua Serpa Pinto;True
-33085498;Avenida Doutor António José de Almeida;False
-33085507;Avenida Alberto Sampaio;False
-33106196;Praça da República;False
-33106197;Praça da República;False
-33149591;Rua Alexandre Lobo;False
-33149600;;False
-33151446;Rua Dom Duarte;False
-33151460;Rua Soar de Cima;False
-33151463;Rua Chão do Mestre;False
-33151464;Rua do Arvoredo;False
-33151465;Largo Major Teles;False
-33152076;Travessa da Misericórdia;False
-33152078;Calçada da Vigia;False
-33185054;Rua dos Combatentes da Grande Guerra;False
-33185065;Rua Doutor Luis Ferreira;False
-33185078;Rua Chão Mestre;False
-33185106;Rua Cónego Martins;False
-33185110;Rua Almeida Moreira;False
-33186004;Largo Almeida Moreira;False
-33186013;Rua Almeida Moreira;False
-33189995;Rua Silva Gaio;False
-33189999;;False
-33190008;Rua Silva Gaio;False
-33190012;Rua Doutor Maximiano de Aragão;False
-33190021;Largo da Misericórdia;False
-33190025;Praça Dom Duarte;False
-33191050;Rua das Ameias;False
-33197237;Rua Grão Vasco;False
-33197676;Rua Direita;False
-33197677;Rua Nunes de Carvalho;False
-33197682;Rua Conselheiro Afonso de Melo;False
-33197684;Avenida Alberto Sampaio;True
-33197688;Avenida 25 de Abril;False
-33197690;Largo Major Teles;False
-33232509;Rua do Adro;False
-33232514;Rua Direita;False
-33236299;Rua Almeida Moreira;False
-33236301;Largo do Pintor Gata;False
-59756741;Avenida 25 de Abril;False
-100542899;Rua Major Leopoldo da Silva;False
-137277088;Rua Gaspar Barreiros;False
-137683032;;False
-137685682;Rua Direita;False
-137685691;Rua Direita;False
-137903677;Rua da Árvore;True
-137987530;Travessa dos Olivais;True
-138841638;Rua do Carmo;False
-138841640;Rua Augusto Hilário;False
-141106371;Rua do Chantre;False
-147127585;Rua da Vitória;False
-147128388;Rua Cimo de Vila;False
-147128393;Rua Cimo de VIla;False
-157773638;Rua 21 De Agosto;False
-221836531;Avenida Doutor António José de Almeida;False
-281275282;Avenida Doutor António José de Almeida;False
-281275307;Rua Senhora da Piedade;False
-285133291;Rua Alexandre Herculano;False
-285138688;Rua do Comércio;False
-285138696;;False
-287130753;Avenida Doutor António José de Almeida;False
-287130754;Avenida Doutor António José de Almeida;False
-287130825;Avenida Doutor António José de Almeida;False
-287130848;Rua Major Leopoldo da Silva;False
-287132173;Avenida Alberto Sampaio;False
-287132174;Avenida Alberto Sampaio;False
-287703757;Rua Major Leopoldo da Silva;False
-287709676;Avenida Capitão Silva Pereira;False
-287709679;Avenida Capitão Silva Pereira;False
-288285075;Avenida Capitão Silva Pereira;False
-288349082;Rua Alexandre Herculano;False
-288354491;Rua 21 de Agosto;False
-288354492;Rua 21 de Agosto;False
-288354592;Rua 21 de Agosto;False
-288354672;Rua 21 de Agosto;False
-288354774;;False
-288435299;;False
-289104570;;False
-290225899;Rua Doutor Maximiano de Aragão;False
-290225944;;False
-290963562;Rua dos Andrades;False
-290974773;;False
-291220216;Rua Soar de Cima;False
-291237797;;False
-291494211;Rua Augusto Hilário;False
-291494212;Rua Senhora da Boa Morte;False
-291496391;Rua Chão do Mestre;False
-291496824;;False
-291497309;;False
-291497620;;False
-291652250;Rua Cimo de Vila;False
-518543785;;False
-518543786;Rua Major Leopoldo da Silva;False
-532916517;;False
-532916518;;False
-532916519;;False
-532916520;;False
-532916521;;False
-541378800;;False
-541378801;;False
-541378802;;False
-541378803;;False
-541378808;;False
-541378809;;False
-541378810;;False
+1;A25 (Aveiro - Viseu);True
+2;A25 (Viseu - Guarda);True
+3;IP3 (Viseu - Coimbra);True
+4;A1 (Aveiro - Coimbra);True
+5;A1 (Porto - Aveiro);True
+6;A28 (Porto - Vila do Conde);True
+7;A28 (Vila do Conde - Apúlia);True
+8;A28 (Viana do Castelo - Apúlia);True
+9;A11 (Apúlia - Braga);True
+10;A11 (Braga - Guimarães);True
+11;A11 (Guimarães - Codeçal);True
+12;A11 (Codeçal - Vila Meã);True
+13;A7 (Vila do Conde - Codeçal);True
+14;A7 (Codeçal - Vila Pouca de Aguiar);True
+15;A4 (Porto - Vila Meã);True
+16;A4 (Vila Meã - Vila Real);True
+17;A4 (Vila Real - Mirandela);True
+18;A4 (Mirandela - Bragança);True
+19;A24 (Chaves - Vila Pouca de Aguiar);True
+20;A24 (Vila Real - Vila Pouca de Aguiar);True
+21;A24 (Vila Real - Viseu);True

@@ -14,7 +14,7 @@
 
 class RoadNetwork {
 private:
-	Graph<unsigned long long> graph;
+	Graph<int> graph;
 	GraphViewer *gv;
 
 public:
@@ -24,11 +24,13 @@ public:
 	void readOSM();
 	void convertToGV();
 
-	const Graph<unsigned long long>& getGraph() const;
+	const Graph<int>& getGraph() const;
 
 	bool getEdgeBlockedStatus(string name);
 	void setEdgeBlocked(string edge_name, bool blocked);
-	double getWeightOfPath(unsigned long long nodeStartID, unsigned long long nodeDestinationID);
+	double getWeightOfPath(int nodeStartID, int nodeDestinationID);
+	vector<string> getNodesPathVector(int nodeStartID, int nodeDestinationID);
+	vector<string> getEdgesPathVector(int nodeStartID, int nodeDestinationID);
 };
 
 
