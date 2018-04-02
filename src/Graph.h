@@ -162,7 +162,14 @@ public:
 };
 
 template <class T>
-Edge<T>::Edge(Vertex<T> *d, double w, bool tw, string n, T id, bool block): dest(d), weight(w), two_ways(tw), id(id), name(n), blocked(block) {}
+Edge<T>::Edge(Vertex<T> *d, double w, bool tw, string n, T id, bool block) {
+	this->id = id;
+	this->dest = d;
+	this->weight = w;
+	this->two_ways = tw;
+	this->name = n;
+	this->blocked = block;
+}
 
 template <class T>
 T Edge<T>::getId() const{
@@ -248,7 +255,7 @@ vector<Vertex<T> *> Graph<T>::getVertexSet() const {
 
 template <class T>
 int Graph<T>::getIndex(const T &v) const{
-	for (int i = 0; i < this->vertexSet.size(); i++)
+	for (unsigned int i = 0; i < this->vertexSet.size(); i++)
 		if(this->vertexSet[i]->info == v)
 			return i;
 
@@ -640,6 +647,9 @@ void Graph<T>::dijkstraShortestPath(const T &s) {
 		pop_heap(pq.begin(), pq.end());
 		pq.pop_back();
 		for(unsigned int i = 0; i < v->adj.size(); i++) {
+
+			if(v->adj[i].blocked) continue;
+
 			Vertex<T>* w = v->adj[i].dest;
 			int aValue = v->dist + v->adj[i].weight;
 			int bValue = w->dist;
@@ -659,9 +669,10 @@ void Graph<T>::dijkstraShortestPath(const T &s) {
 		}
 	}
 	vector<T> returnVector;
-	for(int i = 0; i < pq.size(); i++){
+	for(unsigned int i = 0; i < pq.size(); i++){
 		returnVector.push_back(pq[i]->getInfo());
 	}
+
 }
 
 

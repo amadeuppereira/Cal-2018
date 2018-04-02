@@ -12,6 +12,7 @@ private:
 public:
 	Interface();
 	virtual ~Interface();
+	void convertToGV();
 	unsigned long long getDestinyId() const;
 	void setDestinyId(int destinyId);
 	unsigned long long getSourceId() const;
@@ -19,6 +20,8 @@ public:
 
 	void roadsBlocked();
 	void calculatePath();
+
+	void updateMap();
 
 };
 

@@ -1,14 +1,13 @@
 #include "RoadNetwork.h"
 
 
-
 RoadNetwork::RoadNetwork() {
-	// TODO Auto-generated constructor stub
+	gv = NULL;
 
 }
 
 RoadNetwork::~RoadNetwork() {
-	// TODO Auto-generated destructor stub
+
 }
 
 void RoadNetwork::readOSM() {
@@ -114,58 +113,58 @@ void RoadNetwork::readOSM() {
 }
 
 void RoadNetwork::convertToGV() {
-
-	gv = new GraphViewer(GV_WIDTH, GV_HEIGHT, false);
-	gv->setBackground("mapa.png");
-	gv->createWindow(GV_WIDTH, GV_WIDTH);
-	gv->defineVertexColor("blue");
-	gv->defineEdgeColor("black");
-	LimitCoords l = getLimitCoords(graph);
-
-	vector<Vertex<int> *> vertexes = graph.getVertexSet();
-	for (int i = 0; i < graph.getNumVertex(); i++) {
-
-
-		int y = resizeLong(vertexes[i]->getLongitude(), l, GV_HEIGHT);
-		int x = resizeLat(vertexes[i]->getLatitude(), l, GV_WIDTH);
-
-
-		gv->addNode(i, x, y);
-		gv->setVertexSize(i, 10);
-		if (vertexes[i]->getName() != "")	// if it has a name
-				{
-			ostringstream label;
-			label << i << " - " << vertexes[i]->getName();
-			gv->setVertexLabel(i, label.str());
-		}
+	if(gv != NULL) {
+		gv->closeWindow();
 	}
 
-	int srcNode, dstNode;
-	for (int i = 0; i < graph.getNumVertex(); i++) {
-		vector<Edge<int> > adjEdges = vertexes[i]->getAdj();
-		for (unsigned int j = 0; j < adjEdges.size(); j++) {
-			srcNode = graph.getIndex(vertexes[i]->getInfo());
-			dstNode = graph.getIndex(adjEdges[j].getDest()->getInfo());
-			if (adjEdges[j].getTwoWays())
-				gv->addEdge(adjEdges[j].getId(), srcNode, dstNode,
-						EdgeType::UNDIRECTED);
-			else
-				gv->addEdge(adjEdges[j].getId(), srcNode, dstNode,
-						EdgeType::DIRECTED);
+	gv = new GraphViewer(GV_WIDTH, GV_HEIGHT, false);
+	gv->setBackground("map.png");
+	gv->createWindow(GV_WIDTH, GV_WIDTH);
+	gv->defineVertexColor(DEFAULT_VERTEX_COLOR);
+	gv->defineEdgeColor(DEFAULT_EDGE_COLOR);
+	gv->defineVertexSize(5);
 
-			gv->setEdgeWeight(adjEdges[j].getId(), adjEdges[j].getWeight());
+	vector<Vertex<int> *> vertexes = graph.getVertexSet();
 
-			gv->setEdgeLabel(adjEdges[j].getId(), adjEdges[j].getName());
-			if (adjEdges[j].getBlocked()) {
-				gv->setEdgeColor(adjEdges[j].getId(), "red");
-				gv->setEdgeThickness(adjEdges[j].getId(), 10);
+	for (unsigned int i = 0; i < vertexes.size(); i++) {
+
+		int x = resizeLon(vertexes[i]->getLongitude());
+		int y = resizeLat(vertexes[i]->getLatitude());
+
+		gv->addNode(vertexes[i]->getInfo(), x, y);
+
+		gv->setVertexLabel(vertexes[i]->getInfo(), vertexes[i]->getName());
+
+
+	}
+
+
+	for(unsigned int i = 0; i < vertexes.size(); i++) {
+		vector<Edge<int> > edges = vertexes[i]->getAdj();
+		for(unsigned int  j = 0; j < edges.size(); j++) {
+
+			if(edges[j].getTwoWays()) {
+				if(edges[j].getDest()->getInfo() > vertexes[i]->getInfo()) continue;
+				gv->addEdge(edges[j].getId(), vertexes[i]->getInfo(), edges[j].getDest()->getInfo(), EdgeType::UNDIRECTED);
+			}
+			else {
+				gv->addEdge(edges[j].getId(), vertexes[i]->getInfo(), edges[j].getDest()->getInfo(), EdgeType::DIRECTED);
+			}
+			//gv->setEdgeWeight(edges[j].getId(), edges[j].getWeight());
+			//gv->setEdgeLabel(edges[j].getId(), edges[j].getName());
+			if(edges[j].getBlocked()) {
+				gv->setEdgeColor(edges[j].getId(), BLOCKED_EDGE_COLOR);
+				gv->setEdgeThickness(edges[j].getId(), 5);
 			}
 		}
 	}
 
-
 	gv->rearrange();
 
+}
+
+void RoadNetwork::updateMap() const {
+	gv->rearrange();
 }
 
 const Graph<int>& RoadNetwork::getGraph() const {
@@ -208,28 +207,67 @@ double RoadNetwork::getWeightOfPath(int nodeStartID, int nodeDestinationID) {
 	return totalWeight;
 }
 
-vector<string> RoadNetwork::getNodesPathVector(int nodeStartID, int nodeDestinationID){
-	vector<string> ret;
+vector<Vertex<int>* > RoadNetwork::getNodesPathVector(int nodeStartID, int nodeDestinationID){
+	vector<Vertex<int>* > ret;
 	graph.dijkstraShortestPath(nodeStartID);
 	vector<int> graphPath = graph.getPath(nodeStartID,nodeDestinationID);
 	for(size_t i = 0; i < graphPath.size(); i++){
-		ret.push_back(graph.getVertex(graphPath.at(i))->getName());
+		ret.push_back(graph.getVertex(graphPath.at(i)));
 	}
 	return ret;
 }
 
-vector<string> RoadNetwork::getEdgesPathVector(int nodeStartID, int nodeDestinationID){
-	vector<string> ret;
+vector<Edge<int> > RoadNetwork::getEdgesPathVector(int nodeStartID, int nodeDestinationID){
+	vector<Edge<int> > ret;
 	graph.dijkstraShortestPath(nodeStartID);
 	vector<int> graphPath = graph.getPath(nodeStartID,nodeDestinationID);
 	for(size_t i = 0; i < graphPath.size(); i++){
 		for(size_t n = 0; n < graph.getVertex(graphPath.at(i))->getAdj().size(); n++){
 			if(i < graphPath.size() - 1)
 				if(graph.getVertex(graphPath.at(i))->getAdj().at(n).getDest()->getName() == graph.getVertex(graphPath.at(i + 1))->getName())
-					ret.push_back(graph.getVertex(graphPath.at(i))->getAdj().at(n).getName());
+					ret.push_back(graph.getVertex(graphPath.at(i))->getAdj().at(n));
 		}
 	}
 	return ret;
 }
 
+void RoadNetwork::highlightNode(int id) const {
+	gv->setVertexColor(id, HIGHLIGHTED_VERTEX_COLOR);
+}
 
+void RoadNetwork::highlightEdge(int id) const {
+	gv->setEdgeColor(id, HIGHLIGHTED_EDGE_COLOR);
+	gv->setEdgeThickness(id, 5);
+}
+
+void RoadNetwork::removeHighlightNode(int id) const {
+	gv->setVertexColor(id, DEFAULT_VERTEX_COLOR);
+}
+
+void RoadNetwork::removeHighlightEdge(int id) const {
+	gv->setEdgeColor(id, DEFAULT_EDGE_COLOR);
+	gv->setEdgeThickness(id, 1);
+
+}
+
+void RoadNetwork::blockEdge(int id) const {
+	gv->setEdgeColor(id, BLOCKED_EDGE_COLOR);
+}
+
+void RoadNetwork::removeBlockEdge(int id) const {
+	gv->setEdgeColor(id, DEFAULT_EDGE_COLOR);
+}
+
+
+//void RoadNetwork::highlightPath(vector<Vertex<int>* > p) const {
+//	for(unsigned int i = 0; i < p.size(); i++) {
+//		highlightNode(p[i]->getInfo());
+//		if(i == p.size() - 1) continue;
+//		vector<Edge<int> > edges = p[i]->getAdj();
+//		for(unsigned int j = 0; j < edges.size(); j++) {
+//			if(edges[j].getDest()->getInfo() == p[i]->getInfo()) {
+//				highlightEdge(edges[j].getId());
+//			}
+//		}
+//	}
+//}

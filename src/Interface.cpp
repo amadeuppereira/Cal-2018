@@ -5,10 +5,15 @@ Interface::Interface() {
 	this->sourceID = 0;
 	roadnetwork = new RoadNetwork();
 	roadnetwork->readOSM();
-	//roadnetwork->convertToGV();
+	convertToGV();
+
 }
 
 Interface::~Interface() {}
+
+void Interface::convertToGV() {
+	roadnetwork->convertToGV();
+}
 
 unsigned long long Interface::getDestinyId() const {
 	return destinyID;
@@ -58,7 +63,7 @@ void Interface::roadsBlocked(){
     	cout << "Esta rua encontra-se cortada." << endl;
     }
     else{
-    	cout << "Esta rua encontra-se transitável." << endl;
+    	cout << "Esta rua encontra-se transitavel." << endl;
     }
     char ch;
     cout << "Deseja altera o estado da rua? (Y/N): ";
@@ -77,7 +82,7 @@ void Interface::roadsBlocked(){
     case 'N':
     	break;
     default:
-    	cout << "Opção inválida.";
+    	cout << "Opcao invalida.";
     	break;
     }
 }
@@ -88,7 +93,7 @@ void Interface::calculatePath(){
     cout << "-----------------------------------" << endl;
     cout << endl;
 
-    for(int i = 0; i < roadnetwork->getGraph().getVertexSet().size(); i++){
+    for(unsigned int i = 0; i < roadnetwork->getGraph().getVertexSet().size(); i++){
     	cout << i + 1 << ". " << roadnetwork->getGraph().getVertexSet().at(i)->getName() << endl;
     }
     int origem, destino;
@@ -104,7 +109,7 @@ void Interface::calculatePath(){
     cout << "Indique o destino do percurso: ";
     cin >> destino;
     while(destino > roadnetwork->getGraph().getVertexSet().size() || destino < 1){
-    	cout << "Opcão Inválida. Introduza um novo destino: ";
+    	cout << "Opcao Invalida. Introduza um novo destino: ";
     	cin.clear();
     	cin.ignore(1000, '\n');
     	cin >> destino;
@@ -115,14 +120,21 @@ void Interface::calculatePath(){
 
     cout << endl;
     cout << "PERCURSO:" << endl;
-    vector<string> nodes_path = roadnetwork->getNodesPathVector(origem, destino);
-    vector<string> edges_path = roadnetwork->getEdgesPathVector(origem, destino);
-    for(int i = 0; i < nodes_path.size(); i++){
-    	cout << "---> " << nodes_path.at(i) << endl;
-    	if(i < nodes_path.size() - 1)
-    		cout << "  - " << edges_path.at(i) << endl;
+    vector<Vertex<int>* > nodes_path = roadnetwork->getNodesPathVector(origem, destino);
+    vector<Edge<int> > edges_path = roadnetwork->getEdgesPathVector(origem, destino);
+    for(unsigned int i = 0; i < nodes_path.size(); i++){
+    	roadnetwork->highlightNode(nodes_path.at(i)->getInfo());
+    	cout << "---> " << nodes_path.at(i)->getName() << endl;
+    	if(i < nodes_path.size() - 1) {
+    		roadnetwork->highlightEdge(edges_path.at(i).getId());
+    		cout << "  - " << edges_path.at(i).getName() << endl;
+    	}
     }
     cout << endl;
 
     cout << "DISTANCIA APROXIMADA DO PERCURSO: " << roadnetwork->getWeightOfPath(origem, destino) << " km" << endl;
+}
+
+void Interface::updateMap() {
+	roadnetwork->updateMap();
 }

@@ -2,15 +2,24 @@
 #include <string>
 #include "menu.h"
 #include "Interface.h"
+#include "Utils.h"
 
 using namespace std;
 int main()
 {
 	//menu();
-	//RoadNetwork* test = new RoadNetwork();
-	//test->readOSM();
-	//test->convertToGV();
-	Interface* test = new Interface();
-	test->calculatePath();
+
+	Interface i = Interface();
+
+	i.roadsBlocked();
+	i.convertToGV();
+
+	i.calculatePath();
+	cin.get();
+	i.updateMap();
+
+
+	cin.get();
+
 	return 0;
 }

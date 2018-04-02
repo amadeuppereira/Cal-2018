@@ -4,18 +4,18 @@
 4;A1 (Aveiro - Coimbra);True
 5;A1 (Porto - Aveiro);True
 6;A28 (Porto - Vila do Conde);True
-7;A28 (Vila do Conde - Apúlia);True
-8;A28 (Viana do Castelo - Apúlia);True
-9;A11 (Apúlia - Braga);True
-10;A11 (Braga - Guimarães);True
-11;A11 (Guimarães - Codeçal);True
-12;A11 (Codeçal - Vila Meã);True
-13;A7 (Vila do Conde - Codeçal);True
-14;A7 (Codeçal - Vila Pouca de Aguiar);True
-15;A4 (Porto - Vila Meã);True
-16;A4 (Vila Meã - Vila Real);True
+7;A28 (Vila do Conde - Apulia);True
+8;A28 (Viana do Castelo - Apulia);True
+9;A11 (Apulia - Braga);True
+10;A11 (Braga - Guimaraes);True
+11;A11 (Guimaraes - Codecal);True
+12;A11 (Codecal - Vila Mea);True
+13;A7 (Vila do Conde - Codecal);True
+14;A7 (Codecal - Vila Pouca de Aguiar);True
+15;A4 (Porto - Vila Mea);True
+16;A4 (Vila Mea - Vila Real);True
 17;A4 (Vila Real - Mirandela);True
-18;A4 (Mirandela - Bragança);True
+18;A4 (Mirandela - Braganca);True
 19;A24 (Chaves - Vila Pouca de Aguiar);True
 20;A24 (Vila Real - Vila Pouca de Aguiar);True
 21;A24 (Vila Real - Viseu);True
