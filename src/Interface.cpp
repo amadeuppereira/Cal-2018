@@ -69,14 +69,14 @@ void Interface::roadsBlocked(){
     cout << "Deseja altera o estado da rua? (Y/N): ";
     cin >> ch;
     switch(ch){
-    case 'y':
+    case 'Y':
     	roadnetwork->setEdgeBlocked(nome_rua, !rua_bloqueada);
     	cout << "Estado da rua alterado com sucesso" << endl;
     	break;
-    case 'Y':
+    case 'y':
        	roadnetwork->setEdgeBlocked(nome_rua, !rua_bloqueada);
-        cout << "Estado da rua alterado com sucesso" << endl;
-    	break;
+       	cout << "Estado da rua alterado com sucesso" << endl;
+       	break;
     case 'n':
     	break;
     case 'N':
@@ -118,7 +118,9 @@ void Interface::calculatePath(){
     origem = roadnetwork->getGraph().getVertexSet().at(origem - 1)->getInfo();
     destino = roadnetwork->getGraph().getVertexSet().at(destino - 1)->getInfo();
 
-    cout << endl;
+    this->roadnetwork->printPath(origem,destino);
+
+    /*cout << endl;
     cout << "PERCURSO:" << endl;
     vector<Vertex<int>* > nodes_path = roadnetwork->getNodesPathVector(origem, destino);
     vector<Edge<int> > edges_path = roadnetwork->getEdgesPathVector(origem, destino);
@@ -132,7 +134,7 @@ void Interface::calculatePath(){
     }
     cout << endl;
 
-    cout << "DISTANCIA APROXIMADA DO PERCURSO: " << roadnetwork->getWeightOfPath(origem, destino) << " km" << endl;
+    cout << "DISTANCIA APROXIMADA DO PERCURSO: " << roadnetwork->getWeightOfPath(origem, destino) << " km" << endl;*/
 }
 
 void Interface::updateMap() {

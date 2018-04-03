@@ -32,7 +32,7 @@ template <class T> class Vertex;
 template <class T>
 class Vertex {
 	T info;                // contents
-	vector<Edge<T> > adj;  // list of outgoing edges
+	vector<Edge<T>*> adj;  // list of outgoing edges
 	bool visited;          // auxiliary field used by dfs and bfs
 	bool processing;       // auxiliary field used by isDAG
 	int indegree;          // auxiliary field used by topsort
@@ -43,6 +43,7 @@ class Vertex {
 	double dist = 0;
 
 	Vertex<T> *path = NULL;
+	Edge<T> *caminho = NULL;
 	int queueIndex = 0;
 public:
 	Vertex(T in, string name, double lon, double lat);
@@ -51,7 +52,7 @@ public:
 	bool operator<(Vertex<T> & vertex) const;
 
 	T getInfo() const;
-	vector<Edge<T> > getAdj() const;
+	vector<Edge<T>*> getAdj() const;
 	void addEdge(Vertex<T> *d, double w, bool tw, string n, T id, bool block);
 	bool removeEdgeTo(Vertex<T> *d);
 
@@ -60,6 +61,8 @@ public:
 	double getLongitude() const;
 	double getLatitude() const;
 	double getDist() const;
+	Vertex<T> * getPath() const;
+	Edge<T> * getCaminho() const;
 
 	friend class MutablePriorityQueue<Vertex<T>>;
 	friend class Graph<T>;
@@ -75,7 +78,7 @@ T Vertex<T>::getInfo() const {
 }
 
 template <class T>
-vector<Edge<T> > Vertex<T>::getAdj() const {
+vector<Edge<T>*> Vertex<T>::getAdj() const {
 	return adj;
 }
 
@@ -91,7 +94,7 @@ bool Vertex<T>::operator<(Vertex<T> & vertex) const {
  */
 template <class T>
 void Vertex<T>::addEdge(Vertex<T> *d, double w, bool tw, string n, T id, bool block) {
-	adj.push_back(Edge<T>(d, w, tw, n, id, block));
+	adj.push_back(new Edge<T>(d, w, tw, n, id, block));
 }
 
 /*
@@ -101,11 +104,13 @@ void Vertex<T>::addEdge(Vertex<T> *d, double w, bool tw, string n, T id, bool bl
  */
 template <class T>
 bool Vertex<T>::removeEdgeTo(Vertex<T> *d) {
-	for (auto it = adj.begin(); it != adj.end(); it++)
-		if (it->dest  == d) {
-			adj.erase(it);
+	for (typename vector<Edge<T>>::iterator it = this->adj.begin();
+			it != this->adj.end(); it++) {
+		if (it->dest->info == d->info) {
+			it = this->adj.erase(it);
 			return true;
 		}
+	}
 	return false;
 }
 
@@ -134,12 +139,23 @@ double Vertex<T>::getDist() const {
 	return dist;
 }
 
+template<class T>
+Vertex<T> * Vertex<T>::getPath() const {
+	return this->path;
+}
+
+template<class T>
+Edge<T> * Vertex<T>::getCaminho() const {
+	return this->caminho;
+}
+
 template <class T>
 struct vertex_greater_than {
     bool operator()(Vertex<T> * a, Vertex<T> * b) const {
         return a->getDist() > b->getDist();
     }
 };
+
 
 
 
@@ -162,6 +178,7 @@ class Edge {
 
 public:
 	Edge(Vertex<T> *d, double w, bool tw, string n, T id, bool block);
+
 	friend class Graph<T>;
 	friend class Vertex<T>;
 
@@ -171,7 +188,12 @@ public:
 	double getWeight() const;
 	string getName() const;
 	bool getBlocked() const;
+
+
 	void setBlocked(bool blocked);
+
+	bool operator==(Edge<T> & edge) const;
+
 };
 
 template <class T>
@@ -219,8 +241,11 @@ void Edge<T>::setBlocked(bool blocked) {
 	this->blocked = blocked;
 }
 
-
-
+template <class T>
+bool Edge<T>::operator==(Edge<T> & edge) const
+{
+	return this->id== edge.id;
+}
 
 /*
  * ================================================================================================
@@ -254,9 +279,10 @@ public:
 
 	double calculateDist(T id1, T id2) const;
 	set<string> getEdgesNames() const;
-	void setEdgeBlocked(const T &v, bool b);
+	bool setEdgeBlocked(const T &v, bool b);
 
 	vector<T> getPath(const T &origin, const T &dest);
+	vector<Vertex<T>*> getPathVertex(const T &origin, const T &dest);
 	void unweightedShortestPath(const T &s);
 	void dijkstraShortestPath(const T &s);
 };
@@ -332,11 +358,13 @@ bool Graph<T>::addEdge(const T &sourc, const T &dest, double w, bool tw, string 
  */
 template <class T>
 bool Graph<T>::removeEdge(const T &sourc, const T &dest) {
-	auto v1 = findVertex(sourc);
-	auto v2 = findVertex(dest);
-	if (v1 == NULL || v2 == NULL)
-		return false;
-	return v1->removeEdgeTo(v2);
+	Vertex<T> *de = this->findVertex(sourc), *para = this->findVertex(dest);
+	if (de != NULL && para != NULL) {
+		if (de->removeEdgeTo(para)) {
+			return true;
+		}
+	}
+	return false;
 }
 
 /*
@@ -346,16 +374,20 @@ bool Graph<T>::removeEdge(const T &sourc, const T &dest) {
  */
 template <class T>
 bool Graph<T>::removeVertex(const T &in) {
-	for (auto it = vertexSet.begin(); it != vertexSet.end(); it++)
-		if ((*it)->info  == in) {
-			auto v = *it;
-			vertexSet.erase(it);
-			for (auto u : vertexSet)
-				u->removeEdgeTo(v);
-			delete v;
-			return true;
+	Vertex<T> *apagar=this->findVertex(in);
+		if(apagar==NULL)
+			return false;
+		typename vector<Vertex<T> *>::iterator guardar;
+		for(typename vector<Vertex<T> *>::iterator it=this->vertexSet.begin();it!=this->vertexSet.end();it++)
+		{
+			this->removeEdge((*it)->info,apagar->info);
+			if(*it==apagar)
+			{
+				guardar=it;
+			}
 		}
-	return false;
+		this->vertexSet.erase(guardar);
+		return true;
 }
 
 /*
@@ -569,44 +601,43 @@ set<string> Graph<T>::getEdgesNames() const{
     set<string> edge_names;
     for(size_t i  = 0; i < vertexSet.size(); i++){
     	for(size_t n = 0; n < vertexSet.at(i)->getAdj().size(); n++){
-    		if(vertexSet.at(i)->getAdj().at(n).getName() != "")
-    			edge_names.insert(vertexSet.at(i)->getAdj().at(n).getName());
+    		if(vertexSet.at(i)->getAdj().at(n)->getName() != "")
+    			edge_names.insert(vertexSet.at(i)->getAdj().at(n)->getName());
     	}
     }
     return edge_names;
 }
 
 template<class T>
-void Graph<T>::setEdgeBlocked(const T &v, bool b) {
-	for (unsigned int i = 0; i < vertexSet.size(); i++) {
-		for (unsigned int j = 0; j < vertexSet[i]->adj.size(); j++) {
-			if (vertexSet[i]->adj[j].id == v)
-				vertexSet[i]->adj[j].blocked = b;
+bool Graph<T>::setEdgeBlocked(const T &v, bool b) {
+	for (auto ve : this->vertexSet) {
+		for (auto w : ve->adj) {
+			if (w->id == v) {
+				w->blocked = b;
+			}
 		}
 	}
+	return true;
 }
 
 template<class T>
-vector<T> Graph<T>::getPath(const T &origin, const T &dest){
-
-	list<T> buffer;
-	Vertex<T>* v = getVertex(dest);
-
-	buffer.push_front(v->info);
-	while ( v->path != NULL &&  v->path->info != origin) {
-		v = v->path;
-		buffer.push_front(v->info);
-	}
-	if( v->path != NULL )
-		buffer.push_front(v->path->info);
-
-
+vector<T> Graph<T>::getPath(const T &origin, const T &dest) {
+	auto inicio = this->findVertex(origin);
+	auto fim = this->findVertex(dest);
 	vector<T> res;
-	while( !buffer.empty() ) {
-		res.push_back( buffer.front() );
-		buffer.pop_front();
-	}
-
+	if (inicio->dist != fim->dist)
+		res = this->getPath(origin, fim->path->info);
+	res.push_back(dest);
+	return res;
+}
+template<class T>
+vector<Vertex<T>*> Graph<T>::getPathVertex(const T &origin, const T &dest) {
+	auto inicio = this->findVertex(origin);
+	auto fim = this->findVertex(dest);
+	vector<Vertex<T>*> res;
+	if (inicio->dist != fim->dist)
+		res = this->getPathVertex(origin, fim->path->info);
+	res.push_back(fim);
 	return res;
 }
 
@@ -651,19 +682,22 @@ void Graph<T>::dijkstraShortestPath(const T &s) {
 		inicio=fila.extractMin();
 		for(auto et:inicio->adj)
 		{
-			auto guardado=et.dest->dist;
-			if(et.dest->dist>inicio->dist+et.weight)
+			if(et->blocked== true)
+				continue;
+			auto guardado=et->dest->dist;
+			if(et->dest->dist>inicio->dist+et->weight)
 			{
-				et.dest->dist=inicio->dist+et.weight;
-				et.dest->path=inicio;
+				et->dest->dist=inicio->dist+et->weight;
+				et->dest->path=inicio;
+				et->dest->caminho=et;
 
 				if(guardado == INF)
 				{
-					fila.insert(et.dest);
+					fila.insert(et->dest);
 				}
 				else
 				{
-					fila.decreaseKey(et.dest);
+					fila.decreaseKey(et->dest);
 				}
 			}
 		}

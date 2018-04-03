@@ -37,8 +37,7 @@ public:
 	bool getEdgeBlockedStatus(string name);
 	void setEdgeBlocked(string edge_name, bool blocked);
 	double getWeightOfPath(int nodeStartID, int nodeDestinationID);
-	vector<Vertex<int>* > getNodesPathVector(int nodeStartID, int nodeDestinationID);
-	vector<Edge<int> > getEdgesPathVector(int nodeStartID, int nodeDestinationID);
+	bool printPath(int nodeStartID, int nodeDestinationID);
 
 	void highlightNode(int id) const;
 	void highlightEdge(int id) const;

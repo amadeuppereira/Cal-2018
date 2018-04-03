@@ -140,21 +140,21 @@ void RoadNetwork::convertToGV() {
 
 
 	for(unsigned int i = 0; i < vertexes.size(); i++) {
-		vector<Edge<int> > edges = vertexes[i]->getAdj();
+		vector<Edge<int>*> edges = vertexes[i]->getAdj();
 		for(unsigned int  j = 0; j < edges.size(); j++) {
 
-			if(edges[j].getTwoWays()) {
-				if(edges[j].getDest()->getInfo() > vertexes[i]->getInfo()) continue;
-				gv->addEdge(edges[j].getId(), vertexes[i]->getInfo(), edges[j].getDest()->getInfo(), EdgeType::UNDIRECTED);
+			if(edges[j]->getTwoWays()) {
+				if(edges[j]->getDest()->getInfo() > vertexes[i]->getInfo()) continue;
+				gv->addEdge(edges[j]->getId(), vertexes[i]->getInfo(), edges[j]->getDest()->getInfo(), EdgeType::UNDIRECTED);
 			}
 			else {
-				gv->addEdge(edges[j].getId(), vertexes[i]->getInfo(), edges[j].getDest()->getInfo(), EdgeType::DIRECTED);
+				gv->addEdge(edges[j]->getId(), vertexes[i]->getInfo(), edges[j]->getDest()->getInfo(), EdgeType::DIRECTED);
 			}
 			//gv->setEdgeWeight(edges[j].getId(), edges[j].getWeight());
 			//gv->setEdgeLabel(edges[j].getId(), edges[j].getName());
-			if(edges[j].getBlocked()) {
-				gv->setEdgeColor(edges[j].getId(), BLOCKED_EDGE_COLOR);
-				gv->setEdgeThickness(edges[j].getId(), 5);
+			if(edges[j]->getBlocked()) {
+				gv->setEdgeColor(edges[j]->getId(), BLOCKED_EDGE_COLOR);
+				gv->setEdgeThickness(edges[j]->getId(), 5);
 			}
 		}
 	}
@@ -174,9 +174,9 @@ const Graph<int>& RoadNetwork::getGraph() const {
 bool RoadNetwork::getEdgeBlockedStatus(string name){
     for(size_t i  = 0; i < graph.getVertexSet().size(); i++){
     	for(size_t n = 0; n < graph.getVertexSet().at(i)->getAdj().size(); n++){
-    		if(graph.getVertexSet().at(i)->getAdj().at(n).getName() != "")
-    			if(graph.getVertexSet().at(i)->getAdj().at(n).getName() == name)
-    				return graph.getVertexSet().at(i)->getAdj().at(n).getBlocked();
+    		if(graph.getVertexSet().at(i)->getAdj().at(n)->getName() != "")
+    			if(graph.getVertexSet().at(i)->getAdj().at(n)->getName() == name)
+    				return graph.getVertexSet().at(i)->getAdj().at(n)->getBlocked();
     	}
     }
     return false;
@@ -185,9 +185,9 @@ bool RoadNetwork::getEdgeBlockedStatus(string name){
 void RoadNetwork::setEdgeBlocked(string edge_name, bool blocked){
     for(size_t i  = 0; i < graph.getVertexSet().size(); i++){
     	for(size_t n = 0; n < graph.getVertexSet().at(i)->getAdj().size(); n++){
-    		if(graph.getVertexSet().at(i)->getAdj().at(n).getName() != "")
-    			if(graph.getVertexSet().at(i)->getAdj().at(n).getName() == edge_name){
-    				graph.setEdgeBlocked(graph.getVertexSet().at(i)->getAdj().at(n).getId(),blocked);
+    		if(graph.getVertexSet().at(i)->getAdj().at(n)->getName() != "")
+    			if(graph.getVertexSet().at(i)->getAdj().at(n)->getName() == edge_name){
+    				graph.setEdgeBlocked(graph.getVertexSet().at(i)->getAdj().at(n)->getId(),blocked);
     			}
     	}
     }
@@ -200,35 +200,39 @@ double RoadNetwork::getWeightOfPath(int nodeStartID, int nodeDestinationID) {
 	for(size_t i = 0; i < graphPath.size(); i++){
 		for(size_t n = 0; n < graph.getVertex(graphPath.at(i))->getAdj().size(); n++){
 			if(i < graphPath.size() - 1)
-				if(graph.getVertex(graphPath.at(i))->getAdj().at(n).getDest()->getName() == graph.getVertex(graphPath.at(i + 1))->getName())
-					totalWeight += graph.getVertex(graphPath.at(i))->getAdj().at(n).getWeight();
+				if(graph.getVertex(graphPath.at(i))->getAdj().at(n)->getDest()->getName() == graph.getVertex(graphPath.at(i + 1))->getName())
+					totalWeight += graph.getVertex(graphPath.at(i))->getAdj().at(n)->getWeight();
 		}
 	}
 	return totalWeight;
 }
 
-vector<Vertex<int>* > RoadNetwork::getNodesPathVector(int nodeStartID, int nodeDestinationID){
-	vector<Vertex<int>* > ret;
-	graph.dijkstraShortestPath(nodeStartID);
-	vector<int> graphPath = graph.getPath(nodeStartID,nodeDestinationID);
-	for(size_t i = 0; i < graphPath.size(); i++){
-		ret.push_back(graph.getVertex(graphPath.at(i)));
-	}
-	return ret;
-}
+bool RoadNetwork::printPath(int nodeStartID, int nodeDestinationID){
 
-vector<Edge<int> > RoadNetwork::getEdgesPathVector(int nodeStartID, int nodeDestinationID){
-	vector<Edge<int> > ret;
-	graph.dijkstraShortestPath(nodeStartID);
-	vector<int> graphPath = graph.getPath(nodeStartID,nodeDestinationID);
-	for(size_t i = 0; i < graphPath.size(); i++){
-		for(size_t n = 0; n < graph.getVertex(graphPath.at(i))->getAdj().size(); n++){
-			if(i < graphPath.size() - 1)
-				if(graph.getVertex(graphPath.at(i))->getAdj().at(n).getDest()->getName() == graph.getVertex(graphPath.at(i + 1))->getName())
-					ret.push_back(graph.getVertex(graphPath.at(i))->getAdj().at(n));
+	this->graph.dijkstraShortestPath(nodeStartID);
+
+	cout << endl;
+	cout << "PERCURSO:" << endl;
+
+	vector<Vertex<int>*> imprimir= this->graph.getPathVertex(nodeStartID,nodeDestinationID);
+
+	for(auto it:imprimir)
+	{
+		if(it->getPath()!=NULL)
+		{
+			cout << it->getCaminho()->getName() << endl;
+			this->highlightEdge(it->getCaminho()->getId());
 		}
+		cout << it->getName() << endl;
+		this->highlightNode(it->getInfo());
+
 	}
-	return ret;
+
+	cout << endl;
+
+	cout << "DISTANCIA APROXIMADA DO PERCURSO: " << this->getWeightOfPath(nodeStartID, nodeDestinationID) << " km" << endl;
+	return true;
+
 }
 
 void RoadNetwork::highlightNode(int id) const {
