@@ -13,6 +13,8 @@
 #include <limits>
 #include <climits>
 
+#include "MutablePriorityQueue.h"
+
 using namespace std;
 
 template <class T> class Edge;
@@ -20,7 +22,6 @@ template <class T> class Graph;
 template <class T> class Vertex;
 
 #define INF std::numeric_limits<double>::max()
-const int INT_INFINITY = INT_MAX;
 
 /*
  * ================================================================================================
@@ -40,9 +41,14 @@ class Vertex {
 	double latitude;
 	double longitude;
 	double dist = 0;
+
+	Vertex<T> *path = NULL;
+	int queueIndex = 0;
 public:
 	Vertex(T in, string name, double lon, double lat);
 	friend class Graph<T>;
+
+	bool operator<(Vertex<T> & vertex) const;
 
 	T getInfo() const;
 	vector<Edge<T> > getAdj() const;
@@ -55,7 +61,9 @@ public:
 	double getLatitude() const;
 	double getDist() const;
 
-	Vertex* path;
+	friend class MutablePriorityQueue<Vertex<T>>;
+	friend class Graph<T>;
+
 };
 
 template <class T>
@@ -69,6 +77,11 @@ T Vertex<T>::getInfo() const {
 template <class T>
 vector<Edge<T> > Vertex<T>::getAdj() const {
 	return adj;
+}
+
+template <class T>
+bool Vertex<T>::operator<(Vertex<T> & vertex) const {
+	return this->dist < vertex.dist;
 }
 
 
@@ -270,7 +283,7 @@ int Graph<T>::getNumVertex() const {
 template <class T>
 Vertex<T>* Graph<T>::getVertex(const T &v) const {
 	for(unsigned int i = 0; i < vertexSet.size(); i++)
-		if (vertexSet[i]->info == v) return vertexSet[i];
+		if (vertexSet.at(i)->info == v) return vertexSet.at(i);
 	return NULL;
 }
 
@@ -599,25 +612,25 @@ vector<T> Graph<T>::getPath(const T &origin, const T &dest){
 
 template<class T>
 void Graph<T>::unweightedShortestPath(const T &s) {
-
-	for(unsigned int i = 0; i < vertexSet.size(); i++) {
-		vertexSet[i]->path = NULL;
-		vertexSet[i]->dist = INT_INFINITY;
+	for (auto it : this->vertexSet) {
+		it->dist = INF;
+		it->path=nullptr;
 	}
-
-	Vertex<T>* v = getVertex(s);
-	v->dist = 0;
-	queue< Vertex<T>* > q;
-	q.push(v);
-
-	while( !q.empty() ) {
-		v = q.front(); q.pop();
-		for(unsigned int i = 0; i < v->adj.size(); i++) {
-			Vertex<T>* w = v->adj[i].dest;
-			if( w->dist == INT_INFINITY ) {
-				w->dist = v->dist + 1;
-				w->path = v;
-				q.push(w);
+	auto inicio=this->findVertex(s);
+	inicio->dist=0;
+	queue<Vertex<T>*>fila;
+	fila.push(inicio);
+	while(!fila.empty())
+	{
+		auto v=fila.front();
+		fila.pop();
+		for(auto w:v->adj)
+		{
+			if(w.dest->dist==INF)
+			{
+				fila.push(w.dest);
+				w.dest->dist=v->dist+1;
+				w.dest->path=v;
 			}
 		}
 	}
@@ -625,52 +638,35 @@ void Graph<T>::unweightedShortestPath(const T &s) {
 
 template<class T>
 void Graph<T>::dijkstraShortestPath(const T &s) {
-
-	for(unsigned int i = 0; i < vertexSet.size(); i++) {
-		vertexSet[i]->path = NULL;
-		vertexSet[i]->dist = INT_INFINITY;
-		vertexSet[i]->processing = false;
+	for (auto it : this->vertexSet) {
+		it->dist = INF;
+		it->path=nullptr;
 	}
+	MutablePriorityQueue<Vertex<T>> fila;
+	Vertex<T> *inicio=this->findVertex(s);
+	inicio->dist=0;
+	fila.insert(inicio);
+	while(!fila.empty())
+	{
+		inicio=fila.extractMin();
+		for(auto et:inicio->adj)
+		{
+			auto guardado=et.dest->dist;
+			if(et.dest->dist>inicio->dist+et.weight)
+			{
+				et.dest->dist=inicio->dist+et.weight;
+				et.dest->path=inicio;
 
-	Vertex<T>* v = getVertex(s);
-	v->dist = 0;
-
-	vector< Vertex<T>* > pq;
-	pq.push_back(v);
-
-	make_heap(pq.begin(), pq.end());
-
-
-	while( !pq.empty() ) {
-
-		v = pq.front();
-		pop_heap(pq.begin(), pq.end());
-		pq.pop_back();
-		for(unsigned int i = 0; i < v->adj.size(); i++) {
-
-			if(v->adj[i].blocked) continue;
-
-			Vertex<T>* w = v->adj[i].dest;
-			int aValue = v->dist + v->adj[i].weight;
-			int bValue = w->dist;
-			bool condition = aValue < bValue;
-			if(condition) {
-				w->dist = v->dist + v->adj[i].weight;
-				w->path = v;
-				//se já estiver na lista, apenas a actualiza
-				if(!w->processing)
+				if(guardado == INF)
 				{
-					w->processing = true;
-					pq.push_back(w);
+					fila.insert(et.dest);
 				}
-
-				make_heap (pq.begin(),pq.end(),vertex_greater_than<T>());
+				else
+				{
+					fila.decreaseKey(et.dest);
+				}
 			}
 		}
-	}
-	vector<T> returnVector;
-	for(unsigned int i = 0; i < pq.size(); i++){
-		returnVector.push_back(pq[i]->getInfo());
 	}
 
 }
