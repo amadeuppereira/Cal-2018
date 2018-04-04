@@ -19,3 +19,38 @@
 19;A24 (Chaves - Vila Pouca de Aguiar);True
 20;A24 (Vila Real - Vila Pouca de Aguiar);True
 21;A24 (Vila Real - Viseu);True
+22;A14 (Figueira da Foz - Coimbra);True
+23;A17 (Figueira da Foz - Aveiro);True
+24;IC8 (Castelo Branco - Avelar);True
+36;A13 (Coimbra - Avelar);True
+25;A23 (Guarda - Castelo Branco);True
+26:A17 (Leiria - Figueira da Foz);True
+27;A1 (Leira - Coimbra);True
+28;A1 (Leiria - Torres Novas);True
+29;A8 (Leiria - Caldas da Rainha);True
+31;A15 (Santarem - Caldas da Rainha);True
+32;A1 (Santarem - Leiria);True
+33;A1 (Santarem - Torres Novas);True
+34;A23 (Castelo Branco - Torres Noves);True
+35;IP6 (Peniche - Caldas da Rainha);True
+37;A1 (Lisboa - Santarem);True
+38;A8 (Lisboa - Caldas da Rainha);True
+39;A12 (Setubal - Lisboa);True
+40;A2 (Setubal - Intersecao Autoestradas);True
+41;A13 (Santarem - Intersecao Autoestradas);True
+42;A6 (Evora - Intersecao Autoestrada);True
+43;IP2 (Evora - Castelo Branco);True
+44;N251 (Evora - Santarem);True
+45;A26 (Sines - Intercecao Autoestradas 2);True
+46;A2 (Intercecao Autoestradas - Intercecao Autoestradas 2);True
+47;IP2 (Beja - Evora);True
+48;N121 (Beja - Sines);True
+49;IP8 (Beja - Intercecao Autoestradas 2);True
+50;N120 (Lagos - Sines);True
+51;A22 (Albufeira - Lagos);True
+52;A2/IP2 (Albufeira - Beja);True
+53;EM526 (Quarteira - Albufeira);True
+54;A22 (Faro - Albufeira);True
+55;A22/A2/IP2 (Tavira - Beja);True
+56;A22 (Tavira - Faro);True
+30;A13 (Avelar - Torres Novas);True

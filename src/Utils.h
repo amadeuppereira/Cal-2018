@@ -6,18 +6,13 @@
 #include "Graph.h"
 #include "math.h"
 
-#define GV_WIDTH 457
-#define GV_HEIGHT 424
+#define GV_WIDTH 1157
+#define GV_HEIGHT 2405
 
-//#define MIN_LON -9.014
-//#define MAX_LON -6.515
-//#define MIN_LAT 40.179
-//#define MAX_LAT 41.878
-
-#define MIN_LON -9.080
-#define MAX_LON -6.575
-#define MIN_LAT 40.147
-#define MAX_LAT 41.900
+#define MIN_LON -9.5691
+#define MAX_LON -6.3940
+#define MIN_LAT 36.8554
+#define MAX_LAT 41.9411
 
 
 class Link {
