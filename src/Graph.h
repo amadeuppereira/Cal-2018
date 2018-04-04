@@ -33,9 +33,9 @@ template <class T> class Carro;
  */
 template <class T>
 class Carro {
-	T id;
 	T id_inicio;
 	T id_fim;
+	T id;
 	vector<Vertex<T>*> nodes_path;
 	vector<Edge<T>*> edge_path;
 	bool tem_percurso=true;
@@ -89,11 +89,11 @@ public:
 	void setId(T id) {
 		this->id = id;
 	}
+	friend class Graph<T>;
 };
 
 template<class T>
-Carro<T>::Carro(T id_inicio, T id_fim, T id) :
-		id_inicio(id_inicio), id_fim(id_fim), id(id) {
+Carro<T>::Carro(T id_inicio, T id_fim, T id):id_inicio(id_inicio), id_fim(id_fim), id(id) {
 
 }
 
@@ -252,7 +252,7 @@ class Edge {
 	bool blocked;
 	bool two_ways;
 
-	int quantidade_carros=0;
+	int quantidade_carros;
 
 public:
 	Edge(Vertex<T> *d, double w, bool tw, string n, T id, bool block);
@@ -266,6 +266,7 @@ public:
 	double getWeight() const;
 	string getName() const;
 	bool getBlocked() const;
+	int getQuantidade() const;
 
 
 	void setBlocked(bool blocked);
@@ -282,6 +283,7 @@ Edge<T>::Edge(Vertex<T> *d, double w, bool tw, string n, T id, bool block) {
 	this->two_ways = tw;
 	this->name = n;
 	this->blocked = block;
+	this->quantidade_carros=0;
 }
 
 template <class T>
@@ -312,6 +314,10 @@ string Edge<T>::getName() const{
 template <class T>
 bool Edge<T>::getBlocked() const{
 	return blocked;
+}
+template <class T>
+int Edge<T>::getQuantidade() const{
+	return quantidade_carros;
 }
 
 template <class T>
@@ -803,8 +809,10 @@ vector<Edge<T>*> Graph<T>::getPathEdge(vector<Vertex<T>*> vec)
 	vector<Edge<T>*> res;
 	for(auto v:vec)
 	{
-		res.push_back(v->caminho);
-		v->caminho->quantidade_carros++;
+		if (v->caminho != NULL) {
+			res.push_back(v->caminho);
+			v->caminho->quantidade_carros++;
+		}
 	}
 	return res;
 }
@@ -850,7 +858,7 @@ void Graph<T>::dijkstraShortestPath(const T &s) {
 		inicio=fila.extractMin();
 		for(auto et:inicio->adj)
 		{
-			if(et->blocked== true || et->quantidade_carros==MAX_CAPACITY)
+			if(et->blocked== true || et->quantidade_carros>=MAX_CAPACITY)
 				continue;
 			auto guardado=et->dest->dist;
 			if(et->dest->dist>inicio->dist+et->weight)
@@ -894,7 +902,7 @@ void Graph<T>::addCar(const T &inicio,const T &fim , const T &id)
 	Carro<T>* novo= new Carro<T>(inicio, fim,id);
 	this->dijkstraShortestPath(inicio);
 	novo->nodes_path = this->getPathVertex(novo->id_inicio, novo->id_fim);
-	if (novo->node_path.size() == 0) {
+	if (novo->nodes_path.size() == 0) {
 		novo->tem_percurso = false;
 		return;
 	}

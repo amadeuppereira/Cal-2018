@@ -32,11 +32,11 @@ void Interface::setSourceId(int sourceId) {
 }
 
 void Interface::roadsBlocked(){
+
     cout << "------------------------------" << endl;
     cout << "ALTERACAO DO ESTADO DE UMA VIA" << endl;
     cout << "------------------------------" << endl;
     cout << endl;
-
     set<string> nomes_ruas = roadnetwork->getGraph().getEdgesNames();
 
     int m = 0;

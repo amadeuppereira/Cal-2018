@@ -14,6 +14,7 @@ void RoadNetwork::readOSM() {
 	string nodesFile = "nodes.txt";
 	string edgesFile = "edges.txt";
 	string connectionsFile = "connections.txt";
+	string carFiles= "carros.txt";
 
 	string line;
 	int id;
@@ -110,6 +111,31 @@ void RoadNetwork::readOSM() {
 		}
 	}
 	fEdges.close();
+
+
+	ifstream fCars;
+	fCars.open(carFiles);
+	if (!fCars) {
+		cerr << "Unable to open file " << carFiles << endl;
+		exit(1);
+	}
+
+	int inicio,fim;
+
+	while (getline(fCars, line)) {
+		string data;
+		istringstream linestream(line);
+
+		getline(linestream, data, ';');
+		id = atof(data.c_str());
+		getline(linestream, data, ';');
+		inicio = atof(data.c_str());
+		getline(linestream, data, ';');
+		fim = atof(data.c_str());
+
+		this->graph.addCar(inicio,fim,id);
+	}
+	fEdges.close();
 }
 
 void RoadNetwork::convertToGV() {
@@ -150,8 +176,20 @@ void RoadNetwork::convertToGV() {
 			else {
 				gv->addEdge(edges[j]->getId(), vertexes[i]->getInfo(), edges[j]->getDest()->getInfo(), EdgeType::DIRECTED);
 			}
+
 			//gv->setEdgeWeight(edges[j].getId(), edges[j].getWeight());
 			//gv->setEdgeLabel(edges[j].getId(), edges[j].getName());
+			if(edges[j]->getQuantidade()>=MAX_CAPACITY/2)
+			{
+				if(edges[j]->getQuantidade()>=MAX_CAPACITY)
+				{
+					gv->setEdgeColor(edges[j]->getId(), HIGH_TRAFFIC);
+				}
+				else
+				{
+					gv->setEdgeColor(edges[j]->getId(), MEDIUM_TRAFFIC);
+				}
+			}
 			if(edges[j]->getBlocked()) {
 				gv->setEdgeColor(edges[j]->getId(), BLOCKED_EDGE_COLOR);
 			}
@@ -164,6 +202,19 @@ void RoadNetwork::convertToGV() {
 }
 
 void RoadNetwork::updateMap() const {
+	for(auto v:this->graph.getVertexSet())
+	{
+		for(auto w:v->getAdj())
+		{
+			if(w->getQuantidade()>=MAX_CAPACITY/2)
+			{
+				if(w->getQuantidade()>=MAX_CAPACITY)
+					gv->setEdgeColor(w->getId(),HIGH_TRAFFIC);
+				else
+					gv->setEdgeColor(w->getId(),MEDIUM_TRAFFIC);
+			}
+		}
+	}
 	gv->rearrange();
 }
 
@@ -172,40 +223,15 @@ const Graph<int>& RoadNetwork::getGraph() const {
 }
 
 bool RoadNetwork::getEdgeBlockedStatus(string name){
-    /*for(size_t i  = 0; i < graph.getVertexSet().size(); i++){
-    	for(size_t n = 0; n < graph.getVertexSet().at(i)->getAdj().size(); n++){
-    		if(graph.getVertexSet().at(i)->getAdj().at(n)->getName() != "")
-    			if(graph.getVertexSet().at(i)->getAdj().at(n)->getName() == name)
-    				return graph.getVertexSet().at(i)->getAdj().at(n)->getBlocked();
-    	}
-    }
-    return false;*/
 	return this->graph.bfsEdgeBlocked(name);
 }
 
 void RoadNetwork::setEdgeBlocked(string edge_name, bool blocked){
-    /*for(size_t i  = 0; i < graph.getVertexSet().size(); i++){
-    	for(size_t n = 0; n < graph.getVertexSet().at(i)->getAdj().size(); n++){
-    		if(graph.getVertexSet().at(i)->getAdj().at(n)->getName() != "")
-    			if(graph.getVertexSet().at(i)->getAdj().at(n)->getName() == edge_name){
-    				graph.setEdgeBlocked(graph.getVertexSet().at(i)->getAdj().at(n)->getId(),blocked);
-    			}
-    	}
-    }*/
 	this->graph.dfsSetEdgeBlocked(edge_name,blocked);
 }
 
 double RoadNetwork::getWeightOfPath(vector<Vertex<int>*> vec) {
 	double totalWeight = 0;
-	/*graph.dijkstraShortestPath(nodeStartID);
-	vector<int> graphPath = graph.getPath(nodeStartID,nodeDestinationID);
-	for(size_t i = 0; i < graphPath.size(); i++){
-		for(size_t n = 0; n < graph.getVertex(graphPath.at(i))->getAdj().size(); n++){
-			if(i < graphPath.size() - 1)
-				if(graph.getVertex(graphPath.at(i))->getAdj().at(n)->getDest()->getName() == graph.getVertex(graphPath.at(i + 1))->getName())
-					totalWeight += graph.getVertex(graphPath.at(i))->getAdj().at(n)->getWeight();
-		}
-	}*/
 	for(auto v:vec)
 	{
 		if (v->getPath() != NULL) {

@@ -10,9 +10,11 @@ int main()
 	//menu();
 
 	Interface i = Interface();
+	i.convertToGV();
+	i.updateMap();
 
 	i.roadsBlocked();
-	i.convertToGV();
+	i.updateMap();
 
 	i.calculatePath();
 	cin.get();
