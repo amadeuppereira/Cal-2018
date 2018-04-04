@@ -13,10 +13,10 @@
 #include <set>
 
 #define DEFAULT_VERTEX_COLOR "blue"
-#define DEFAULT_EDGE_COLOR "black"
+#define DEFAULT_EDGE_COLOR "green"
 #define HIGHLIGHTED_VERTEX_COLOR "yellow"
 #define HIGHLIGHTED_EDGE_COLOR "yellow"
-#define BLOCKED_EDGE_COLOR "red"
+#define BLOCKED_EDGE_COLOR "black"
 
 
 class RoadNetwork {
@@ -37,7 +37,8 @@ public:
 	bool getEdgeBlockedStatus(string name);
 	void setEdgeBlocked(string edge_name, bool blocked);
 	double getWeightOfPath(int nodeStartID, int nodeDestinationID);
-	bool printPath(int nodeStartID, int nodeDestinationID);
+	void printPath(int nodeStartID, int nodeDestinationID);
+	void printAllCarPath() const;
 
 	void highlightNode(int id) const;
 	void highlightEdge(int id) const;
