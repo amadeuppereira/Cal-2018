@@ -195,15 +195,21 @@ void RoadNetwork::setEdgeBlocked(string edge_name, bool blocked){
 	this->graph.dfsSetEdgeBlocked(edge_name,blocked);
 }
 
-double RoadNetwork::getWeightOfPath(int nodeStartID, int nodeDestinationID) {
+double RoadNetwork::getWeightOfPath(vector<Vertex<int>*> vec) {
 	double totalWeight = 0;
-	graph.dijkstraShortestPath(nodeStartID);
+	/*graph.dijkstraShortestPath(nodeStartID);
 	vector<int> graphPath = graph.getPath(nodeStartID,nodeDestinationID);
 	for(size_t i = 0; i < graphPath.size(); i++){
 		for(size_t n = 0; n < graph.getVertex(graphPath.at(i))->getAdj().size(); n++){
 			if(i < graphPath.size() - 1)
 				if(graph.getVertex(graphPath.at(i))->getAdj().at(n)->getDest()->getName() == graph.getVertex(graphPath.at(i + 1))->getName())
 					totalWeight += graph.getVertex(graphPath.at(i))->getAdj().at(n)->getWeight();
+		}
+	}*/
+	for(auto v:vec)
+	{
+		if (v->getPath() != NULL) {
+			totalWeight+=v->getCaminho()->getWeight();
 		}
 	}
 	return totalWeight;
@@ -232,7 +238,7 @@ void RoadNetwork::printPath(int nodeStartID, int nodeDestinationID){
 
 	cout << endl;
 
-	//cout << "DISTANCIA APROXIMADA DO PERCURSO: " << this->getWeightOfPath(nodeStartID, nodeDestinationID) << " km" << endl;
+	cout << "DISTANCIA APROXIMADA DO PERCURSO: " << this->getWeightOfPath(imprimir) << " km" << endl;
 
 }
 

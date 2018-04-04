@@ -36,7 +36,7 @@ public:
 
 	bool getEdgeBlockedStatus(string name);
 	void setEdgeBlocked(string edge_name, bool blocked);
-	double getWeightOfPath(int nodeStartID, int nodeDestinationID);
+	double getWeightOfPath(vector<Vertex<int>*> vec);
 	void printPath(int nodeStartID, int nodeDestinationID);
 	void printAllCarPath() const;
 
