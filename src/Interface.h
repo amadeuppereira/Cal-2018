@@ -21,6 +21,7 @@ public:
 	void showMap();
 	void updateMap();
 	void closeMapWindow();
+	void carros();
 };
 
 #endif /* SRC_INTERFACE_H_ */

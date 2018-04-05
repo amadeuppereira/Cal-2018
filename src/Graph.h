@@ -491,36 +491,36 @@ bool Graph<T>::removeVertex(const T &in) {
  * Returns a vector with the contents of the vertices by dfs order.
  * Follows the algorithm described in theoretical classes.
  */
-template<class T>
-vector<T> Graph<T>::dfs() const {
-	vector<T> res;
-	for (auto it : this->vertexSet) {
-		it->visited = false;
-	}
-	for (auto it : this->vertexSet) {
-		if (it->visited == false) {
-			this->dfsVisit(it, res);
-		}
-	}
-	return res;
-}
+//template<class T>
+//vector<T> Graph<T>::dfs() const {
+//	vector<T> res;
+//	for (auto it : this->vertexSet) {
+//		it->visited = false;
+//	}
+//	for (auto it : this->vertexSet) {
+//		if (it->visited == false) {
+//			this->dfsVisit(it, res);
+//		}
+//	}
+//	return res;
+//}
 
 /*
  * Auxiliary function that visits a vertex (v) and its adjacent, recursively.
  * Updates a parameter with the list of visited node contents.
  */
-template<class T>
-void Graph<T>::dfsVisit(Vertex<T> *v, vector<T> & res) const {
-	v->visited = true;
-	res.push_back(v->info);
-	for (auto it : v->adj) {
-		if (it->dest->visited == false) {
-			this->dfsVisit(it->dest, res);
-		}
-	}
-}
-
-
+//template<class T>
+//void Graph<T>::dfsVisit(Vertex<T> *v, vector<T> & res) const {
+//	v->visited = true;
+//	res.push_back(v->info);
+//	for (auto it : v->adj) {
+//		if (it->dest->visited == false) {
+//			this->dfsVisit(it->dest, res);
+//		}
+//	}
+//}
+//
+//
 template<class T>
 void Graph<T>::dfsSetEdgeBlocked(const string &name ,const bool blocked) {
 	for (auto it : this->vertexSet) {
@@ -552,29 +552,29 @@ void Graph<T>::dfsVisitSetEdgeBlocked(Vertex<T> *v, const string &name ,const  b
  * Returns a vector with the contents of the vertices by dfs order.
  * Follows the algorithm described in theoretical classes.
  */
-template <class T>
-vector<T> Graph<T>::bfs(const T & source) const {
-	vector<T> res;
-	for (auto it : this->vertexSet) {
-		it->visited = false;
-	}
-	queue<Vertex<T>*> fila;
-	Vertex<T> *vertice = this->findVertex(source);
-	fila.push(vertice);
-	vertice->visited = true;
-	while (!fila.empty()) {
-		vertice = fila.front();
-		fila.pop();
-		res.push_back(vertice->info);
-		for (auto it : vertice->adj) {
-			if (it->dest->visited == false) {
-				fila.push(it->dest);
-				it->dest->visited = true;
-			}
-		}
-	}
-	return res;
-}
+//template <class T>
+//vector<T> Graph<T>::bfs(const T & source) const {
+//	vector<T> res;
+//	for (auto it : this->vertexSet) {
+//		it->visited = false;
+//	}
+//	queue<Vertex<T>*> fila;
+//	Vertex<T> *vertice = this->findVertex(source);
+//	fila.push(vertice);
+//	vertice->visited = true;
+//	while (!fila.empty()) {
+//		vertice = fila.front();
+//		fila.pop();
+//		res.push_back(vertice->info);
+//		for (auto it : vertice->adj) {
+//			if (it->dest->visited == false) {
+//				fila.push(it->dest);
+//				it->dest->visited = true;
+//			}
+//		}
+//	}
+//	return res;
+//}
 template <class T>
 bool Graph<T>::bfsEdgeBlocked(const string & name) const {
 	for (auto it : this->vertexSet) {
@@ -608,41 +608,41 @@ bool Graph<T>::bfsEdgeBlocked(const string & name) const {
  * If the graph has cycles, returns an empty vector.
  * Follows the algorithm described in theoretical classes.
  */
-template<class T>
-vector<T> Graph<T>::topsort() const {
-	vector<T> res;
-	for (auto it : this->vertexSet) {
-		it->indegree = 0;
-	}
-	for (auto it : this->vertexSet) {
-		for (auto et : it->adj) {
-			et.dest->indegree++;
-		}
-	}
-
-	queue<Vertex<T>*> fila;
-	for (auto it : this->vertexSet) {
-		if (it->indegree == 0) {
-			fila.push(it);
-		}
-	}
-
-	while (!fila.empty()) {
-		Vertex<T>* v = fila.front();
-		fila.pop();
-		res.push_back(v->info);
-		for (auto et : v->adj) {
-			et.dest->indegree--;
-			if (et.dest->indegree == 0) {
-				fila.push(et.dest);
-			}
-		}
-	}
-	if (res.size() != this->vertexSet.size()) {
-		res.clear();
-	}
-	return res;
-}
+//template<class T>
+//vector<T> Graph<T>::topsort() const {
+//	vector<T> res;
+//	for (auto it : this->vertexSet) {
+//		it->indegree = 0;
+//	}
+//	for (auto it : this->vertexSet) {
+//		for (auto et : it->adj) {
+//			et.dest->indegree++;
+//		}
+//	}
+//
+//	queue<Vertex<T>*> fila;
+//	for (auto it : this->vertexSet) {
+//		if (it->indegree == 0) {
+//			fila.push(it);
+//		}
+//	}
+//
+//	while (!fila.empty()) {
+//		Vertex<T>* v = fila.front();
+//		fila.pop();
+//		res.push_back(v->info);
+//		for (auto et : v->adj) {
+//			et.dest->indegree--;
+//			if (et.dest->indegree == 0) {
+//				fila.push(et.dest);
+//			}
+//		}
+//	}
+//	if (res.size() != this->vertexSet.size()) {
+//		res.clear();
+//	}
+//	return res;
+//}
 
 /*
  * Performs a breadth-first search in a graph (this), starting
@@ -857,8 +857,9 @@ void Graph<T>::dijkstraShortestPath(const T &s) {
 		inicio=fila.extractMin();
 		for(auto et:inicio->adj)
 		{
-			if(et->blocked== true || et->quantidade_carros>=MAX_CAPACITY)
+			if(et->blocked== true || et->quantidade_carros >= MAX_CAPACITY){
 				continue;
+			}
 			auto guardado=et->dest->dist;
 			if(et->dest->dist>inicio->dist+et->weight)
 			{

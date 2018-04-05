@@ -110,7 +110,7 @@ void Interface::roadsBlocked(){
     	cout << "Opcao invalida.";
     	break;
     }
-    roadnetwork->updateMap();
+    cout << endl;
     sleep(1);
 }
 
@@ -146,16 +146,12 @@ void Interface::calculatePath(){
     destino = roadnetwork->getGraph().getVertexSet().at(destino - 1)->getInfo();
 
     this->roadnetwork->printPath(origem,destino);
-
     cout << endl;
-    cout << "Voltando ao menu principal..." << endl;
-    sleep(1);
 }
 
 void Interface::showMap(){
 	cout << "Mapa a ser gerado..." << endl;
 	convertToGV();
-	updateMap();
 	cout << endl;
 	int opcao;
 	cout << "[1] Voltar ao menu principal." << endl;
@@ -172,6 +168,10 @@ void Interface::showMap(){
 		closeMapWindow();
 		exit(0);
 	}
+}
+
+void Interface::carros(){
+	roadnetwork->printAllCarPath();
 }
 
 void Interface::updateMap() {

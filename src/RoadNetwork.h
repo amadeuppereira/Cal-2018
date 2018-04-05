@@ -33,7 +33,6 @@ public:
 	void readOSM();
 	void convertToGV();
 
-
 	const Graph<int>& getGraph() const;
 
 	bool getEdgeBlockedStatus(string name);
@@ -46,11 +45,9 @@ public:
 	void highlightEdge(int id) const;
 	void removeHighlightNode(int id) const;
 	void removeHighlightEdge(int id) const;
-	//void highlightPath(vector<Vertex<int>* > p) const;
 	void blockEdge(int id) const;
 	void removeBlockEdge(int id) const;
 
-	void showMap();
 	void updateMap() const;
 	void closeMapWindow() const;
 };

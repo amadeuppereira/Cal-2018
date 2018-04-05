@@ -30,16 +30,13 @@ void menu() {
                 return;
             case 1:
             	i.roadsBlocked();
-            	i.updateMap();
                 break;
             case 2:
             	i.calculatePath();
-            	//cin.get();
-            	i.updateMap();
                 //ao alterar o estado das estradas temos de atualizar as rotas dos carros
                 break;
             case 3:
-
+            	i.carros();
                 break;
             case 4:
             	i.showMap();

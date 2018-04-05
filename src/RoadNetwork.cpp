@@ -143,53 +143,28 @@ void RoadNetwork::convertToGV() {
 	gv->defineVertexColor(DEFAULT_VERTEX_COLOR);
 	gv->defineEdgeColor(DEFAULT_EDGE_COLOR);
 	gv->defineVertexSize(5);
+	for (auto v:this->graph.getVertexSet()) {
+		int x = resizeLon(v->getLongitude());
+		int y = resizeLat(v->getLatitude());
 
-	vector<Vertex<int> *> vertexes = graph.getVertexSet();
+		gv->addNode(v->getInfo(), x, y);
 
-	for (unsigned int i = 0; i < vertexes.size(); i++) {
+		for (auto w:v->getAdj()) {
 
-		int x = resizeLon(vertexes[i]->getLongitude());
-		int y = resizeLat(vertexes[i]->getLatitude());
-
-		gv->addNode(vertexes[i]->getInfo(), x, y);
-
-		gv->setVertexLabel(vertexes[i]->getInfo(), vertexes[i]->getName());
-
-
-	}
-
-
-	for(unsigned int i = 0; i < vertexes.size(); i++) {
-		vector<Edge<int>*> edges = vertexes[i]->getAdj();
-		for(unsigned int  j = 0; j < edges.size(); j++) {
-
-			if(edges[j]->getTwoWays()) {
-				if(edges[j]->getDest()->getInfo() > vertexes[i]->getInfo()) continue;
-				gv->addEdge(edges[j]->getId(), vertexes[i]->getInfo(), edges[j]->getDest()->getInfo(), EdgeType::UNDIRECTED);
+			if (w->getTwoWays()) {
+				if (w->getDest()->getInfo() > v->getInfo())
+					continue;
+				gv->addEdge(w->getId(), v->getInfo(),
+						w->getDest()->getInfo(), EdgeType::UNDIRECTED);
+			} else {
+				gv->addEdge(w->getId(), v->getInfo(),
+						w->getDest()->getInfo(), EdgeType::DIRECTED);
 			}
-			else {
-				gv->addEdge(edges[j]->getId(), vertexes[i]->getInfo(), edges[j]->getDest()->getInfo(), EdgeType::DIRECTED);
-			}
-
-			if(edges[j]->getQuantidade()>=MAX_CAPACITY/2)
-			{
-				if(edges[j]->getQuantidade()>=MAX_CAPACITY)
-				{
-					gv->setEdgeColor(edges[j]->getId(), HIGH_TRAFFIC);
-				}
-				else
-				{
-					gv->setEdgeColor(edges[j]->getId(), MEDIUM_TRAFFIC);
-				}
-			}
-			if(edges[j]->getBlocked()) {
-				gv->setEdgeColor(edges[j]->getId(), BLOCKED_EDGE_COLOR);
-			}
-			gv->setEdgeThickness(edges[j]->getId(), 5);
+			gv->setEdgeThickness(w->getId(), 5);
 		}
 	}
-
-	//gv->rearrange();
+	updateMap();
+	gv->rearrange();
 
 }
 
@@ -198,19 +173,18 @@ void RoadNetwork::updateMap() const {
 	{
 		for(auto w:v->getAdj())
 		{
-			if(w->getBlocked()){
-				gv->setEdgeColor(w->getId(),BLOCKED_EDGE_COLOR);
-			}
-			if(w->getQuantidade()>=MAX_CAPACITY/2)
-			{
-				if(w->getQuantidade()>=MAX_CAPACITY)
-					gv->setEdgeColor(w->getId(),HIGH_TRAFFIC);
+			if (w->getQuantidade() >= MAX_CAPACITY / 2) {
+				if (w->getQuantidade() >= MAX_CAPACITY)
+					gv->setEdgeColor(w->getId(), HIGH_TRAFFIC);
 				else
-					gv->setEdgeColor(w->getId(),MEDIUM_TRAFFIC);
+					gv->setEdgeColor(w->getId(), MEDIUM_TRAFFIC);
+			}
+			if (w->getBlocked()) {
+				gv->setEdgeColor(w->getId(), BLOCKED_EDGE_COLOR);
 			}
 		}
 	}
-	//gv->rearrange();
+	gv->rearrange();
 }
 
 const Graph<int>& RoadNetwork::getGraph() const {
@@ -246,37 +220,34 @@ void RoadNetwork::printPath(int nodeStartID, int nodeDestinationID){
 
 	vector<Vertex<int>*> imprimir= this->graph.getPathVertex(nodeStartID,nodeDestinationID);
 
-	for(auto it:imprimir)
-	{
-		if(it->getPath()!=NULL)
-		{
-			cout << "  - " << it->getCaminho()->getName() << endl;
-			this->highlightEdge(it->getCaminho()->getId());
+	if(imprimir.size() == 0){
+		cout << "Impossivel calcular um percurso porque as estradas de ligacao ou estao cortadas ou estao congestionadas." << endl;
+	}
+	else {
+		for (auto it : imprimir) {
+			if (it->getPath() != NULL) {
+				cout << "  - " << it->getCaminho()->getName() << endl;
+				this->highlightEdge(it->getCaminho()->getId());
+			}
+			cout << "--> " << it->getName() << endl;
+			this->highlightNode(it->getInfo());
+
 		}
-		cout << "--> " << it->getName() << endl;
-		this->highlightNode(it->getInfo());
+
+		cout << endl;
+
+		cout << "DISTANCIA APROXIMADA DO PERCURSO: "
+				<< this->getWeightOfPath(imprimir) << " km" << endl;
 
 	}
-
-	cout << endl;
-
-	cout << "DISTANCIA APROXIMADA DO PERCURSO: " << this->getWeightOfPath(imprimir) << " km" << endl;
-
 	cout << endl;
 	int opcao;
-	cout << "[1] Ver mapa" << endl;
-	cout << "[2] Voltar ao menu principal." << endl;
+	cout << "[1] Voltar ao menu principal." << endl;
 	cout << "[0] Sair" << endl;
 	cout << endl;
 	cout << "Escolha uma opcao: ";
 	cin >> opcao;
-	if(opcao == 1){
-		//this->showMap();
-		this->updateMap();
-		gv->rearrange();
-
-	}
-	else if(opcao == 2){
+	if(opcao == 2){
 		closeMapWindow();
 		cout << endl << "Voltando ao menu principal..." << endl << endl;
 		sleep(1);
@@ -330,22 +301,3 @@ void RoadNetwork::removeBlockEdge(int id) const {
 void RoadNetwork::closeMapWindow() const{
 	gv->closeWindow();
 }
-
-void RoadNetwork::showMap(){
-	this->convertToGV();
-	updateMap();
-	gv->rearrange();
-}
-
-//void RoadNetwork::highlightPath(vector<Vertex<int>* > p) const {
-//	for(unsigned int i = 0; i < p.size(); i++) {
-//		highlightNode(p[i]->getInfo());
-//		if(i == p.size() - 1) continue;
-//		vector<Edge<int> > edges = p[i]->getAdj();
-//		for(unsigned int j = 0; j < edges.size(); j++) {
-//			if(edges[j].getDest()->getInfo() == p[i]->getInfo()) {
-//				highlightEdge(edges[j].getId());
-//			}
-//		}
-//	}
-//}
