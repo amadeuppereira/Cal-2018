@@ -376,7 +376,7 @@ public:
 	void unweightedShortestPath(const T &s);
 	void dijkstraShortestPath(const T &s);
 
-	void setAllCarPath();
+	void updateAllCarPath();
 	void addCar(const T &inicio,const T &fim,const T &id);
 	vector<Carro<T>*> getCarro() const { return this->carros;}
 
@@ -881,13 +881,19 @@ void Graph<T>::dijkstraShortestPath(const T &s) {
 }
 
 template <class T>
-void Graph<T>::setAllCarPath()
+void Graph<T>::updateAllCarPath()
 {
+	for(auto i:this->vertexSet){
+		for(auto n:i->getAdj()){
+			n->quantidade_carros = 0;
+		}
+	}
+
 	for(auto it:this->carros)
 	{
 		this->dijkstraShortestPath(it->id_inicio);
 		it->nodes_path=this->getPathVertex(it->id_inicio,it->id_fim);
-		if(it->node_path.size()==0)
+		if(it->nodes_path.size()==0)
 		{
 			it->tem_percurso=false;
 			return;

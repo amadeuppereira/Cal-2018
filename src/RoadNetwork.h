@@ -50,6 +50,8 @@ public:
 
 	void updateMap() const;
 	void closeMapWindow() const;
+
+	void updateCarsPath();
 };
 
 

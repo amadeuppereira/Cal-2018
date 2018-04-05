@@ -111,6 +111,7 @@ void Interface::roadsBlocked(){
     	break;
     }
     cout << endl;
+    //roadnetwork->updateCarsPath();
     sleep(1);
 }
 

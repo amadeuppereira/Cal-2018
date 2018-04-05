@@ -129,7 +129,7 @@ void RoadNetwork::readOSM() {
 
 		this->graph.addCar(inicio,fim,id);
 	}
-	fEdges.close();
+	fCars.close();
 }
 
 void RoadNetwork::convertToGV() {
@@ -272,6 +272,10 @@ void RoadNetwork::printAllCarPath() const
 			}
 		}
 	}
+}
+
+void RoadNetwork::updateCarsPath(){
+	graph.updateAllCarPath();
 }
 
 void RoadNetwork::highlightNode(int id) const {
