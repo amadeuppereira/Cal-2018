@@ -2,11 +2,8 @@
 #define MENU_H_
 
 #include <iostream>
+#include "Interface.h"
 
 void menu();
-
-void submenu_1();
-
-void submenu_2();
 
 #endif /* MENU_H_ */

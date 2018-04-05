@@ -4,109 +4,48 @@ using namespace std;
 
 void menu() {
 
+	Interface i = Interface();
+
     while(1){
         int option = -1;
-        cout << endl;
         if(option < 0 || option > 3){
             cout << "--------------------" << endl;
             cout << "SISTEMA DE EVACUACAO" << endl;
             cout << "--------------------" << endl;
             cout << endl;
-            cout << "[1] Rotas" << endl;
-            cout << "[2] Trocos" << endl;
-            cout << "[3] Ver mapa" << endl;
+            cout << "[1] Alterar Estado das Estradas" << endl;
+            cout << "[2] Calcular Itinerarios" << endl;
+            cout << "[3] Ver Percursos dos Carros" << endl;
+            cout << "[4] Ver Mapa" << endl;
             cout << "[0] Sair" << endl;
             cout << endl;
             cout << "Escolha uma opcao: ";
             cin >> option;
+            cout << endl;
         }
 
         switch(option){
             case 0:
+            	exit(0);
                 return;
             case 1:
-                submenu_1 ();
+            	i.roadsBlocked();
+            	i.updateMap();
                 break;
             case 2:
-                submenu_2 ();
+            	i.calculatePath();
+            	//cin.get();
+            	i.updateMap();
+                //ao alterar o estado das estradas temos de atualizar as rotas dos carros
                 break;
             case 3:
-                // Ver mapa
+
                 break;
+            case 4:
+            	i.showMap();
+            	break;
             default:
                 while(option < 0 || option > 3){
-                    cout << "Opcao invalida! Escolha uma nova opcao: ";
-                    cin >> option;
-                }
-                break;
-        }
-    }
-}
-
-void submenu_1(){
-    while(1) {
-        int option = -1;
-        cout << endl;
-        if (option < 0 || option > 2) {
-            cout << "-----" << endl;
-            cout << "ROTAS" << endl;
-            cout << "-----" << endl;
-            cout << endl;
-            cout << "[1] Calcular rota" << endl;
-            cout << "[2] Atualizar rotas" << endl;
-            cout << "[0] Voltar ao menu inicial." << endl;
-            cout << endl;
-            cout << "Escolha uma opcao: ";
-            cin >> option;
-        }
-
-        switch (option) {
-            case 0:
-                return;
-            case 1:
-                //Calcular a rota
-                break;
-            case 2:
-                //Atualizar rotas
-                break;
-            default:
-                while (option < 0 || option > 2) {
-                    cout << "Opcao invalida! Escolha uma nova opcao: ";
-                    cin >> option;
-                }
-                break;
-        }
-    }
-}
-
-void submenu_2(){
-    while(1) {
-        int option = -1;
-        cout << endl;
-        if (option < 0 || option > 2) {
-            cout << "------" << endl;
-            cout << "TROCOS" << endl;
-            cout << "------" << endl;
-            cout << endl;
-            cout << "[1] Criar novo troco" << endl;
-            cout << "[2] Atualizar troco" << endl;
-            cout << "[0] Voltar ao menu inicial." << endl;
-            cout << endl;
-            cout << "Escolha uma opcao: ";
-            cin >> option;
-        }
-
-        switch (option) {
-            case 0:
-                return;
-            case 1:
-                //Criar novo troco
-                break;
-            case 2:
-                //Atualizar troco
-                break;
-            default:
-                while (option < 0 || option > 2) {
                     cout << "Opcao invalida! Escolha uma nova opcao: ";
                     cin >> option;
                 }

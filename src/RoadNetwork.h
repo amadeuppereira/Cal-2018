@@ -16,7 +16,7 @@
 #define DEFAULT_EDGE_COLOR "green"
 #define HIGHLIGHTED_VERTEX_COLOR "yellow"
 #define HIGHLIGHTED_EDGE_COLOR "yellow"
-#define MEDIUM_TRAFFIC "yellow"
+#define MEDIUM_TRAFFIC "orange"
 #define HIGH_TRAFFIC "red"
 #define BLOCKED_EDGE_COLOR "black"
 
@@ -50,7 +50,9 @@ public:
 	void blockEdge(int id) const;
 	void removeBlockEdge(int id) const;
 
+	void showMap();
 	void updateMap() const;
+	void closeMapWindow() const;
 };
 
 

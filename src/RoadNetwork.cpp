@@ -81,7 +81,7 @@ void RoadNetwork::readOSM() {
 	}
 
 	name = "";
-	bool two_ways;
+	bool two_ways = true;
 	bool blocked = false;
 
 	while (getline(fEdges, line)) {
@@ -92,12 +92,6 @@ void RoadNetwork::readOSM() {
 		id = atof(data.c_str());
 		getline(linestream, data, ';');
 		name = data;
-		getline(linestream, data, ';');
-		if(data == "True")
-			two_ways = true;
-		else
-			two_ways = false;
-
 
 		for(unsigned int i = 0; i < links.size(); i++) {
 			if(links.at(i).edgeID == id) {
@@ -177,8 +171,6 @@ void RoadNetwork::convertToGV() {
 				gv->addEdge(edges[j]->getId(), vertexes[i]->getInfo(), edges[j]->getDest()->getInfo(), EdgeType::DIRECTED);
 			}
 
-			//gv->setEdgeWeight(edges[j].getId(), edges[j].getWeight());
-			//gv->setEdgeLabel(edges[j].getId(), edges[j].getName());
 			if(edges[j]->getQuantidade()>=MAX_CAPACITY/2)
 			{
 				if(edges[j]->getQuantidade()>=MAX_CAPACITY)
@@ -197,7 +189,7 @@ void RoadNetwork::convertToGV() {
 		}
 	}
 
-	gv->rearrange();
+	//gv->rearrange();
 
 }
 
@@ -206,6 +198,9 @@ void RoadNetwork::updateMap() const {
 	{
 		for(auto w:v->getAdj())
 		{
+			if(w->getBlocked()){
+				gv->setEdgeColor(w->getId(),BLOCKED_EDGE_COLOR);
+			}
 			if(w->getQuantidade()>=MAX_CAPACITY/2)
 			{
 				if(w->getQuantidade()>=MAX_CAPACITY)
@@ -215,7 +210,7 @@ void RoadNetwork::updateMap() const {
 			}
 		}
 	}
-	gv->rearrange();
+	//gv->rearrange();
 }
 
 const Graph<int>& RoadNetwork::getGraph() const {
@@ -244,6 +239,7 @@ double RoadNetwork::getWeightOfPath(vector<Vertex<int>*> vec) {
 void RoadNetwork::printPath(int nodeStartID, int nodeDestinationID){
 
 	this->graph.dijkstraShortestPath(nodeStartID);
+	this->convertToGV();
 
 	cout << endl;
 	cout << "PERCURSO:" << endl;
@@ -254,10 +250,10 @@ void RoadNetwork::printPath(int nodeStartID, int nodeDestinationID){
 	{
 		if(it->getPath()!=NULL)
 		{
-			cout << it->getCaminho()->getName() << endl;
+			cout << "  - " << it->getCaminho()->getName() << endl;
 			this->highlightEdge(it->getCaminho()->getId());
 		}
-		cout << it->getName() << endl;
+		cout << "--> " << it->getName() << endl;
 		this->highlightNode(it->getInfo());
 
 	}
@@ -266,6 +262,29 @@ void RoadNetwork::printPath(int nodeStartID, int nodeDestinationID){
 
 	cout << "DISTANCIA APROXIMADA DO PERCURSO: " << this->getWeightOfPath(imprimir) << " km" << endl;
 
+	cout << endl;
+	int opcao;
+	cout << "[1] Ver mapa" << endl;
+	cout << "[2] Voltar ao menu principal." << endl;
+	cout << "[0] Sair" << endl;
+	cout << endl;
+	cout << "Escolha uma opcao: ";
+	cin >> opcao;
+	if(opcao == 1){
+		//this->showMap();
+		this->updateMap();
+		gv->rearrange();
+
+	}
+	else if(opcao == 2){
+		closeMapWindow();
+		cout << endl << "Voltando ao menu principal..." << endl << endl;
+		sleep(1);
+	}
+	else if (opcao == 0){
+		closeMapWindow();
+		exit(0);
+	}
 }
 
 void RoadNetwork::printAllCarPath() const
@@ -290,7 +309,6 @@ void RoadNetwork::highlightNode(int id) const {
 
 void RoadNetwork::highlightEdge(int id) const {
 	gv->setEdgeColor(id, HIGHLIGHTED_EDGE_COLOR);
-	//gv->setEdgeThickness(id, 5);
 }
 
 void RoadNetwork::removeHighlightNode(int id) const {
@@ -299,8 +317,6 @@ void RoadNetwork::removeHighlightNode(int id) const {
 
 void RoadNetwork::removeHighlightEdge(int id) const {
 	gv->setEdgeColor(id, DEFAULT_EDGE_COLOR);
-	//gv->setEdgeThickness(id, 1);
-
 }
 
 void RoadNetwork::blockEdge(int id) const {
@@ -311,6 +327,15 @@ void RoadNetwork::removeBlockEdge(int id) const {
 	gv->setEdgeColor(id, DEFAULT_EDGE_COLOR);
 }
 
+void RoadNetwork::closeMapWindow() const{
+	gv->closeWindow();
+}
+
+void RoadNetwork::showMap(){
+	this->convertToGV();
+	updateMap();
+	gv->rearrange();
+}
 
 //void RoadNetwork::highlightPath(vector<Vertex<int>* > p) const {
 //	for(unsigned int i = 0; i < p.size(); i++) {

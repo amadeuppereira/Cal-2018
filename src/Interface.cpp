@@ -1,12 +1,10 @@
 #include "Interface.h"
 
 Interface::Interface() {
-	this->destinyID = 0;
-	this->sourceID = 0;
 	roadnetwork = new RoadNetwork();
 	roadnetwork->readOSM();
-	convertToGV();
-
+	roadnetwork->convertToGV();
+	roadnetwork->closeMapWindow();
 }
 
 Interface::~Interface() {}
@@ -15,82 +13,111 @@ void Interface::convertToGV() {
 	roadnetwork->convertToGV();
 }
 
-unsigned long long Interface::getDestinyId() const {
-	return destinyID;
-}
-
-void Interface::setDestinyId(int destinyId) {
-	destinyID = destinyId;
-}
-
-unsigned long long Interface::getSourceId() const {
-	return sourceID;
-}
-
-void Interface::setSourceId(int sourceId) {
-	sourceID = sourceId;
-}
-
 void Interface::roadsBlocked(){
 
     cout << "------------------------------" << endl;
     cout << "ALTERACAO DO ESTADO DE UMA VIA" << endl;
     cout << "------------------------------" << endl;
     cout << endl;
-    set<string> nomes_ruas = roadnetwork->getGraph().getEdgesNames();
+    set<string> nomes_estradas = roadnetwork->getGraph().getEdgesNames();
+    set<string> nome_estradas_organizadas;
+    set<string> subset_nome_estardas;
 
-    int m = 0;
-    set<string>::iterator it = nomes_ruas.begin();
-    while(it != nomes_ruas.end()){
-    	m++;
-    	cout << m << ". ";
-    	cout << *it;
-    	cout << endl;
+    set<string>::iterator it = nomes_estradas.begin();
+    while(it != nomes_estradas.end()){
+    	string nome = *it;
+    	nome_estradas_organizadas.insert(nome.substr(0, nome.find(' ')));
     	it++;
     }
 
-    int opcao;
-    cout << endl;
-    cout << "Indique o numero da rua: ";
-    cin >> opcao;
+    int m = 0;
+	set<string>::iterator itn = nome_estradas_organizadas.begin();
+	while (itn != nome_estradas_organizadas.end()) {
+		m++;
+		cout << m << ". ";
+		cout << *itn;
+		cout << endl;
+		itn++;
+	}
 
-    it = nomes_ruas.begin();
-    advance(it, (opcao -1));
+    int opcao1;
+    cout << endl;
+    cout << "Indique o numero da estrada: ";
+    cin >> opcao1;
+
+    cout << endl;
+
+    itn = nome_estradas_organizadas.begin();
+    advance(itn, (opcao1 - 1));
+    string opcao_string = (*itn);
+
+    m = 0;
+    int p = 0;
+    vector<int> indices;
+    it = nomes_estradas.begin();
+    while(it != nomes_estradas.end()){
+    	string n = (*it);
+    	m++;
+    	if(n.substr(0, n.find(' ')) == opcao_string){
+    		p++;
+    		cout << p << ". ";
+    		indices.push_back(m - 1);
+    		cout << n << endl;
+    	}
+    	it++;
+    }
+
+    int opcao2;
+    cout << endl;
+    cout << "Indique o troco da estrada: ";
+    cin >> opcao2; // tem que ser menor que indices.size() e maior que 0
+
+    it = nomes_estradas.begin();
+    advance(it, indices.at(opcao2 -1));
     string nome_rua = *it;
     bool rua_bloqueada = roadnetwork->getEdgeBlockedStatus(nome_rua);
     cout << endl;
     if(rua_bloqueada){
-    	cout << "Esta rua encontra-se cortada." << endl;
+    	cout << "Esta estrada encontra-se cortada." << endl;
     }
     else{
-    	cout << "Esta rua encontra-se transitavel." << endl;
+    	cout << "Esta estrada encontra-se transitavel." << endl;
     }
     char ch;
-    cout << "Deseja altera o estado da rua? (Y/N): ";
+    cout << "Deseja altera o estado da estrada? (Y/N): ";
     cin >> ch;
+    cout << endl;
     switch(ch){
     case 'Y':
     	roadnetwork->setEdgeBlocked(nome_rua, !rua_bloqueada);
-    	cout << "Estado da rua alterado com sucesso" << endl;
+    	cout << "Estado da rua alterado com sucesso!" << endl;
+    	cout << endl;
+    	cout << "Voltando ao menu principal..." << endl;
     	break;
     case 'y':
        	roadnetwork->setEdgeBlocked(nome_rua, !rua_bloqueada);
-       	cout << "Estado da rua alterado com sucesso" << endl;
+       	cout << "Estado da rua alterado com sucesso!" << endl;
+       	cout << endl;
+       	cout << "Voltando ao menu principal..." << endl;
        	break;
     case 'n':
+    	cout << "Voltando ao menu principal..." << endl;
     	break;
     case 'N':
+    	cout << "Voltando ao menu principal..." << endl;
     	break;
     default:
     	cout << "Opcao invalida.";
     	break;
     }
+    roadnetwork->updateMap();
+    sleep(1);
 }
 
 void Interface::calculatePath(){
-    cout << "-----------------------------------" << endl;
-    cout << "PERCURSO DE UMA ORIGEM A UM DESTINO" << endl;
-    cout << "-----------------------------------" << endl;
+    cout << "-----------------" << endl;
+    cout << "CALCULAR PERCURSO" << endl;
+    cout << "-----------------" << endl;
     cout << endl;
 
     for(unsigned int i = 0; i < roadnetwork->getGraph().getVertexSet().size(); i++){
@@ -120,23 +147,37 @@ void Interface::calculatePath(){
 
     this->roadnetwork->printPath(origem,destino);
 
-    /*cout << endl;
-    cout << "PERCURSO:" << endl;
-    vector<Vertex<int>* > nodes_path = roadnetwork->getNodesPathVector(origem, destino);
-    vector<Edge<int> > edges_path = roadnetwork->getEdgesPathVector(origem, destino);
-    for(unsigned int i = 0; i < nodes_path.size(); i++){
-    	roadnetwork->highlightNode(nodes_path.at(i)->getInfo());
-    	cout << "---> " << nodes_path.at(i)->getName() << endl;
-    	if(i < nodes_path.size() - 1) {
-    		roadnetwork->highlightEdge(edges_path.at(i).getId());
-    		cout << "  - " << edges_path.at(i).getName() << endl;
-    	}
-    }
     cout << endl;
+    cout << "Voltando ao menu principal..." << endl;
+    sleep(1);
+}
 
-    cout << "DISTANCIA APROXIMADA DO PERCURSO: " << roadnetwork->getWeightOfPath(origem, destino) << " km" << endl;*/
+void Interface::showMap(){
+	cout << "Mapa a ser gerado..." << endl;
+	convertToGV();
+	updateMap();
+	cout << endl;
+	int opcao;
+	cout << "[1] Voltar ao menu principal." << endl;
+	cout << "[0] Sair" << endl;
+	cout << endl;
+	cout << "Escolha uma opcao: ";
+	cin >> opcao;
+	if(opcao == 1){
+		closeMapWindow();
+		cout << endl << "Voltando ao menu principal..." << endl << endl;
+		sleep(1);
+	}
+	else if (opcao == 0){
+		closeMapWindow();
+		exit(0);
+	}
 }
 
 void Interface::updateMap() {
 	roadnetwork->updateMap();
+}
+
+void Interface::closeMapWindow(){
+	roadnetwork->closeMapWindow();
 }

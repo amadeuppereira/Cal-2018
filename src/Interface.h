@@ -3,12 +3,11 @@
 
 #include "RoadNetwork.h"
 #include <set>
+#include <unistd.h>
 
 class Interface {
 private:
 	RoadNetwork* roadnetwork;
-	unsigned long long sourceID;
-	unsigned long long destinyID;
 public:
 	Interface();
 	virtual ~Interface();
@@ -17,12 +16,11 @@ public:
 	void setDestinyId(int destinyId);
 	unsigned long long getSourceId() const;
 	void setSourceId(int sourceId);
-
 	void roadsBlocked();
 	void calculatePath();
-
+	void showMap();
 	void updateMap();
-
+	void closeMapWindow();
 };
 
 #endif /* SRC_INTERFACE_H_ */

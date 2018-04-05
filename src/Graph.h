@@ -750,8 +750,7 @@ set<string> Graph<T>::getEdgesNames() const{
     set<string> edge_names;
     for(size_t i  = 0; i < vertexSet.size(); i++){
     	for(size_t n = 0; n < vertexSet.at(i)->getAdj().size(); n++){
-    		if(vertexSet.at(i)->getAdj().at(n)->getName() != "")
-    			edge_names.insert(vertexSet.at(i)->getAdj().at(n)->getName());
+    		edge_names.insert(vertexSet.at(i)->getAdj().at(n)->getName());
     	}
     }
     return edge_names;
