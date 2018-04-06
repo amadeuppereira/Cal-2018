@@ -675,7 +675,13 @@ vector<Edge<T> *> Graph<T>::getEdges(){
 
 template <class T>
 void Graph<T>::removeCar(int id){
-	this->carros.erase(carros.begin() + id -1);
+	int n = 0;
+	for(auto i: carros){
+		if(i->getId() == id){
+			this->carros.erase(carros.begin() + n);
+		}
+		n++;
+	}
 }
 
 template <class T>

@@ -103,7 +103,7 @@ void Interface::roadsBlocked(){
     }
     roadnetwork->writeEdgeFile();
     roadnetwork->updateInfo();
-    returnMenu();
+    returnMenu2();
 }
 
 void Interface::calculatePath(){
@@ -154,7 +154,7 @@ void Interface::getAllCarsPath(){
     cout << "-------------------" << endl;
     cout << endl;
 	roadnetwork->printAllCarPath();
-	returnMenu();
+	returnMenu2();
 }
 
 void Interface::removeCar(){
@@ -171,7 +171,7 @@ void Interface::removeCar(){
     cout << endl << "Carro removido com sucesso." << endl;
     roadnetwork->writeCarsFile();
     roadnetwork->updateInfo();
-	returnMenu();
+	returnMenu2();
 }
 
 void Interface::updateMap() {
@@ -192,6 +192,24 @@ void Interface::returnMenu(){
 	cin >> opcao;
 	if(opcao == 1){
 		this->closeMapWindow();
+		cout << endl << "Voltando ao menu principal..." << endl << endl;
+		sleep(1);
+	}
+	else if (opcao == 0){
+		this->closeMapWindow();
+		exit(0);
+	}
+}
+
+void Interface::returnMenu2(){
+	cout << endl;
+	int opcao;
+	cout << "[1] Voltar ao menu principal." << endl;
+	cout << "[0] Sair" << endl;
+	cout << endl;
+	cout << "Escolha uma opcao: ";
+	cin >> opcao;
+	if(opcao == 1){
 		cout << endl << "Voltando ao menu principal..." << endl << endl;
 		sleep(1);
 	}

@@ -228,7 +228,7 @@ void RoadNetwork::printPath(int nodeStartID, int nodeDestinationID){
 		cout << "Impossivel calcular um percurso porque as estradas de ligacao ou estao cortadas ou estao congestionadas." << endl;
 	}
 	else {
-		graph.addCar(nodeStartID, nodeDestinationID, graph.getCarros().size() + 1);
+		graph.addCar(nodeStartID, nodeDestinationID, graph.getCarros().at(graph.getCarros().size() -1)->getId() + 1);
 		for (auto it : imprimir) {
 			if (it->getPath() != NULL) {
 				cout << "  - " << it->getCaminho()->getName() << endl;
@@ -258,9 +258,9 @@ void RoadNetwork::printAllCarPath() const
 		}
 		else {
 			for (unsigned int i = 0; i < car->getNodesPath().size(); i++) {
-				cout << car->getNodesPath().at(i)->getName() << endl;
+				cout << "-->" << car->getNodesPath().at(i)->getName() << endl;
 				if (i != car->getNodesPath().size() - 1) {
-					cout << car->getEdgePath().at(i)->getName() << endl;
+					cout << " - " << car->getEdgePath().at(i)->getName() << endl;
 				}
 			}
 		}

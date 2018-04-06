@@ -24,6 +24,7 @@ public:
 	void getAllCarsPath();
 	void removeCar();
 	void returnMenu();
+	void returnMenu2();
 };
 
 #endif /* SRC_INTERFACE_H_ */
