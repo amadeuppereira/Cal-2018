@@ -29,29 +29,27 @@ private:
 public:
 	RoadNetwork();
 	virtual ~RoadNetwork();
-
 	void readOSM();
+	void writeEdgeFile();
 	void convertToGV();
-
 	const Graph<int>& getGraph() const;
-
 	bool getEdgeBlockedStatus(string name);
 	void setEdgeBlocked(string edge_name, bool blocked);
 	double getWeightOfPath(vector<Vertex<int>*> vec);
 	void printPath(int nodeStartID, int nodeDestinationID);
 	void printAllCarPath() const;
-
+	void printCarID() const;
+	void removeCar(int id);
+	void writeCarsFile();
 	void highlightNode(int id) const;
 	void highlightEdge(int id) const;
 	void removeHighlightNode(int id) const;
 	void removeHighlightEdge(int id) const;
 	void blockEdge(int id) const;
 	void removeBlockEdge(int id) const;
-
 	void updateMap() const;
 	void closeMapWindow() const;
-
-	void updateCarsPath();
+	void updateInfo();
 };
 
 

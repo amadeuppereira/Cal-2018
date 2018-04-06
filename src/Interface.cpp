@@ -3,8 +3,6 @@
 Interface::Interface() {
 	roadnetwork = new RoadNetwork();
 	roadnetwork->readOSM();
-	roadnetwork->convertToGV();
-	roadnetwork->closeMapWindow();
 }
 
 Interface::~Interface() {}
@@ -14,7 +12,6 @@ void Interface::convertToGV() {
 }
 
 void Interface::roadsBlocked(){
-
     cout << "------------------------------" << endl;
     cout << "ALTERACAO DO ESTADO DE UMA VIA" << endl;
     cout << "------------------------------" << endl;
@@ -91,28 +88,22 @@ void Interface::roadsBlocked(){
     case 'Y':
     	roadnetwork->setEdgeBlocked(nome_rua, !rua_bloqueada);
     	cout << "Estado da rua alterado com sucesso!" << endl;
-    	cout << endl;
-    	cout << "Voltando ao menu principal..." << endl;
     	break;
     case 'y':
        	roadnetwork->setEdgeBlocked(nome_rua, !rua_bloqueada);
        	cout << "Estado da rua alterado com sucesso!" << endl;
-       	cout << endl;
-       	cout << "Voltando ao menu principal..." << endl;
        	break;
     case 'n':
-    	cout << "Voltando ao menu principal..." << endl;
     	break;
     case 'N':
-    	cout << "Voltando ao menu principal..." << endl;
     	break;
     default:
     	cout << "Opcao invalida.";
     	break;
     }
-    cout << endl;
-    //roadnetwork->updateCarsPath();
-    sleep(1);
+    roadnetwork->writeEdgeFile();
+    roadnetwork->updateInfo();
+    returnMenu();
 }
 
 void Interface::calculatePath(){
@@ -147,32 +138,40 @@ void Interface::calculatePath(){
     destino = roadnetwork->getGraph().getVertexSet().at(destino - 1)->getInfo();
 
     this->roadnetwork->printPath(origem,destino);
-    cout << endl;
+    roadnetwork->updateInfo();
+    returnMenu();
 }
 
 void Interface::showMap(){
 	cout << "Mapa a ser gerado..." << endl;
 	convertToGV();
-	cout << endl;
-	int opcao;
-	cout << "[1] Voltar ao menu principal." << endl;
-	cout << "[0] Sair" << endl;
-	cout << endl;
-	cout << "Escolha uma opcao: ";
-	cin >> opcao;
-	if(opcao == 1){
-		closeMapWindow();
-		cout << endl << "Voltando ao menu principal..." << endl << endl;
-		sleep(1);
-	}
-	else if (opcao == 0){
-		closeMapWindow();
-		exit(0);
-	}
+	returnMenu();
 }
 
-void Interface::carros(){
+void Interface::getAllCarsPath(){
+    cout << "-------------------" << endl;
+    cout << "PERCURSO DOS CARROS" << endl;
+    cout << "-------------------" << endl;
+    cout << endl;
 	roadnetwork->printAllCarPath();
+	returnMenu();
+}
+
+void Interface::removeCar(){
+    cout << "--------------" << endl;
+    cout << "REMOVER CARRO" << endl;
+    cout << "-------------" << endl;
+    cout << endl;
+    roadnetwork->printCarID();
+    cout << endl;
+    int opcao;
+    cout << "Indique o numero do carro que deseja remover: ";
+    cin >> opcao;
+    roadnetwork->removeCar(opcao);
+    cout << endl << "Carro removido com sucesso." << endl;
+    roadnetwork->writeCarsFile();
+    roadnetwork->updateInfo();
+	returnMenu();
 }
 
 void Interface::updateMap() {
@@ -181,4 +180,23 @@ void Interface::updateMap() {
 
 void Interface::closeMapWindow(){
 	roadnetwork->closeMapWindow();
+}
+
+void Interface::returnMenu(){
+	cout << endl;
+	int opcao;
+	cout << "[1] Voltar ao menu principal." << endl;
+	cout << "[0] Sair" << endl;
+	cout << endl;
+	cout << "Escolha uma opcao: ";
+	cin >> opcao;
+	if(opcao == 1){
+		this->closeMapWindow();
+		cout << endl << "Voltando ao menu principal..." << endl << endl;
+		sleep(1);
+	}
+	else if (opcao == 0){
+		this->closeMapWindow();
+		exit(0);
+	}
 }

@@ -14,7 +14,7 @@ void RoadNetwork::readOSM() {
 	string nodesFile = "nodes.txt";
 	string edgesFile = "edges.txt";
 	string connectionsFile = "connections.txt";
-	string carFiles= "carros.txt";
+	string carFiles= "cars.txt";
 
 	string line;
 	int id;
@@ -82,7 +82,7 @@ void RoadNetwork::readOSM() {
 
 	name = "";
 	bool two_ways = true;
-	bool blocked = false;
+	bool blocked;
 
 	while (getline(fEdges, line)) {
 		string data;
@@ -92,6 +92,11 @@ void RoadNetwork::readOSM() {
 		id = atof(data.c_str());
 		getline(linestream, data, ';');
 		name = data;
+		getline(linestream, data, ';');
+		if(data == "True")
+			blocked = true;
+		else
+			blocked = false;
 
 		for(unsigned int i = 0; i < links.size(); i++) {
 			if(links.at(i).edgeID == id) {
@@ -115,7 +120,6 @@ void RoadNetwork::readOSM() {
 	}
 
 	int inicio,fim;
-
 	while (getline(fCars, line)) {
 		string data;
 		istringstream linestream(line);
@@ -224,6 +228,7 @@ void RoadNetwork::printPath(int nodeStartID, int nodeDestinationID){
 		cout << "Impossivel calcular um percurso porque as estradas de ligacao ou estao cortadas ou estao congestionadas." << endl;
 	}
 	else {
+		graph.addCar(nodeStartID, nodeDestinationID, graph.getCarros().size() + 1);
 		for (auto it : imprimir) {
 			if (it->getPath() != NULL) {
 				cout << "  - " << it->getCaminho()->getName() << endl;
@@ -240,42 +245,47 @@ void RoadNetwork::printPath(int nodeStartID, int nodeDestinationID){
 				<< this->getWeightOfPath(imprimir) << " km" << endl;
 
 	}
-	cout << endl;
-	int opcao;
-	cout << "[1] Voltar ao menu principal." << endl;
-	cout << "[0] Sair" << endl;
-	cout << endl;
-	cout << "Escolha uma opcao: ";
-	cin >> opcao;
-	if(opcao == 2){
-		closeMapWindow();
-		cout << endl << "Voltando ao menu principal..." << endl << endl;
-		sleep(1);
-	}
-	else if (opcao == 0){
-		closeMapWindow();
-		exit(0);
-	}
+	writeCarsFile();
 }
 
 void RoadNetwork::printAllCarPath() const
 {
-	cout << endl;
-	for(auto car:this->graph.getCarro())
+	for(auto car:this->graph.getCarros())
 	{
-		cout << "Carro " << car->getId() << " percurso:" << endl;
-		for(unsigned int i=0;i<car->getNodesPath().size();i++)
-		{
-			cout << car->getNodesPath().at(i) << endl;
-			if(i!=car->getNodesPath().size()-1){
-				cout << car->getEdgePath().at(i) << endl;
+		cout << "CARRO " << car->getId() << endl << "Percurso:" << endl;
+		if(!car->isTemPercurso()){
+			cout << "Este carro nao tem percurso possivel." << endl;
+		}
+		else {
+			for (unsigned int i = 0; i < car->getNodesPath().size(); i++) {
+				cout << car->getNodesPath().at(i)->getName() << endl;
+				if (i != car->getNodesPath().size() - 1) {
+					cout << car->getEdgePath().at(i)->getName() << endl;
+				}
 			}
 		}
+		cout << endl;
 	}
 }
 
-void RoadNetwork::updateCarsPath(){
-	graph.updateAllCarPath();
+void RoadNetwork::printCarID() const{
+	for(auto car:this->graph.getCarros())
+	{
+		cout << "CARRO " << car->getId() << endl << "Percurso: ";
+		if(!car->isTemPercurso()){
+			cout << "Este carro nao tem percurso possivel.";
+		}
+		else {
+			cout << car->getNodesPath().at(0)->getName();
+			cout << " - ";
+			cout << car->getNodesPath().at(car->getNodesPath().size()-1)->getName();
+		}
+		cout << endl;
+	}
+}
+
+void RoadNetwork::removeCar(int id){
+	graph.removeCar(id);
 }
 
 void RoadNetwork::highlightNode(int id) const {
@@ -304,4 +314,46 @@ void RoadNetwork::removeBlockEdge(int id) const {
 
 void RoadNetwork::closeMapWindow() const{
 	gv->closeWindow();
+}
+
+bool compareVectorEdges(Edge<int>* edge1, Edge<int>* edge2){
+	return edge1->getId() < edge2->getId();
+}
+
+void RoadNetwork::writeEdgeFile(){
+	ofstream edgefile;
+	edgefile.open("edges.txt");
+	vector <Edge<int> *> guardar = graph.getEdges();
+	sort(guardar.begin(),guardar.end(),compareVectorEdges);
+	size_t m = 0;
+	for(auto i : guardar){
+		m++;
+		edgefile << i->getId( ) << ";" << i->getName() << ";";
+		if(i->getBlocked())
+			edgefile << "True";
+		else
+			edgefile << "False";
+		if(m < guardar.size())
+			edgefile << endl;
+	}
+	edgefile.close();
+}
+
+void RoadNetwork::writeCarsFile(){
+	ofstream carfile;
+	carfile.open("cars.txt");
+	vector<Carro<int>*> guardar = graph.getCarros();
+	size_t m = 0;
+	for(auto i : guardar){
+		m++;
+		carfile << i->getId() << ";" << i->getIdInicio() << ";" << i->getIdFim();
+		if(m < guardar.size())
+			carfile << endl;
+	}
+	carfile.close();
+}
+
+void RoadNetwork::updateInfo(){
+	graph.eraseAll();
+	readOSM();
 }

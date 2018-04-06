@@ -21,7 +21,9 @@ public:
 	void showMap();
 	void updateMap();
 	void closeMapWindow();
-	void carros();
+	void getAllCarsPath();
+	void removeCar();
+	void returnMenu();
 };
 
 #endif /* SRC_INTERFACE_H_ */

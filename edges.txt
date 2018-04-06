@@ -1,56 +1,56 @@
-1;A25 (Aveiro - Viseu);True
-2;A25 (Viseu - Guarda);True
-3;IP3 (Viseu - Coimbra);True
-4;A1 (Aveiro - Coimbra);True
-5;A1 (Porto - Aveiro);True
-6;A28 (Porto - Vila do Conde);True
-7;A28 (Vila do Conde - Apulia);True
-8;A28 (Viana do Castelo - Apulia);True
-9;A11 (Apulia - Braga);True
-10;A11 (Braga - Guimaraes);True
-11;A11 (Guimaraes - Codecal);True
-12;A11 (Codecal - Vila Mea);True
-13;A7 (Vila do Conde - Codecal);True
-14;A7 (Codecal - Vila Pouca de Aguiar);True
-15;A4 (Porto - Vila Mea);True
-16;A4 (Vila Mea - Vila Real);True
-17;A4 (Vila Real - Mirandela);True
-18;A4 (Mirandela - Braganca);True
-19;A24 (Chaves - Vila Pouca de Aguiar);True
-20;A24 (Vila Real - Vila Pouca de Aguiar);True
-21;A24 (Vila Real - Viseu);True
-22;A14 (Figueira da Foz - Coimbra);True
-23;A17 (Figueira da Foz - Aveiro);True
-24;IC8 (Castelo Branco - Avelar);True
-36;A13 (Coimbra - Avelar);True
-25;A23 (Guarda - Castelo Branco);True
-26:A17 (Leiria - Figueira da Foz);True
-27;A1 (Leira - Coimbra);True
-28;A1 (Leiria - Torres Novas);True
-29;A8 (Leiria - Caldas da Rainha);True
-31;A15 (Santarem - Caldas da Rainha);True
-32;A1 (Santarem - Leiria);True
-33;A1 (Santarem - Torres Novas);True
-34;A23 (Castelo Branco - Torres Noves);True
-35;IP6 (Peniche - Caldas da Rainha);True
-37;A1 (Lisboa - Santarem);True
-38;A8 (Lisboa - Caldas da Rainha);True
-39;A12 (Setubal - Lisboa);True
-40;A2 (Setubal - Intersecao Autoestradas);True
-41;A13 (Santarem - Intersecao Autoestradas);True
-42;A6 (Evora - Intersecao Autoestrada);True
-43;IP2 (Evora - Castelo Branco);True
-44;N251 (Evora - Santarem);True
-45;A26 (Sines - Intercecao Autoestradas 2);True
-46;A2 (Intercecao Autoestradas - Intercecao Autoestradas 2);True
-47;IP2 (Beja - Evora);True
-48;N121 (Beja - Sines);True
-49;IP8 (Beja - Intercecao Autoestradas 2);True
-50;N120 (Lagos - Sines);True
-51;A22 (Albufeira - Lagos);True
-52;A2/IP2 (Albufeira - Beja);True
-53;EM526 (Quarteira - Albufeira);True
-54;A22 (Faro - Albufeira);True
-55;A22/A2/IP2 (Tavira - Beja);True
-56;A22 (Tavira - Faro);True
-30;A13 (Avelar - Torres Novas);True
+1;A25 (Aveiro - Viseu);False
+2;A25 (Viseu - Guarda);False
+3;IP3 (Viseu - Coimbra);False
+4;A1 (Aveiro - Coimbra);False
+5;A1 (Porto - Aveiro);False
+6;A28 (Porto - Vila do Conde);False
+7;A28 (Vila do Conde - Apulia);False
+8;A28 (Viana do Castelo - Apulia);False
+9;A11 (Apulia - Braga);False
+10;A11 (Braga - Guimaraes);False
+11;A11 (Guimaraes - Codecal);False
+12;A11 (Codecal - Vila Mea);False
+13;A7 (Vila do Conde - Codecal);False
+14;A7 (Codecal - Vila Pouca de Aguiar);False
+15;A4 (Porto - Vila Mea);False
+16;A4 (Vila Mea - Vila Real);False
+17;A4 (Vila Real - Mirandela);False
+18;A4 (Mirandela - Braganca);False
+19;A24 (Chaves - Vila Pouca de Aguiar);False
+20;A24 (Vila Real - Vila Pouca de Aguiar);False
+21;A24 (Vila Real - Viseu);False
+22;A14 (Figueira da Foz - Coimbra);False
+23;A17 (Figueira da Foz - Aveiro);False
+24;IC8 (Castelo Branco - Avelar);False
+25;A23 (Guarda - Castelo Branco);False
+26;A17 (Leiria - Figueira da Foz);False
+27;A1 (Leira - Coimbra);False
+28;A1 (Leiria - Torres Novas);False
+29;A8 (Leiria - Caldas da Rainha);False
+30;A13 (Avelar - Torres Novas);False
+31;A15 (Santarem - Caldas da Rainha);False
+32;A1 (Santarem - Leiria);False
+33;A1 (Santarem - Torres Novas);False
+34;A23 (Castelo Branco - Torres Noves);False
+35;IP6 (Peniche - Caldas da Rainha);False
+36;A13 (Coimbra - Avelar);False
+37;A1 (Lisboa - Santarem);False
+38;A8 (Lisboa - Caldas da Rainha);False
+39;A12 (Setubal - Lisboa);False
+40;A2 (Setubal - Intersecao Autoestradas);False
+41;A13 (Santarem - Intersecao Autoestradas);False
+42;A6 (Evora - Intersecao Autoestrada);False
+43;IP2 (Evora - Castelo Branco);False
+44;N251 (Evora - Santarem);False
+45;A26 (Sines - Intercecao Autoestradas 2);False
+46;A2 (Intercecao Autoestradas - Intercecao Autoestradas 2);False
+47;IP2 (Beja - Evora);False
+48;N121 (Beja - Sines);False
+49;IP8 (Beja - Intercecao Autoestradas 2);False
+50;N120 (Lagos - Sines);False
+51;A22 (Albufeira - Lagos);False
+52;A2/IP2 (Albufeira - Beja);False
+53;EM526 (Quarteira - Albufeira);False
+54;A22 (Faro - Albufeira);False
+55;A22/A2/IP2 (Tavira - Beja);False
+56;A22 (Tavira - Faro);False
