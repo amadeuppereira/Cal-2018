@@ -611,6 +611,7 @@ void Graph<T>::dijkstraShortestPath(const T &s) {
 	for (auto it : this->vertexSet) {
 		it->dist = INF;
 		it->path=nullptr;
+		it->caminho=nullptr;
 	}
 	MutablePriorityQueue<Vertex<T>> fila;
 	Vertex<T> *inicio=this->findVertex(s);
