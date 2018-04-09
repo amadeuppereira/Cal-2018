@@ -218,3 +218,9 @@ void Interface::returnMenu2(){
 		exit(0);
 	}
 }
+
+void Interface::writeFiles()
+{
+	this->roadnetwork->writeCarsFile();
+	this->roadnetwork->writeEdgeFile();
+}

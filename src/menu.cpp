@@ -52,4 +52,5 @@ void menu() {
                 break;
         }
     }
+    i.writeFiles();
 }

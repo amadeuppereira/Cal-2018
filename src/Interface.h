@@ -25,6 +25,7 @@ public:
 	void removeCar();
 	void returnMenu();
 	void returnMenu2();
+	void writeFiles();
 };
 
 #endif /* SRC_INTERFACE_H_ */

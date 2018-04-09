@@ -216,19 +216,20 @@ double RoadNetwork::getWeightOfPath(vector<Vertex<int>*> vec) {
 
 void RoadNetwork::printPath(int nodeStartID, int nodeDestinationID){
 
-	this->graph.dijkstraShortestPath(nodeStartID);
 	this->convertToGV();
+
+	graph.addCar(nodeStartID, nodeDestinationID, this->graph.getCarros().size());
 
 	cout << endl;
 	cout << "PERCURSO:" << endl;
 
-	vector<Vertex<int>*> imprimir= this->graph.getPathVertex(nodeStartID,nodeDestinationID);
+	vector<Vertex<int>*> imprimir= graph.getCarros().at(graph.getCarros().size()-1)->getNodesPath();
 
 	if(imprimir.size() == 0){
 		cout << "Impossivel calcular um percurso porque as estradas de ligacao ou estao cortadas ou estao congestionadas." << endl;
 	}
 	else {
-		graph.addCar(nodeStartID, nodeDestinationID, graph.getCarros().at(graph.getCarros().size() -1)->getId() + 1);
+
 		for (auto it : imprimir) {
 			if (it->getPath() != NULL) {
 				cout << "  - " << it->getCaminho()->getName() << endl;
