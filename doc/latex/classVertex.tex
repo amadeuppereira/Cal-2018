@@ -1,0 +1,299 @@
+\hypertarget{classVertex}{}\section{Vertex$<$ T $>$ Class Template Reference}
+\label{classVertex}\index{Vertex$<$ T $>$@{Vertex$<$ T $>$}}
+
+
+{\ttfamily \#include $<$Graph.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classVertex_a379ed46a1fc16ae01d69cbd071d5d708}{Vertex} (T in, string \hyperlink{classVertex_a1990577b54c37df981c81eac40c4af71}{name}, double lon, double lat)
+\item 
+bool \hyperlink{classVertex_a769abfb2961e1f1e66e3b9be6b3f4617}{operator$<$} (\hyperlink{classVertex}{Vertex}$<$ T $>$ \&vertex) const 
+\item 
+T \hyperlink{classVertex_a5880b4b252ae6818819c2f9645784b59}{get\+Info} () const 
+\item 
+vector$<$ \hyperlink{classEdge}{Edge}$<$ T $>$ $\ast$ $>$ \hyperlink{classVertex_a39f23de20a5de4f6362a20a2d8d14cf0}{get\+Adj} () const 
+\item 
+void \hyperlink{classVertex_a7961dc8c855dca6e90fd759f54d1ff18}{add\+Edge} (\hyperlink{classVertex}{Vertex}$<$ T $>$ $\ast$d, double w, bool tw, string n, T id, bool block)
+\item 
+bool \hyperlink{classVertex_ab2b5b43fb1709a901b78718436763a84}{remove\+Edge\+To} (\hyperlink{classVertex}{Vertex}$<$ T $>$ $\ast$d)
+\item 
+string \hyperlink{classVertex_a878c08e3eca2b53b173fa8c1fa77227d}{get\+Name} () const 
+\item 
+void \hyperlink{classVertex_aee1d15f2efc9c7baecff72265beb1acf}{set\+Name} (string \hyperlink{classVertex_a1990577b54c37df981c81eac40c4af71}{name})
+\item 
+double \hyperlink{classVertex_aa88dbd3c9af86b1fd567a43c0da69017}{get\+Longitude} () const 
+\item 
+double \hyperlink{classVertex_afbf6474fe17f4fd509bda1026fd81385}{get\+Latitude} () const 
+\item 
+double \hyperlink{classVertex_a5c5b34281128297a4824b1c377d2b788}{get\+Dist} () const 
+\item 
+\hyperlink{classVertex}{Vertex}$<$ T $>$ $\ast$ \hyperlink{classVertex_ae0b57c953450db1679e5f5994e1ba738}{get\+Path} () const 
+\item 
+\hyperlink{classEdge}{Edge}$<$ T $>$ $\ast$ \hyperlink{classVertex_a695e48fb6e5ad425348b47a88dafe065}{get\+Caminho} () const 
+\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+T \hyperlink{classVertex_a415d7811eef6cdd992f0dca1f35a49cd}{info}
+\item 
+vector$<$ \hyperlink{classEdge}{Edge}$<$ T $>$ $\ast$ $>$ \hyperlink{classVertex_a3a5e3cdc85b3d338a5661cb5b55de729}{adj}
+\item 
+bool \hyperlink{classVertex_a187a2fe4ff50261cf3c15b8cda7dfc56}{visited}
+\item 
+int \hyperlink{classVertex_ab29ac1b694fc673ba26cfc6d3e9bda13}{indegree}
+\item 
+string \hyperlink{classVertex_a1990577b54c37df981c81eac40c4af71}{name}
+\item 
+double \hyperlink{classVertex_a960be3c1167e82abe7fcb81178674e5e}{latitude}
+\item 
+double \hyperlink{classVertex_a830e29c233af0899c087d9873864c477}{longitude}
+\item 
+double \hyperlink{classVertex_a08a2b813e77f97aa8b6c1d252e5417f7}{dist} = 0
+\item 
+\hyperlink{classVertex}{Vertex}$<$ T $>$ $\ast$ \hyperlink{classVertex_ab968bdd80f912a6f21f30e479bf735ce}{path} = N\+U\+LL
+\item 
+\hyperlink{classEdge}{Edge}$<$ T $>$ $\ast$ \hyperlink{classVertex_adb879f0355fa2d27be89fe9286fdfd4a}{caminho} = N\+U\+LL
+\item 
+int \hyperlink{classVertex_a721ab622207a73c5fae7b9abad6c07cc}{queue\+Index} = 0
+\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{classVertex_ae53e0b4fec14b9f1eaa8a4f8cd426e9e}{Mutable\+Priority\+Queue$<$ Vertex$<$ T $>$ $>$}
+\item 
+class \hyperlink{classVertex_aefa9b76cd57411c5354e5620dc2d84dd}{Graph$<$ T $>$}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$class T$>$\\*
+class Vertex$<$ T $>$}
+
+class que representa um vertice do grafo 
+
+\subsection{Constructor \& Destructor Documentation}
+\index{Vertex@{Vertex}!Vertex@{Vertex}}
+\index{Vertex@{Vertex}!Vertex@{Vertex}}
+\subsubsection[{\texorpdfstring{Vertex(\+T in, string name, double lon, double lat)}{Vertex(T in, string name, double lon, double lat)}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T $>$ {\bf Vertex}$<$ T $>$\+::{\bf Vertex} (
+\begin{DoxyParamCaption}
+\item[{T}]{in, }
+\item[{string}]{name, }
+\item[{double}]{lon, }
+\item[{double}]{lat}
+\end{DoxyParamCaption}
+)}\hypertarget{classVertex_a379ed46a1fc16ae01d69cbd071d5d708}{}\label{classVertex_a379ed46a1fc16ae01d69cbd071d5d708}
+construtor da class \hyperlink{classVertex}{Vertex} 
+\begin{DoxyParams}{Parameters}
+{\em in} & informação do vertice \\
+\hline
+{\em name} & nome do vertice \\
+\hline
+{\em lon} & londitude do vertice \\
+\hline
+{\em lat} & latitude do vertice \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\index{Vertex@{Vertex}!add\+Edge@{add\+Edge}}
+\index{add\+Edge@{add\+Edge}!Vertex@{Vertex}}
+\subsubsection[{\texorpdfstring{add\+Edge(\+Vertex$<$ T $>$ $\ast$d, double w, bool tw, string n, T id, bool block)}{addEdge(Vertex< T > *d, double w, bool tw, string n, T id, bool block)}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T $>$ void {\bf Vertex}$<$ T $>$\+::add\+Edge (
+\begin{DoxyParamCaption}
+\item[{{\bf Vertex}$<$ T $>$ $\ast$}]{d, }
+\item[{double}]{w, }
+\item[{bool}]{tw, }
+\item[{string}]{n, }
+\item[{T}]{id, }
+\item[{bool}]{block}
+\end{DoxyParamCaption}
+)}\hypertarget{classVertex_a7961dc8c855dca6e90fd759f54d1ff18}{}\label{classVertex_a7961dc8c855dca6e90fd759f54d1ff18}
+Adiciona uma aresta nova ao vector de arestas 
+\begin{DoxyParams}{Parameters}
+{\em d} & destino da aresta \\
+\hline
+{\em w} & peso da aresta \\
+\hline
+{\em tw} & se é de 2 sentidos a estrada \\
+\hline
+{\em n} & nome da aresta \\
+\hline
+{\em id} & id da aresta \\
+\hline
+{\em block} & se esta bloqueada \\
+\hline
+\end{DoxyParams}
+\index{Vertex@{Vertex}!get\+Adj@{get\+Adj}}
+\index{get\+Adj@{get\+Adj}!Vertex@{Vertex}}
+\subsubsection[{\texorpdfstring{get\+Adj() const }{getAdj() const }}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T $>$ vector$<$ {\bf Edge}$<$ T $>$ $\ast$ $>$ {\bf Vertex}$<$ T $>$\+::get\+Adj (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{classVertex_a39f23de20a5de4f6362a20a2d8d14cf0}{}\label{classVertex_a39f23de20a5de4f6362a20a2d8d14cf0}
+\begin{DoxyReturn}{Returns}
+returna o vector de arestas do vertice 
+\end{DoxyReturn}
+\index{Vertex@{Vertex}!get\+Caminho@{get\+Caminho}}
+\index{get\+Caminho@{get\+Caminho}!Vertex@{Vertex}}
+\subsubsection[{\texorpdfstring{get\+Caminho() const }{getCaminho() const }}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T $>$ {\bf Edge}$<$ T $>$ $\ast$ {\bf Vertex}$<$ T $>$\+::get\+Caminho (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{classVertex_a695e48fb6e5ad425348b47a88dafe065}{}\label{classVertex_a695e48fb6e5ad425348b47a88dafe065}
+\begin{DoxyReturn}{Returns}
+returna a proxima aresta do caminho 
+\end{DoxyReturn}
+\index{Vertex@{Vertex}!get\+Dist@{get\+Dist}}
+\index{get\+Dist@{get\+Dist}!Vertex@{Vertex}}
+\subsubsection[{\texorpdfstring{get\+Dist() const }{getDist() const }}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T $>$ double {\bf Vertex}$<$ T $>$\+::get\+Dist (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{classVertex_a5c5b34281128297a4824b1c377d2b788}{}\label{classVertex_a5c5b34281128297a4824b1c377d2b788}
+\begin{DoxyReturn}{Returns}
+returna a distancia do vertice 
+\end{DoxyReturn}
+\index{Vertex@{Vertex}!get\+Info@{get\+Info}}
+\index{get\+Info@{get\+Info}!Vertex@{Vertex}}
+\subsubsection[{\texorpdfstring{get\+Info() const }{getInfo() const }}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T $>$ T {\bf Vertex}$<$ T $>$\+::get\+Info (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{classVertex_a5880b4b252ae6818819c2f9645784b59}{}\label{classVertex_a5880b4b252ae6818819c2f9645784b59}
+\begin{DoxyReturn}{Returns}
+returna a informação do vertice 
+\end{DoxyReturn}
+\index{Vertex@{Vertex}!get\+Latitude@{get\+Latitude}}
+\index{get\+Latitude@{get\+Latitude}!Vertex@{Vertex}}
+\subsubsection[{\texorpdfstring{get\+Latitude() const }{getLatitude() const }}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T $>$ double {\bf Vertex}$<$ T $>$\+::get\+Latitude (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{classVertex_afbf6474fe17f4fd509bda1026fd81385}{}\label{classVertex_afbf6474fe17f4fd509bda1026fd81385}
+\begin{DoxyReturn}{Returns}
+returna a latitude do vertice 
+\end{DoxyReturn}
+\index{Vertex@{Vertex}!get\+Longitude@{get\+Longitude}}
+\index{get\+Longitude@{get\+Longitude}!Vertex@{Vertex}}
+\subsubsection[{\texorpdfstring{get\+Longitude() const }{getLongitude() const }}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T $>$ double {\bf Vertex}$<$ T $>$\+::get\+Longitude (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{classVertex_aa88dbd3c9af86b1fd567a43c0da69017}{}\label{classVertex_aa88dbd3c9af86b1fd567a43c0da69017}
+\begin{DoxyReturn}{Returns}
+returna a longitude do vertice 
+\end{DoxyReturn}
+\index{Vertex@{Vertex}!get\+Name@{get\+Name}}
+\index{get\+Name@{get\+Name}!Vertex@{Vertex}}
+\subsubsection[{\texorpdfstring{get\+Name() const }{getName() const }}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T $>$ string {\bf Vertex}$<$ T $>$\+::get\+Name (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{classVertex_a878c08e3eca2b53b173fa8c1fa77227d}{}\label{classVertex_a878c08e3eca2b53b173fa8c1fa77227d}
+\begin{DoxyReturn}{Returns}
+returna o nome do vertice 
+\end{DoxyReturn}
+\index{Vertex@{Vertex}!get\+Path@{get\+Path}}
+\index{get\+Path@{get\+Path}!Vertex@{Vertex}}
+\subsubsection[{\texorpdfstring{get\+Path() const }{getPath() const }}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T $>$ {\bf Vertex}$<$ T $>$ $\ast$ {\bf Vertex}$<$ T $>$\+::get\+Path (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{classVertex_ae0b57c953450db1679e5f5994e1ba738}{}\label{classVertex_ae0b57c953450db1679e5f5994e1ba738}
+\begin{DoxyReturn}{Returns}
+returna o proximo vertice do caminho 
+\end{DoxyReturn}
+\index{Vertex@{Vertex}!operator$<$@{operator$<$}}
+\index{operator$<$@{operator$<$}!Vertex@{Vertex}}
+\subsubsection[{\texorpdfstring{operator$<$(\+Vertex$<$ T $>$ \&vertex) const }{operator<(Vertex< T > &vertex) const }}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T $>$ bool {\bf Vertex}$<$ T $>$\+::operator$<$ (
+\begin{DoxyParamCaption}
+\item[{{\bf Vertex}$<$ T $>$ \&}]{vertex}
+\end{DoxyParamCaption}
+) const}\hypertarget{classVertex_a769abfb2961e1f1e66e3b9be6b3f4617}{}\label{classVertex_a769abfb2961e1f1e66e3b9be6b3f4617}
+Overload do operador $<$ para a class mutablepriorityqueue 
+\begin{DoxyParams}{Parameters}
+{\em vertex} & vertice que quero comparar \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean true de dist$<$dist ou false caso contrario 
+\end{DoxyReturn}
+\index{Vertex@{Vertex}!remove\+Edge\+To@{remove\+Edge\+To}}
+\index{remove\+Edge\+To@{remove\+Edge\+To}!Vertex@{Vertex}}
+\subsubsection[{\texorpdfstring{remove\+Edge\+To(\+Vertex$<$ T $>$ $\ast$d)}{removeEdgeTo(Vertex< T > *d)}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T $>$ bool {\bf Vertex}$<$ T $>$\+::remove\+Edge\+To (
+\begin{DoxyParamCaption}
+\item[{{\bf Vertex}$<$ T $>$ $\ast$}]{d}
+\end{DoxyParamCaption}
+)}\hypertarget{classVertex_ab2b5b43fb1709a901b78718436763a84}{}\label{classVertex_ab2b5b43fb1709a901b78718436763a84}
+Retira uma aresta do vector de arestas 
+\begin{DoxyParams}{Parameters}
+{\em d} & destino da aresta a retirar \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+returna true se existe ou false caso contrario 
+\end{DoxyReturn}
+\index{Vertex@{Vertex}!set\+Name@{set\+Name}}
+\index{set\+Name@{set\+Name}!Vertex@{Vertex}}
+\subsubsection[{\texorpdfstring{set\+Name(string name)}{setName(string name)}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T $>$ void {\bf Vertex}$<$ T $>$\+::set\+Name (
+\begin{DoxyParamCaption}
+\item[{string}]{name}
+\end{DoxyParamCaption}
+)}\hypertarget{classVertex_aee1d15f2efc9c7baecff72265beb1acf}{}\label{classVertex_aee1d15f2efc9c7baecff72265beb1acf}
+define o nome da aresta 
+\begin{DoxyParams}{Parameters}
+{\em name} & nome que quero atribuir a aresta \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Friends And Related Function Documentation}
+\index{Vertex@{Vertex}!Graph$<$ T $>$@{Graph$<$ T $>$}}
+\index{Graph$<$ T $>$@{Graph$<$ T $>$}!Vertex@{Vertex}}
+\subsubsection[{\texorpdfstring{Graph$<$ T $>$}{Graph< T >}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T$>$ friend class {\bf Graph}$<$ T $>$\hspace{0.3cm}{\ttfamily [friend]}}\hypertarget{classVertex_aefa9b76cd57411c5354e5620dc2d84dd}{}\label{classVertex_aefa9b76cd57411c5354e5620dc2d84dd}
+\index{Vertex@{Vertex}!Mutable\+Priority\+Queue$<$ Vertex$<$ T $>$ $>$@{Mutable\+Priority\+Queue$<$ Vertex$<$ T $>$ $>$}}
+\index{Mutable\+Priority\+Queue$<$ Vertex$<$ T $>$ $>$@{Mutable\+Priority\+Queue$<$ Vertex$<$ T $>$ $>$}!Vertex@{Vertex}}
+\subsubsection[{\texorpdfstring{Mutable\+Priority\+Queue$<$ Vertex$<$ T $>$ $>$}{MutablePriorityQueue< Vertex< T > >}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T$>$ friend class {\bf Mutable\+Priority\+Queue}$<$ {\bf Vertex}$<$ T $>$ $>$\hspace{0.3cm}{\ttfamily [friend]}}\hypertarget{classVertex_ae53e0b4fec14b9f1eaa8a4f8cd426e9e}{}\label{classVertex_ae53e0b4fec14b9f1eaa8a4f8cd426e9e}
+
+
+\subsection{Member Data Documentation}
+\index{Vertex@{Vertex}!adj@{adj}}
+\index{adj@{adj}!Vertex@{Vertex}}
+\subsubsection[{\texorpdfstring{adj}{adj}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T$>$ vector$<${\bf Edge}$<$T$>$$\ast$$>$ {\bf Vertex}$<$ T $>$\+::adj\hspace{0.3cm}{\ttfamily [private]}}\hypertarget{classVertex_a3a5e3cdc85b3d338a5661cb5b55de729}{}\label{classVertex_a3a5e3cdc85b3d338a5661cb5b55de729}
+vetor de arestas do vertice \index{Vertex@{Vertex}!caminho@{caminho}}
+\index{caminho@{caminho}!Vertex@{Vertex}}
+\subsubsection[{\texorpdfstring{caminho}{caminho}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T$>$ {\bf Edge}$<$T$>$$\ast$ {\bf Vertex}$<$ T $>$\+::caminho = N\+U\+LL\hspace{0.3cm}{\ttfamily [private]}}\hypertarget{classVertex_adb879f0355fa2d27be89fe9286fdfd4a}{}\label{classVertex_adb879f0355fa2d27be89fe9286fdfd4a}
+caminho para a procima aresta \index{Vertex@{Vertex}!dist@{dist}}
+\index{dist@{dist}!Vertex@{Vertex}}
+\subsubsection[{\texorpdfstring{dist}{dist}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T$>$ double {\bf Vertex}$<$ T $>$\+::dist = 0\hspace{0.3cm}{\ttfamily [private]}}\hypertarget{classVertex_a08a2b813e77f97aa8b6c1d252e5417f7}{}\label{classVertex_a08a2b813e77f97aa8b6c1d252e5417f7}
+distancia do vertice \index{Vertex@{Vertex}!indegree@{indegree}}
+\index{indegree@{indegree}!Vertex@{Vertex}}
+\subsubsection[{\texorpdfstring{indegree}{indegree}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T$>$ int {\bf Vertex}$<$ T $>$\+::indegree\hspace{0.3cm}{\ttfamily [private]}}\hypertarget{classVertex_ab29ac1b694fc673ba26cfc6d3e9bda13}{}\label{classVertex_ab29ac1b694fc673ba26cfc6d3e9bda13}
+indegree do vertice para a ordenação topologica \index{Vertex@{Vertex}!info@{info}}
+\index{info@{info}!Vertex@{Vertex}}
+\subsubsection[{\texorpdfstring{info}{info}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T$>$ T {\bf Vertex}$<$ T $>$\+::info\hspace{0.3cm}{\ttfamily [private]}}\hypertarget{classVertex_a415d7811eef6cdd992f0dca1f35a49cd}{}\label{classVertex_a415d7811eef6cdd992f0dca1f35a49cd}
+informação do vertice \index{Vertex@{Vertex}!latitude@{latitude}}
+\index{latitude@{latitude}!Vertex@{Vertex}}
+\subsubsection[{\texorpdfstring{latitude}{latitude}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T$>$ double {\bf Vertex}$<$ T $>$\+::latitude\hspace{0.3cm}{\ttfamily [private]}}\hypertarget{classVertex_a960be3c1167e82abe7fcb81178674e5e}{}\label{classVertex_a960be3c1167e82abe7fcb81178674e5e}
+latitude do vertice \index{Vertex@{Vertex}!longitude@{longitude}}
+\index{longitude@{longitude}!Vertex@{Vertex}}
+\subsubsection[{\texorpdfstring{longitude}{longitude}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T$>$ double {\bf Vertex}$<$ T $>$\+::longitude\hspace{0.3cm}{\ttfamily [private]}}\hypertarget{classVertex_a830e29c233af0899c087d9873864c477}{}\label{classVertex_a830e29c233af0899c087d9873864c477}
+longitude do vertice \index{Vertex@{Vertex}!name@{name}}
+\index{name@{name}!Vertex@{Vertex}}
+\subsubsection[{\texorpdfstring{name}{name}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T$>$ string {\bf Vertex}$<$ T $>$\+::name\hspace{0.3cm}{\ttfamily [private]}}\hypertarget{classVertex_a1990577b54c37df981c81eac40c4af71}{}\label{classVertex_a1990577b54c37df981c81eac40c4af71}
+nome do vertice \index{Vertex@{Vertex}!path@{path}}
+\index{path@{path}!Vertex@{Vertex}}
+\subsubsection[{\texorpdfstring{path}{path}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T$>$ {\bf Vertex}$<$T$>$$\ast$ {\bf Vertex}$<$ T $>$\+::path = N\+U\+LL\hspace{0.3cm}{\ttfamily [private]}}\hypertarget{classVertex_ab968bdd80f912a6f21f30e479bf735ce}{}\label{classVertex_ab968bdd80f912a6f21f30e479bf735ce}
+caminho para o proximo vertice \index{Vertex@{Vertex}!queue\+Index@{queue\+Index}}
+\index{queue\+Index@{queue\+Index}!Vertex@{Vertex}}
+\subsubsection[{\texorpdfstring{queue\+Index}{queueIndex}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T$>$ int {\bf Vertex}$<$ T $>$\+::queue\+Index = 0\hspace{0.3cm}{\ttfamily [private]}}\hypertarget{classVertex_a721ab622207a73c5fae7b9abad6c07cc}{}\label{classVertex_a721ab622207a73c5fae7b9abad6c07cc}
+index para a mutablepriorityqueu \index{Vertex@{Vertex}!visited@{visited}}
+\index{visited@{visited}!Vertex@{Vertex}}
+\subsubsection[{\texorpdfstring{visited}{visited}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T$>$ bool {\bf Vertex}$<$ T $>$\+::visited\hspace{0.3cm}{\ttfamily [private]}}\hypertarget{classVertex_a187a2fe4ff50261cf3c15b8cda7dfc56}{}\label{classVertex_a187a2fe4ff50261cf3c15b8cda7dfc56}
+guarda o estado caso tenha o vertice tenha sido visitado 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/amadeu/\+Desktop/\+Cal-\/2018/src/\hyperlink{Graph_8h}{Graph.\+h}\end{DoxyCompactItemize}

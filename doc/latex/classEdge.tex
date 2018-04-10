@@ -1,0 +1,221 @@
+\hypertarget{classEdge}{}\section{Edge$<$ T $>$ Class Template Reference}
+\label{classEdge}\index{Edge$<$ T $>$@{Edge$<$ T $>$}}
+
+
+{\ttfamily \#include $<$Graph.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classEdge_af91ae535825f84ebca33b11859350442}{Edge} (\hyperlink{classVertex}{Vertex}$<$ T $>$ $\ast$d, double w, bool tw, string n, T \hyperlink{classEdge_af64ff5794c079dcb6af0986cd404185c}{id}, bool block)
+\item 
+T \hyperlink{classEdge_a655569c8bc3e9154d82a49ffebf0a8e6}{get\+Id} () const 
+\item 
+\hyperlink{classVertex}{Vertex}$<$ T $>$ $\ast$ \hyperlink{classEdge_a3805fa2e04f1e7f0495fbba6524ea823}{get\+Dest} () const 
+\item 
+bool \hyperlink{classEdge_a330979d3f8be8f4f26889e046adf5eb2}{get\+Two\+Ways} () const 
+\item 
+double \hyperlink{classEdge_a78f814ec429f84cd7336402326ad4ea8}{get\+Weight} () const 
+\item 
+string \hyperlink{classEdge_a29153ede6a73b12918e3c05a9532cf4e}{get\+Name} () const 
+\item 
+bool \hyperlink{classEdge_a6b46f098c5d22a74ee404f34dd89c0eb}{get\+Blocked} () const 
+\item 
+int \hyperlink{classEdge_ab4efd442c489c2d23a7855b138cc95bd}{get\+Quantidade} () const 
+\item 
+void \hyperlink{classEdge_ad16b09e81bcfeed46393c11eb4bb7681}{set\+Blocked} (bool \hyperlink{classEdge_ad6ef308f0a89198b588a98055b8edc33}{blocked})
+\item 
+bool \hyperlink{classEdge_a3fc9823cbb6b4f32654002fb385f8d81}{operator==} (\hyperlink{classEdge}{Edge}$<$ T $>$ \&edge) const 
+\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classVertex}{Vertex}$<$ T $>$ $\ast$ \hyperlink{classEdge_ae4d65678b91bd9d814af4720ad87cd0c}{dest}
+\item 
+double \hyperlink{classEdge_af188b57b604f0d65e2da48733bd76426}{weight}
+\item 
+string \hyperlink{classEdge_a68c87e8024711c383a9bbcb2793e4d0c}{name}
+\item 
+T \hyperlink{classEdge_af64ff5794c079dcb6af0986cd404185c}{id}
+\item 
+bool \hyperlink{classEdge_ad6ef308f0a89198b588a98055b8edc33}{blocked}
+\item 
+bool \hyperlink{classEdge_a555b4858038c4cc6b0e064fb2db5c397}{two\+\_\+ways}
+\item 
+int \hyperlink{classEdge_a1b5317f59441ca01b3b09a37d0ee57b5}{quantidade\+\_\+carros}
+\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{classEdge_aefa9b76cd57411c5354e5620dc2d84dd}{Graph$<$ T $>$}
+\item 
+class \hyperlink{classEdge_a2e120a12dec663fa334633b4f26cbed8}{Vertex$<$ T $>$}
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\index{Edge@{Edge}!Edge@{Edge}}
+\index{Edge@{Edge}!Edge@{Edge}}
+\subsubsection[{\texorpdfstring{Edge(\+Vertex$<$ T $>$ $\ast$d, double w, bool tw, string n, T id, bool block)}{Edge(Vertex< T > *d, double w, bool tw, string n, T id, bool block)}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T $>$ {\bf Edge}$<$ T $>$\+::{\bf Edge} (
+\begin{DoxyParamCaption}
+\item[{{\bf Vertex}$<$ T $>$ $\ast$}]{d, }
+\item[{double}]{w, }
+\item[{bool}]{tw, }
+\item[{string}]{n, }
+\item[{T}]{id, }
+\item[{bool}]{block}
+\end{DoxyParamCaption}
+)}\hypertarget{classEdge_af91ae535825f84ebca33b11859350442}{}\label{classEdge_af91ae535825f84ebca33b11859350442}
+Construtor da class \hyperlink{classEdge}{Edge} 
+\begin{DoxyParams}{Parameters}
+{\em d} & destinho da aresta \\
+\hline
+{\em w} & peso da aresta \\
+\hline
+{\em tw} & se é uma aresta de 2 sentidos \\
+\hline
+{\em n} & nome da aresta \\
+\hline
+{\em id} & id da aresta \\
+\hline
+{\em block} & se a aresta esta bloqueada \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\index{Edge@{Edge}!get\+Blocked@{get\+Blocked}}
+\index{get\+Blocked@{get\+Blocked}!Edge@{Edge}}
+\subsubsection[{\texorpdfstring{get\+Blocked() const }{getBlocked() const }}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T $>$ bool {\bf Edge}$<$ T $>$\+::get\+Blocked (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{classEdge_a6b46f098c5d22a74ee404f34dd89c0eb}{}\label{classEdge_a6b46f098c5d22a74ee404f34dd89c0eb}
+\begin{DoxyReturn}{Returns}
+returna true caso a aresta esteja bloqueada ou false caso contrario 
+\end{DoxyReturn}
+\index{Edge@{Edge}!get\+Dest@{get\+Dest}}
+\index{get\+Dest@{get\+Dest}!Edge@{Edge}}
+\subsubsection[{\texorpdfstring{get\+Dest() const }{getDest() const }}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T $>$ {\bf Vertex}$<$ T $>$ $\ast$ {\bf Edge}$<$ T $>$\+::get\+Dest (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{classEdge_a3805fa2e04f1e7f0495fbba6524ea823}{}\label{classEdge_a3805fa2e04f1e7f0495fbba6524ea823}
+\begin{DoxyReturn}{Returns}
+returna o destino da aresta 
+\end{DoxyReturn}
+\index{Edge@{Edge}!get\+Id@{get\+Id}}
+\index{get\+Id@{get\+Id}!Edge@{Edge}}
+\subsubsection[{\texorpdfstring{get\+Id() const }{getId() const }}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T $>$ T {\bf Edge}$<$ T $>$\+::get\+Id (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{classEdge_a655569c8bc3e9154d82a49ffebf0a8e6}{}\label{classEdge_a655569c8bc3e9154d82a49ffebf0a8e6}
+\begin{DoxyReturn}{Returns}
+returna o id da aresta 
+\end{DoxyReturn}
+\index{Edge@{Edge}!get\+Name@{get\+Name}}
+\index{get\+Name@{get\+Name}!Edge@{Edge}}
+\subsubsection[{\texorpdfstring{get\+Name() const }{getName() const }}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T $>$ string {\bf Edge}$<$ T $>$\+::get\+Name (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{classEdge_a29153ede6a73b12918e3c05a9532cf4e}{}\label{classEdge_a29153ede6a73b12918e3c05a9532cf4e}
+\begin{DoxyReturn}{Returns}
+returna o nome da aresta 
+\end{DoxyReturn}
+\index{Edge@{Edge}!get\+Quantidade@{get\+Quantidade}}
+\index{get\+Quantidade@{get\+Quantidade}!Edge@{Edge}}
+\subsubsection[{\texorpdfstring{get\+Quantidade() const }{getQuantidade() const }}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T $>$ int {\bf Edge}$<$ T $>$\+::get\+Quantidade (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{classEdge_ab4efd442c489c2d23a7855b138cc95bd}{}\label{classEdge_ab4efd442c489c2d23a7855b138cc95bd}
+\begin{DoxyReturn}{Returns}
+returna a quantidade de carros que estão na aresta 
+\end{DoxyReturn}
+\index{Edge@{Edge}!get\+Two\+Ways@{get\+Two\+Ways}}
+\index{get\+Two\+Ways@{get\+Two\+Ways}!Edge@{Edge}}
+\subsubsection[{\texorpdfstring{get\+Two\+Ways() const }{getTwoWays() const }}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T $>$ bool {\bf Edge}$<$ T $>$\+::get\+Two\+Ways (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{classEdge_a330979d3f8be8f4f26889e046adf5eb2}{}\label{classEdge_a330979d3f8be8f4f26889e046adf5eb2}
+\begin{DoxyReturn}{Returns}
+returna se a aresta é de dois sentidos 
+\end{DoxyReturn}
+\index{Edge@{Edge}!get\+Weight@{get\+Weight}}
+\index{get\+Weight@{get\+Weight}!Edge@{Edge}}
+\subsubsection[{\texorpdfstring{get\+Weight() const }{getWeight() const }}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T $>$ double {\bf Edge}$<$ T $>$\+::get\+Weight (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hypertarget{classEdge_a78f814ec429f84cd7336402326ad4ea8}{}\label{classEdge_a78f814ec429f84cd7336402326ad4ea8}
+\begin{DoxyReturn}{Returns}
+returna o peso da aresta 
+\end{DoxyReturn}
+\index{Edge@{Edge}!operator==@{operator==}}
+\index{operator==@{operator==}!Edge@{Edge}}
+\subsubsection[{\texorpdfstring{operator==(\+Edge$<$ T $>$ \&edge) const }{operator==(Edge< T > &edge) const }}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T $>$ bool {\bf Edge}$<$ T $>$\+::operator== (
+\begin{DoxyParamCaption}
+\item[{{\bf Edge}$<$ T $>$ \&}]{edge}
+\end{DoxyParamCaption}
+) const}\hypertarget{classEdge_a3fc9823cbb6b4f32654002fb385f8d81}{}\label{classEdge_a3fc9823cbb6b4f32654002fb385f8d81}
+Overload do operador == para comparar 2 arestas 
+\begin{DoxyParams}{Parameters}
+{\em edge} & segunda aresta que quero comparar \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+returna true caso 2 id sejam iguais ou false caso contrario 
+\end{DoxyReturn}
+\index{Edge@{Edge}!set\+Blocked@{set\+Blocked}}
+\index{set\+Blocked@{set\+Blocked}!Edge@{Edge}}
+\subsubsection[{\texorpdfstring{set\+Blocked(bool blocked)}{setBlocked(bool blocked)}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T $>$ void {\bf Edge}$<$ T $>$\+::set\+Blocked (
+\begin{DoxyParamCaption}
+\item[{bool}]{blocked}
+\end{DoxyParamCaption}
+)}\hypertarget{classEdge_ad16b09e81bcfeed46393c11eb4bb7681}{}\label{classEdge_ad16b09e81bcfeed46393c11eb4bb7681}
+Define se a aresta esta bloqueada ou não 
+\begin{DoxyParams}{Parameters}
+{\em blocked} & true se quero que a aresta esteja bloqueada ou false caso contrario \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Friends And Related Function Documentation}
+\index{Edge@{Edge}!Graph$<$ T $>$@{Graph$<$ T $>$}}
+\index{Graph$<$ T $>$@{Graph$<$ T $>$}!Edge@{Edge}}
+\subsubsection[{\texorpdfstring{Graph$<$ T $>$}{Graph< T >}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T$>$ friend class {\bf Graph}$<$ T $>$\hspace{0.3cm}{\ttfamily [friend]}}\hypertarget{classEdge_aefa9b76cd57411c5354e5620dc2d84dd}{}\label{classEdge_aefa9b76cd57411c5354e5620dc2d84dd}
+\index{Edge@{Edge}!Vertex$<$ T $>$@{Vertex$<$ T $>$}}
+\index{Vertex$<$ T $>$@{Vertex$<$ T $>$}!Edge@{Edge}}
+\subsubsection[{\texorpdfstring{Vertex$<$ T $>$}{Vertex< T >}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T$>$ friend class {\bf Vertex}$<$ T $>$\hspace{0.3cm}{\ttfamily [friend]}}\hypertarget{classEdge_a2e120a12dec663fa334633b4f26cbed8}{}\label{classEdge_a2e120a12dec663fa334633b4f26cbed8}
+
+
+\subsection{Member Data Documentation}
+\index{Edge@{Edge}!blocked@{blocked}}
+\index{blocked@{blocked}!Edge@{Edge}}
+\subsubsection[{\texorpdfstring{blocked}{blocked}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T$>$ bool {\bf Edge}$<$ T $>$\+::blocked\hspace{0.3cm}{\ttfamily [private]}}\hypertarget{classEdge_ad6ef308f0a89198b588a98055b8edc33}{}\label{classEdge_ad6ef308f0a89198b588a98055b8edc33}
+estado de bloqueio da aresta \index{Edge@{Edge}!dest@{dest}}
+\index{dest@{dest}!Edge@{Edge}}
+\subsubsection[{\texorpdfstring{dest}{dest}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T$>$ {\bf Vertex}$<$T$>$$\ast$ {\bf Edge}$<$ T $>$\+::dest\hspace{0.3cm}{\ttfamily [private]}}\hypertarget{classEdge_ae4d65678b91bd9d814af4720ad87cd0c}{}\label{classEdge_ae4d65678b91bd9d814af4720ad87cd0c}
+vertice de destino da aresta \index{Edge@{Edge}!id@{id}}
+\index{id@{id}!Edge@{Edge}}
+\subsubsection[{\texorpdfstring{id}{id}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T$>$ T {\bf Edge}$<$ T $>$\+::id\hspace{0.3cm}{\ttfamily [private]}}\hypertarget{classEdge_af64ff5794c079dcb6af0986cd404185c}{}\label{classEdge_af64ff5794c079dcb6af0986cd404185c}
+id da aresta \index{Edge@{Edge}!name@{name}}
+\index{name@{name}!Edge@{Edge}}
+\subsubsection[{\texorpdfstring{name}{name}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T$>$ string {\bf Edge}$<$ T $>$\+::name\hspace{0.3cm}{\ttfamily [private]}}\hypertarget{classEdge_a68c87e8024711c383a9bbcb2793e4d0c}{}\label{classEdge_a68c87e8024711c383a9bbcb2793e4d0c}
+nome da aresta \index{Edge@{Edge}!quantidade\+\_\+carros@{quantidade\+\_\+carros}}
+\index{quantidade\+\_\+carros@{quantidade\+\_\+carros}!Edge@{Edge}}
+\subsubsection[{\texorpdfstring{quantidade\+\_\+carros}{quantidade_carros}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T$>$ int {\bf Edge}$<$ T $>$\+::quantidade\+\_\+carros\hspace{0.3cm}{\ttfamily [private]}}\hypertarget{classEdge_a1b5317f59441ca01b3b09a37d0ee57b5}{}\label{classEdge_a1b5317f59441ca01b3b09a37d0ee57b5}
+quantidade de carros na aresta \index{Edge@{Edge}!two\+\_\+ways@{two\+\_\+ways}}
+\index{two\+\_\+ways@{two\+\_\+ways}!Edge@{Edge}}
+\subsubsection[{\texorpdfstring{two\+\_\+ways}{two_ways}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T$>$ bool {\bf Edge}$<$ T $>$\+::two\+\_\+ways\hspace{0.3cm}{\ttfamily [private]}}\hypertarget{classEdge_a555b4858038c4cc6b0e064fb2db5c397}{}\label{classEdge_a555b4858038c4cc6b0e064fb2db5c397}
+true caso a aresta seja de 2 sentidos \index{Edge@{Edge}!weight@{weight}}
+\index{weight@{weight}!Edge@{Edge}}
+\subsubsection[{\texorpdfstring{weight}{weight}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T$>$ double {\bf Edge}$<$ T $>$\+::weight\hspace{0.3cm}{\ttfamily [private]}}\hypertarget{classEdge_af188b57b604f0d65e2da48733bd76426}{}\label{classEdge_af188b57b604f0d65e2da48733bd76426}
+peso da aresta 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/amadeu/\+Desktop/\+Cal-\/2018/src/\hyperlink{Graph_8h}{Graph.\+h}\end{DoxyCompactItemize}
