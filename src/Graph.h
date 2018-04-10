@@ -666,8 +666,10 @@ vector<Edge<T> *> Graph<T>::getEdges(){
 	set<int> repeated;
 	for(auto i:this->vertexSet){
 		for(auto n:i->getAdj()){
-			if(repeated.insert(n->id).second == true){
-				ret.push_back(n);
+			if (n->id > 0) {
+				if (repeated.insert(n->id).second == true) {
+					ret.push_back(n);
+				}
 			}
 		}
 	}

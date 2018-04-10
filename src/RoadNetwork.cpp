@@ -81,7 +81,7 @@ void RoadNetwork::readOSM() {
 	}
 
 	name = "";
-	bool two_ways = true;
+	bool two_ways = false;
 	bool blocked;
 
 	while (getline(fEdges, line)) {
@@ -103,9 +103,7 @@ void RoadNetwork::readOSM() {
 				double w = graph.calculateDist(links.at(i).nodeID1, links.at(i).nodeID2);
 
 				graph.addEdge(links.at(i).nodeID1, links.at(i).nodeID2, w, two_ways, name, id, blocked);
-				if(two_ways) {
-					graph.addEdge(links.at(i).nodeID2, links.at(i).nodeID1, w, two_ways, name, id, blocked);
-				}
+				graph.addEdge(links.at(i).nodeID2, links.at(i).nodeID1, w, two_ways, name, id*-1, blocked);
 			}
 		}
 	}
@@ -155,16 +153,14 @@ void RoadNetwork::convertToGV() {
 
 		for (auto w:v->getAdj()) {
 
-			if (w->getTwoWays()) {
-				if (w->getDest()->getInfo() > v->getInfo())
-					continue;
-				gv->addEdge(w->getId(), v->getInfo(),
-						w->getDest()->getInfo(), EdgeType::UNDIRECTED);
-			} else {
-				gv->addEdge(w->getId(), v->getInfo(),
-						w->getDest()->getInfo(), EdgeType::DIRECTED);
-			}
+			if (w->getDest()->getInfo() > v->getInfo())
+				continue;
+			gv->addEdge(w->getId(), v->getInfo(),
+					w->getDest()->getInfo(), EdgeType::DIRECTED);
+			gv->addEdge(w->getId()*-1, w->getDest()->getInfo(),
+									v->getInfo(), EdgeType::DIRECTED);
 			gv->setEdgeThickness(w->getId(), 5);
+			gv->setEdgeThickness(w->getId()*-1, 5);
 		}
 	}
 	updateMap();
