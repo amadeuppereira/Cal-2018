@@ -329,7 +329,7 @@ public:
 	void dijkstraShortestPath(const T &s);
 	void addCar(const T &inicio,const T &fim,const T &id);
 	vector<Carro<T>*> getCarros() const { return this->carros;}
-	void removeCar(int id);
+	bool removeCar(int id);
 	friend class Carro<T>;
 	void eraseAll();
 };
@@ -677,14 +677,16 @@ vector<Edge<T> *> Graph<T>::getEdges(){
 }
 
 template <class T>
-void Graph<T>::removeCar(int id){
+bool Graph<T>::removeCar(int id){
 	int n = 0;
 	for(auto i: carros){
 		if(i->getId() == id){
 			this->carros.erase(carros.begin() + n);
+			return true;
 		}
 		n++;
 	}
+	return false;
 }
 
 template <class T>

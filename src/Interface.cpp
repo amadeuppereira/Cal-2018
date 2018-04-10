@@ -37,10 +37,17 @@ void Interface::roadsBlocked(){
 		itn++;
 	}
 
-    int opcao1;
+    int opcao1 = -1;
     cout << endl;
     cout << "Indique o numero da estrada: ";
-    cin >> opcao1;
+	while (!(cin >> opcao1) || opcao1 < 1 || opcao1 > m) {
+		cout << "Opcao invalida! Escolha uma nova opcao: ";
+		cin.clear();
+		cin.ignore(1000, '\n');
+	}
+
+	cin.clear();
+	cin.ignore(1000, '\n');
 
     cout << endl;
 
@@ -67,7 +74,14 @@ void Interface::roadsBlocked(){
     int opcao2;
     cout << endl;
     cout << "Indique o troco da estrada: ";
-    cin >> opcao2; // tem que ser menor que indices.size() e maior que 0
+	while (!(cin >> opcao2) || opcao2 < 1 || opcao2 > indices.size()) {
+		cout << "Opcao invalida! Escolha uma nova opcao: ";
+		cin.clear();
+		cin.ignore(1000, '\n');
+	}
+
+	cin.clear();
+	cin.ignore(1000, '\n');
 
     it = nomes_estradas.begin();
     advance(it, indices.at(opcao2 -1));
@@ -166,8 +180,13 @@ void Interface::removeCar(){
     cout << endl;
     int opcao;
     cout << "Indique o numero do carro que deseja remover: ";
-    cin >> opcao;
-    roadnetwork->removeCar(opcao);
+	while (!(cin >> opcao) || !roadnetwork->removeCar(opcao)) {
+		cout << "Carro inexistente! Escolha um novo carro: ";
+		cin.clear();
+		cin.ignore(1000, '\n');
+	}
+	cin.clear();
+	cin.ignore(1000, '\n');
     cout << endl << "Carro removido com sucesso." << endl;
     roadnetwork->writeCarsFile();
     roadnetwork->updateInfo();
@@ -189,7 +208,13 @@ void Interface::returnMenu(){
 	cout << "[0] Sair" << endl;
 	cout << endl;
 	cout << "Escolha uma opcao: ";
-	cin >> opcao;
+	while (!(cin >> opcao) || opcao < 0 || opcao > 1) {
+		cout << "Opcao invalida! Escolha uma nova opcao: ";
+		cin.clear();
+		cin.ignore(1000, '\n');
+	}
+	cin.clear();
+	cin.ignore(1000, '\n');
 	if(opcao == 1){
 		this->closeMapWindow();
 		cout << endl << "Voltando ao menu principal..." << endl << endl;
@@ -208,7 +233,14 @@ void Interface::returnMenu2(){
 	cout << "[0] Sair" << endl;
 	cout << endl;
 	cout << "Escolha uma opcao: ";
-	cin >> opcao;
+	while (!(cin >> opcao) || opcao < 0 || opcao > 1) {
+		cout << "Opcao invalida! Escolha uma nova opcao: ";
+		cin.clear();
+		cin.ignore(1000, '\n');
+	}
+	cin.clear();
+	cin.ignore(1000, '\n');
+
 	if(opcao == 1){
 		cout << endl << "Voltando ao menu principal..." << endl << endl;
 		sleep(1);
