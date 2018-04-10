@@ -7,6 +7,9 @@
 
 class Interface {
 private:
+	/**
+	 * Variavel que guarda a roadnetwork
+	 */
 	RoadNetwork* roadnetwork;
 public:
 	/**

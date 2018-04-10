@@ -12,12 +12,33 @@
 #include "Utils.h"
 #include <set>
 
+/**
+ * Cor padrao dos vertices
+ */
 #define DEFAULT_VERTEX_COLOR "blue"
+/**
+ * Cor das edges com pouco transito
+ */
 #define DEFAULT_EDGE_COLOR "green"
+/**
+ * Cor dos vertices que estao a ser representados como percurso
+ */
 #define HIGHLIGHTED_VERTEX_COLOR "yellow"
+/**
+ * Cor das edges que estao a ser representadas como percurso
+ */
 #define HIGHLIGHTED_EDGE_COLOR "yellow"
+/**
+ * Cor das edges com algum transito
+ */
 #define MEDIUM_TRAFFIC "orange"
+/**
+ * Cor das edges com muito transito
+ */
 #define HIGH_TRAFFIC "red"
+/**
+ * Cor das edges bloqueadas
+ */
 #define BLOCKED_EDGE_COLOR "black"
 
 /**
@@ -144,7 +165,7 @@ public:
 	 */
 	void closeMapWindow() const;
 	/**
-	 * Atualiza todo o conteudo do grafo
+	 * Atualiza o conteudo do grafo
 	 */
 	void updateInfo();
 };
