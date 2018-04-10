@@ -23,6 +23,9 @@ template <class T> class Vertex;
 template <class T> class Carro;
 
 #define INF std::numeric_limits<double>::max()
+/**
+ * Capacidade maxima das arestas
+ */
 #define MAX_CAPACITY 10
 
 
@@ -31,31 +34,105 @@ template <class T> class Carro;
  * Class Carro
  * ================================================================================================
  */
+/**
+ * class que representa um carro do grafo
+ */
 template <class T>
 class Carro {
+	/**
+	 * Id de inicio do percurso do carro
+	 */
 	T id_inicio;
+	/**
+	 * id de destino do carro
+	 */
 	T id_fim;
+	/**
+	 * id do carro
+	 */
 	T id;
+	/**
+	 * vetor de vertices do caminho do carro
+	 */
 	vector<Vertex<T>*> nodes_path;
+	/**
+	 * vetor de arestas do caminho do carro
+	 */
 	vector<Edge<T>*> edge_path;
+	/**
+	 * true caso o carro tenha percurso, false caso contrario
+	 */
 	bool tem_percurso = true;
 public:
+	/**
+	 * Construtor da class Carro, cria um novo carro com os parametros indicados
+	 * @param id_inicio id de inicio do percurso
+	 * @param id_fim id de fim do percurso
+	 * @param id id do veiculo
+	 */
 	Carro(T id_inicio,T id_fim,T id);
+	/**
+	 *
+	 * @return returna o caminho pelas arestas
+	 */
 	const vector<Edge<T> *>& getEdgePath() const {return edge_path;}
+	/**
+	 * Faz com que o edge_path do carro seja o que eu pretendo
+	 * @param edgePath vector<Edge<T>*> que pretendo atribuir para o carro
+	 */
 	void setEdgePath(const vector<Edge<T> *>& edgePath) {edge_path = edgePath;}
+	/**
+	 *
+	 * @return returna o id de destino do carro
+	 */
 	T getIdFim() const {return id_fim;}
+	/**
+	 * Coloca o id de destino que eu pertendo para o carro
+	 * @param idFim id de destino que quero que o carro tenha
+	 */
 	void setIdFim(T idFim) {id_fim = idFim;}
+	/**
+	 *
+	 * @return returna o id de incio do carro
+	 */
 	T getIdInicio() const {return id_inicio;}
+	/**
+	 * Coloca o id de inicio do carro para o que pretendo
+	 * @param idInicio id de inicio que eu quero que o carro tenha
+	 */
 	void setIdInicio(T idInicio) {id_inicio = idInicio;}
+	/**
+	 *
+	 * @return returna o vector<Vertex<T>*> do carro
+	 */
 	const vector<Vertex<T> *>& getNodesPath() const {return nodes_path;}
+	/**
+	 * Define a variavel nodes_path para o que eu pretendo
+	 * @param nodesPath o vector de vertexs para qual eu pretendo mudar
+	 */
 	void setNodesPath(const vector<Vertex<T> *>& nodesPath) {nodes_path = nodesPath;}
+	/**
+	 *
+	 * @return returna o valor da variavel tem_percurso, true se o carro tem um valor atribuido ou false caso contrario
+	 */
 	bool isTemPercurso() const {return tem_percurso;}
+	/**
+	 * Define se o carro tem percurso ou não atribuido
+	 * @param temPercurso boolean do valor que quero atribuir
+	 */
 	void setTemPercurso(bool temPercurso = true) {tem_percurso = temPercurso;}
+	/**
+	 *
+	 * @return returna o id do carro
+	 */
 	T getId() const {return id;}
+	/**
+	 * Define o id do carro
+	 * @param id o id que eu quero que o carro tenha
+	 */
 	void setId(T id) {this->id = id;}
 	friend class Graph<T>;
 };
-
 template<class T>
 Carro<T>::Carro(T id_inicio, T id_fim, T id):id_inicio(id_inicio), id_fim(id_fim), id(id) {
 
@@ -68,37 +145,130 @@ Carro<T>::Carro(T id_inicio, T id_fim, T id):id_inicio(id_inicio), id_fim(id_fim
  * Class Vertex - InterseÃ§Ãµes
  * ================================================================================================
  */
-
+/**
+ * class que representa um vertice do grafo
+ */
 template <class T>
 class Vertex {
-	T info;                // contents
-	vector<Edge<T>*> adj;  // list of outgoing edges
-	bool visited;          // auxiliary field used by dfs and bfs
-	bool processing;       // auxiliary field used by isDAG
-	int indegree;          // auxiliary field used by topsort
-
+	/**
+	 * informação do vertice
+	 */
+	T info;
+	/**
+	 * vetor de arestas do vertice
+	 */
+	vector<Edge<T>*> adj;
+	/**
+	 * guarda o estado caso tenha o vertice tenha sido visitado
+	 */
+	bool visited;
+	/**
+	 * indegree do vertice para a ordenação topologica
+	 */
+	int indegree;
+	/**
+	 * nome do vertice
+	 */
 	string name;
+	/**
+	 * latitude do vertice
+	 */
 	double latitude;
+	/**
+	 * longitude do vertice
+	 */
 	double longitude;
+	/**
+	 * distancia do vertice
+	 */
 	double dist = 0;
-
+	/**
+	 * caminho para o proximo vertice
+	 */
 	Vertex<T> *path = NULL;
+	/**
+	 * caminho para a procima aresta
+	 */
 	Edge<T> *caminho = NULL;
+	/**
+	 * index para a mutablepriorityqueu
+	 */
 	int queueIndex = 0;
 public:
+	/**
+	 * construtor da class Vertex
+	 * @param in informação do vertice
+	 * @param name nome do vertice
+	 * @param lon londitude do vertice
+	 * @param lat latitude do vertice
+	 */
 	Vertex(T in, string name, double lon, double lat);
-	friend class Graph<T>;
+	/**
+	 * Overload do operador < para a class mutablepriorityqueue
+	 * @param vertex vertice que quero comparar
+	 * @return boolean true de dist<dist ou false caso contrario
+	 */
 	bool operator<(Vertex<T> & vertex) const;
+	/**
+	 *
+	 * @return returna a informação do vertice
+	 */
 	T getInfo() const;
+	/**
+	 *
+	 * @return returna o vector de arestas do vertice
+	 */
 	vector<Edge<T>*> getAdj() const;
+	/**
+	 * Adiciona uma aresta nova ao vector de arestas
+	 * @param d destino da aresta
+	 * @param w peso da aresta
+	 * @param tw se é de 2 sentidos a estrada
+	 * @param n nome da aresta
+	 * @param id id da aresta
+	 * @param block se esta bloqueada
+	 */
 	void addEdge(Vertex<T> *d, double w, bool tw, string n, T id, bool block);
+	/**
+	 * Retira uma aresta do vector de arestas
+	 * @param d destino da aresta a retirar
+	 * @return returna true se existe ou false caso contrario
+	 */
 	bool removeEdgeTo(Vertex<T> *d);
+	/**
+	 *
+	 * @return returna o nome do vertice
+	 */
 	string getName() const;
+	/**
+	 * define o nome da aresta
+	 * @param name nome que quero atribuir a aresta
+	 */
 	void setName(string name);
+	/**
+	 *
+	 * @return returna a longitude do vertice
+	 */
 	double getLongitude() const;
+	/**
+	 *
+	 * @return returna a latitude do vertice
+	 */
 	double getLatitude() const;
+	/**
+	 *
+	 * @return returna a distancia do vertice
+	 */
 	double getDist() const;
+	/**
+	 *
+	 * @return returna o proximo vertice do caminho
+	 */
 	Vertex<T> * getPath() const;
+	/**
+	 *
+	 * @return returna a proxima aresta do caminho
+	 */
 	Edge<T> * getCaminho() const;
 	friend class MutablePriorityQueue<Vertex<T>>;
 	friend class Graph<T>;
@@ -200,37 +370,100 @@ struct vertex_greater_than {
  * Class Edge - Vias
  * ================================================================================================
  */
-
+/*
+ * Class que representa uma aresta do grafo
+ */
 template <class T>
 class Edge {
-	Vertex<T> * dest;      // destination vertex
-	double weight;         // edge weight - DistÃ¢ncia, tempos...
-
+	/**
+	 * vertice de destino da aresta
+	 */
+	Vertex<T> * dest;
+	/**
+	 * peso da aresta
+	 */
+	double weight;
+	/**
+	 * nome da aresta
+	 */
 	string name;
+	/**
+	 * id da aresta
+	 */
 	T id;
+	/**
+	 * estado de bloqueio da aresta
+	 */
 	bool blocked;
+	/**
+	 * true caso a aresta seja de 2 sentidos
+	 */
 	bool two_ways;
-
+	/**
+	 * quantidade de carros na aresta
+	 */
 	int quantidade_carros;
 
 public:
+	/**
+	 * Construtor da class Edge
+	 * @param d destinho da aresta
+	 * @param w peso da aresta
+	 * @param tw se é uma aresta de 2 sentidos
+	 * @param n nome da aresta
+	 * @param id id da aresta
+	 * @param block se a aresta esta bloqueada
+	 */
 	Edge(Vertex<T> *d, double w, bool tw, string n, T id, bool block);
+	/**
+	 *
+	 * @return returna o id da aresta
+	 */
+	T getId() const;
+	/**
+	 *
+	 * @return returna o destino da aresta
+	 */
+	Vertex<T>* getDest() const;
+	/**
+	 *
+	 * @return returna se a aresta é de dois sentidos
+	 */
+	bool getTwoWays() const;
+	/**
+	 *
+	 * @return returna o peso da aresta
+	 */
+	double getWeight() const;
+	/**
+	 *
+	 * @return returna o nome da aresta
+	 */
+	string getName() const;
+	/**
+	 *
+	 * @return returna true caso a aresta esteja bloqueada ou false caso contrario
+	 */
+	bool getBlocked() const;
+	/**
+	 *
+	 * @return returna a quantidade de carros que estão na aresta
+	 */
+	int getQuantidade() const;
+	/**
+	 * Define se a aresta esta bloqueada ou não
+	 * @param blocked true se quero que a aresta esteja bloqueada ou false caso contrario
+	 */
+	void setBlocked(bool blocked);
+	/**
+	 * Overload do operador == para comparar 2 arestas
+	 * @param edge segunda aresta que quero comparar
+	 * @return returna true caso 2 id sejam iguais ou false caso contrario
+	 */
+	bool operator==(Edge<T> & edge) const;
 
 	friend class Graph<T>;
 	friend class Vertex<T>;
-
-	T getId() const;
-	Vertex<T>* getDest() const;
-	bool getTwoWays() const;
-	double getWeight() const;
-	string getName() const;
-	bool getBlocked() const;
-	int getQuantidade() const;
-
-
-	void setBlocked(bool blocked);
-
-	bool operator==(Edge<T> & edge) const;
 
 };
 
@@ -295,43 +528,198 @@ bool Edge<T>::operator==(Edge<T> & edge) const
  * Class Graph
  * ================================================================================================
  */
-
+/**
+ * Class que trata das funcionalidades do grafo. Representa um grafo
+ */
 template <class T>
 class Graph {
+	/**
+	 * Vector com os vertices do grafo
+	 */
 	vector<Vertex<T> *> vertexSet;
+	/**
+	 * vetor com os carros do grafo
+	 */
 	vector<Carro<T>*> carros;
+	/**
+	 * função auxiliar para a pesquisa em profundidade
+	 * @param v vetor de ids
+	 * @param res resultado
+	 */
 	void dfsVisit(Vertex<T> *v,  vector<T> & res) const;
+	/**
+	 * função auxiliar para a pesquisa em profundidade
+	 * @param v vetor de ids
+	 * @param name nome da aresta
+	 * @param blocked estado a mudar
+	 */
 	void dfsVisitSetEdgeBlocked(Vertex<T> *v, const string &name ,const  bool & blocked);
+	/**
+	 * Função que procura o vertice do grafo
+	 * @param in id do vertice
+	 * @return vertice que esta a ser procurado ou null caso contrario
+	 */
 	Vertex<T> *findVertex(const T &in) const;
-	bool dfsIsDAG(Vertex<T> *v) const;
 public:
+	/**
+	 *
+	 * @return returna o vector de vertices da grafo
+	 */
 	vector<Vertex<T> *> getVertexSet() const;
+	/**
+	 * Returna o index de um vertice
+	 * @param v id do vertice que quero encontrar
+	 * @return returna o index do vertice no vector de vertices ou -1 caso não exista
+	 */
 	int getIndex(const T &v) const;
+	/**
+	 *
+	 * @return returna o numero de vertices do grafo
+	 */
 	int getNumVertex() const;
+	/**
+	 * Returna o vertice com um certo id
+	 * @param v id do vertice que pretendo procurar
+	 * @return o vertice que estou a procurar o NULL caso contrario
+	 */
 	Vertex<T>* getVertex(const T &v) const;
+	/**
+	 * Returna o caminho mais curto apartir das arestas, adiciona a quantidade de carros nas arestas do caminho
+	 * @param vec vector de vertices que contem o caminho mais curto
+	 * @return returna um vector com as edges do percurso
+	 */
 	vector<Edge<T>*> getPathEdge(vector<Vertex<T>*> vec);
+	/**
+	 * Adiciona um vertice novo ao grafo
+	 * @param in id do vertice
+	 * @param name nome do vertice
+	 * @param lon longitude do vertice
+	 * @param lat latitude do vertice
+	 * @return true caso consiga adicionar, false caso contrario/ ja existe
+	 */
 	bool addVertex(const T &in,string name, double lon, double lat);
+	/**
+	 * Remove um vertice do grafo
+	 * @param in id do vertice
+	 * @return true caso exista e removido ou false caso não exista
+	 */
 	bool removeVertex(const T &in);
+	/**
+	 * Adiciona uma aresta nova a um vertice
+	 * @param sourc id de inicio da aresta
+	 * @param dest id de destino da aresta
+	 * @param w peso da aresta
+	 * @param tw se a aresta é de 2 sentidos
+	 * @param n nome da aresta
+	 * @param id id da aresta
+	 * @param block estado de bloqueio da aresta
+	 * @return true caso consigo adicionar ou false caso contrario
+	 */
 	bool addEdge(const T &sourc, const T &dest, double w, bool tw, string n, T id, bool block);
+	/**
+	 * Remove uma aresta do grafo
+	 * @param sourc id de inicio da aresta
+	 * @param dest id de destino da aresta
+	 * @return true caso exista e retire ou false caso não exista
+	 */
 	bool removeEdge(const T &sourc, const T &dest);
+	/**
+	 * Faz uma pesquisa de profundidade no garfo apartir do primeiro vertice
+	 * @return um vetor com a pesquisa de profundidade
+	 */
 	vector<T> dfs() const;
+	/**
+	 * Faz um pesquisa de profundidade para procurar a aresta a bloquear
+	 * @param name nome da aresta
+	 * @param blocked estado para o qual quero mudar
+	 */
 	void dfsSetEdgeBlocked(const string &name ,const bool blocked);
+	/**
+	 * Faz uma pesquisa em largura no grafo
+	 * @param source vertice de inicio
+	 * @return o vector com a pesquisa em largura
+	 */
 	vector<T> bfs(const T &source) const;
+	/**
+	 * Faz uma organização topologica do grafo
+	 * @return returna um vetor com a organização topologica
+	 */
 	vector<T> topsort() const;
+	/**
+	 * Returna o estado da aresta. Procura a aresta atraves de uma pesquisa em largura
+	 * @param name nome da aresta
+	 * @return boolean com a o estado da aresta
+	 */
 	bool bfsEdgeBlocked(const string & name) const;
+	/**
+	 * Calcula a dista entre dois vertice atraves do algoritmo de haversine
+	 * @param id1 id do primeiro vertice
+	 * @param id2 id do segundo vertice
+	 * @return
+	 */
 	double calculateDist(T id1, T id2) const;
+	/**
+	 *
+	 * @return returna o nome das aresta do grafo
+	 */
 	set<string> getEdgesNames() const;
+	/**
+	 *
+	 * @return returna um vertor com as arestas do grafo
+	 */
 	vector<Edge<T> *> getEdges();
-	bool setEdgeBlocked(const T &v, bool b);
+	/**
+	 * Define uma aresta como bloqueada
+	 * @param v id da aresta
+	 * @param b estado para o qual quero mudar
+	 */
+	void setEdgeBlocked(const T &v, bool b);
+	/**
+	 * returna o caminho mais curto
+	 * @param origin id de origem
+	 * @param dest id de destino
+	 * @return vetor com os id do caminho mais curto
+	 */
 	vector<T> getPath(const T &origin, const T &dest);
+	/**
+	 * Returna o caminho mais curto
+	 * @param origin id de origem
+	 * @param dest id de destino
+	 * @return vector com os vertices do caminho mais curto
+	 */
 	vector<Vertex<T>*> getPathVertex(const T &origin, const T &dest);
+	/**
+	 * Faz o algoritmo de caminho mais curto sem ter em conta as distancias entre cada vertice
+	 * @param s id de origem
+	 */
 	void unweightedShortestPath(const T &s);
+	/**
+	 * Algoritmo de caminho mais curto para grafos pesados
+	 * @param s id de origem
+	 */
 	void dijkstraShortestPath(const T &s);
+	/**
+	 * Adiciona um carro novo ao grafo calculando o seu percurso no grafo
+	 * @param inicio id de inicio do carro
+	 * @param fim id de fim do carro
+	 * @param id id do carro
+	 */
 	void addCar(const T &inicio,const T &fim,const T &id);
+	/**
+	 *
+	 * @return returna o vector com todos os carros do grafo
+	 */
 	vector<Carro<T>*> getCarros() const { return this->carros;}
+	/**
+	 * Remove um carro do grafo
+	 * @param id id do carro
+	 */
 	void removeCar(int id);
-	friend class Carro<T>;
+	/**
+	 * Apaga todos os vetores
+	 */
 	void eraseAll();
+	friend class Carro<T>;
 };
 
 template <class T>
@@ -521,7 +909,7 @@ set<string> Graph<T>::getEdgesNames() const{
 }
 
 template<class T>
-bool Graph<T>::setEdgeBlocked(const T &v, bool b) {
+void Graph<T>::setEdgeBlocked(const T &v, bool b) {
 	for (auto ve : this->vertexSet) {
 		for (auto w : ve->adj) {
 			if (w->id == v) {
@@ -529,7 +917,6 @@ bool Graph<T>::setEdgeBlocked(const T &v, bool b) {
 			}
 		}
 	}
-	return true;
 }
 
 template<class T>

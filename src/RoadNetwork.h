@@ -25,7 +25,6 @@ class RoadNetwork {
 private:
 	Graph<int> graph;
 	GraphViewer *gv;
-
 public:
 	RoadNetwork();
 	virtual ~RoadNetwork();
