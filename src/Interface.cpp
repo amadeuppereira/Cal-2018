@@ -138,7 +138,7 @@ void Interface::calculatePath(){
     destino = roadnetwork->getGraph().getVertexSet().at(destino - 1)->getInfo();
 
     this->roadnetwork->printPath(origem,destino);
-    roadnetwork->updateInfo();
+    //roadnetwork->updateInfo();
     returnMenu();
 }
 

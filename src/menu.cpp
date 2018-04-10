@@ -1,10 +1,14 @@
 #include "menu.h"
 
 using namespace std;
-
+static Interface i = Interface();
+void saveFiles()
+{
+	i.writeFiles();
+}
 void menu() {
 
-	Interface i = Interface();
+	atexit(saveFiles);
 
     while(1){
         int option = -1;
@@ -52,5 +56,4 @@ void menu() {
                 break;
         }
     }
-    i.writeFiles();
 }

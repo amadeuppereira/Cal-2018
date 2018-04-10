@@ -246,7 +246,7 @@ void RoadNetwork::printPath(int nodeStartID, int nodeDestinationID){
 				<< this->getWeightOfPath(imprimir) << " km" << endl;
 
 	}
-	writeCarsFile();
+	//writeCarsFile();
 }
 
 void RoadNetwork::printAllCarPath() const
