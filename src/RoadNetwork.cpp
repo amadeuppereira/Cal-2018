@@ -242,7 +242,6 @@ void RoadNetwork::printPath(int nodeStartID, int nodeDestinationID){
 				<< this->getWeightOfPath(imprimir) << " km" << endl;
 
 	}
-	//writeCarsFile();
 }
 
 void RoadNetwork::printAllCarPath() const
@@ -281,8 +280,8 @@ void RoadNetwork::printCarID() const{
 	}
 }
 
-void RoadNetwork::removeCar(int id){
-	graph.removeCar(id);
+bool RoadNetwork::removeCar(int id){
+	return graph.removeCar(id);
 }
 
 void RoadNetwork::highlightNode(int id) const {

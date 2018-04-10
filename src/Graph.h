@@ -713,8 +713,11 @@ public:
 	/**
 	 * Remove um carro do grafo
 	 * @param id id do carro
+	 * @return true caso removeu ou false caso contrario
 	 */
-	void removeCar(int id);
+	bool removeCar(int id);
+	friend class Carro<T>;
+
 	/**
 	 * Apaga todos os vetores
 	 */
@@ -1064,14 +1067,16 @@ vector<Edge<T> *> Graph<T>::getEdges(){
 }
 
 template <class T>
-void Graph<T>::removeCar(int id){
+bool Graph<T>::removeCar(int id){
 	int n = 0;
 	for(auto i: carros){
 		if(i->getId() == id){
 			this->carros.erase(carros.begin() + n);
+			return true;
 		}
 		n++;
 	}
+	return false;
 }
 
 template <class T>

@@ -38,7 +38,7 @@ public:
 	void printPath(int nodeStartID, int nodeDestinationID);
 	void printAllCarPath() const;
 	void printCarID() const;
-	void removeCar(int id);
+	bool removeCar(int id);
 	void writeCarsFile();
 	void highlightNode(int id) const;
 	void highlightEdge(int id) const;
