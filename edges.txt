@@ -1,5 +1,5 @@
 1;A25 (Aveiro - Viseu);False
-2;A25 (Viseu - Guarda);False
+2;A25 (Viseu - Guarda);True
 3;IP3 (Viseu - Coimbra);False
 4;A1 (Aveiro - Coimbra);False
 5;A1 (Porto - Aveiro);False
