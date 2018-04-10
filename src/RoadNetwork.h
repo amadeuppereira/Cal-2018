@@ -34,7 +34,6 @@ private:
 	 * Variavel que guarda o graphviewer
 	 */
 	GraphViewer *gv;
-
 public:
 	/**
 	 * Construtor
