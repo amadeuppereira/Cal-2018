@@ -4,5 +4,7 @@
 /.settings
 /cmake-build-debug
 /.idea
+/src/.idea
+/src/cmake-build-debug
 /CMakeLists.txt
 /.vs/
