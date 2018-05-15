@@ -8,7 +8,7 @@ void myerror(string msg) {
 }
 
 Connection::Connection(short port) {
-#ifdef __linux__
+#if defined(linux) || defined(__APPLE__)
   struct sockaddr_in echoServAddr; /* Echo server address */
   struct  hostent  *ptrh;
   

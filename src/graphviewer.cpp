@@ -2,7 +2,7 @@
 #include <string>
 #include<sstream>
 
-#ifdef __linux__
+#if defined(linux) || defined(__APPLE__)
 pid_t GraphViewer::procId = NULL;
 #endif
 short GraphViewer::port = 7772;
@@ -27,7 +27,7 @@ void GraphViewer::initialize(int width, int height, bool dynamic, int port_n) {
 	command += " --port ";
 	command += port_string;
 
-#ifdef __linux__
+#if defined(linux) || defined(__APPLE__)
 	if (!(procId = fork())) {
 		system(command.c_str());
 		kill(getppid(), SIGINT);
