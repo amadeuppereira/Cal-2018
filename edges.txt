@@ -15,15 +15,15 @@
 15;A4 (Porto - Vila Mea);False
 16;A4 (Vila Mea - Vila Real);False
 17;A4 (Vila Real - Mirandela);False
-18;A4 (Mirandela - Braganca);False
+18;A4 (Mirandela - Braganca);True
 19;A24 (Chaves - Vila Pouca de Aguiar);False
 20;A24 (Vila Real - Vila Pouca de Aguiar);False
 21;A24 (Vila Real - Viseu);False
 22;A14 (Figueira da Foz - Coimbra);False
-23;A17 (Figueira da Foz - Aveiro);False
+23;A17 (Figueira da Foz - Aveiro);True
 24;IC8 (Castelo Branco - Avelar);False
 25;A23 (Guarda - Castelo Branco);False
-26;A17 (Leiria - Figueira da Foz);False
+26;A17 (Leiria - Figueira da Foz);True
 27;A1 (Leira - Coimbra);False
 28;A1 (Leiria - Torres Novas);False
 29;A8 (Leiria - Caldas da Rainha);False

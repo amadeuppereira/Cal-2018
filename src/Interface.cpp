@@ -193,6 +193,40 @@ void Interface::removeCar(){
 	returnMenu2();
 }
 
+void Interface::evacuationRoute(){
+    cout << "-----------------" << endl;
+    cout << "ROTA DE EVACUACAO" << endl;
+    cout << "-----------------" << endl;
+    cout << endl;
+    int opcao;
+    cout << "Tipos de pesquisa: " << endl;
+    cout << "[1] - Pesquisa Exata" << endl;
+    cout << "[2] - Pesquisa Aproximada" << endl << endl;
+    cout << "Escolha uma opcao: ";
+    while (!(cin >> opcao) || opcao < 1 || opcao > 2) {
+        cout << "Opcao Invalida! Escolha uma nova opcao: ";
+        cin.clear();
+        cin.ignore(1000, '\n');
+    }
+
+    string estrada;
+    cout << endl;
+    if(opcao == 1)
+        cout << "Introduza a sua localizacao exata: ";
+    if(opcao == 2)
+        cout << "Introduza a sua localizacao aproximada: ";
+    cin.clear();
+    cin.ignore(1000, '\n');
+    getline(cin, estrada);
+
+	if(opcao == 1)
+    	roadnetwork->exactEdgeSearch(estrada);
+	if(opcao == 2)
+		roadnetwork->approximateEdgeSearch(estrada);
+
+    returnMenu2();
+}
+
 void Interface::updateMap() {
 	roadnetwork->updateMap();
 }

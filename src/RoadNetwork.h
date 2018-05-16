@@ -168,6 +168,10 @@ public:
 	 * Atualiza o conteudo do grafo
 	 */
 	void updateInfo();
+
+	void exactEdgeSearch(string estrada);
+
+	void approximateEdgeSearch(string estrada);
 };
 
 

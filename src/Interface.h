@@ -63,6 +63,10 @@ public:
 	void removeCar();
 
 	/**
+ 	*	Calcula uma rota de evacuação
+ 	*/
+	void evacuationRoute();
+	/**
 	 *	Volta ao menu inicial
 	 */
 	void returnMenu();

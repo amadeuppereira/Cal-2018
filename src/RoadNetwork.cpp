@@ -388,3 +388,86 @@ int kmpMatcher(string text, string pattern) {
 	}
 	return num;
 }
+
+int editDistance(string pattern, string text) {
+	int n = text.length();
+	int m = pattern.length();
+	int old_value, new_value;
+	int d[n+1];
+
+	for(int j = 0; j < n+1; j++){
+		d[j] = j;
+	}
+
+	for(int i = 1; i < m+1; i++){
+		old_value = d[0];
+		d[0] = 1;
+		for(int j = 1; j < n +1; j++){
+			if(pattern[i-1] == text[j-1])
+				new_value = old_value;
+			else{
+				new_value = min(old_value,d[j]);
+				new_value = 1 + min(new_value,d[j-1]);
+			}
+			old_value = d[j];
+			d[j] = new_value;
+		}
+	}
+	return d[n];
+}
+
+void RoadNetwork::exactEdgeSearch(string estrada) {
+	string nome;
+	int counter = 0;
+	set<string> nomes_estradas = graph.getEdgesNames();
+	set<string>::iterator it = nomes_estradas.begin();
+	set<string> nomes_estradas_semelhantes;
+	while(it != nomes_estradas.end()){
+		nome = *it;
+		if(kmpMatcher(nome, estrada) == 1){
+			nomes_estradas_semelhantes.insert(nome);
+		}
+		counter++;
+		it++;
+	}
+
+	if(nomes_estradas_semelhantes.size() == 0)
+		cout << endl << "Estrada desconhecida!" << endl;
+	else{
+		int m = 1;
+		set<string>::iterator itr = nomes_estradas_semelhantes.begin();
+		while(itr != nomes_estradas_semelhantes.end()){
+			nome = *itr;
+			cout << "[" << m << "] ";
+			cout << nome << endl;
+			m++;
+			itr++;
+		}
+
+		int opcao = -1;
+		cout << endl;
+		cout << "Indique o nome da estrada onde se encontra: ";
+		while (!(cin >> opcao) || opcao < 1 || opcao > m - 1) {
+			cout << "Opcao invalida! Escolha uma nova opcao: ";
+			cin.clear();
+			cin.ignore(1000, '\n');
+		}
+		itr = nomes_estradas_semelhantes.begin();
+		advance(itr, opcao - 1);
+		nome = *itr;
+
+		setEdgeBlocked(nome, true);
+
+		cout << endl << "A estrada " << nome << " foi cortada com sucesso e foi calculada uma rota de evacuação para todos os carros." << endl;
+	}
+	writeEdgeFile();
+	updateInfo();
+}
+
+void RoadNetwork::approximateEdgeSearch(string estrada) {
+	set<string> nomes_estradas = graph.getEdgesNames();
+	set<string>::iterator it = nomes_estradas.begin();
+
+
+	cout << editDistance("A25 (Aveiro - Viseu)", estrada);
+}
