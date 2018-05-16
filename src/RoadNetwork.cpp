@@ -468,6 +468,36 @@ void RoadNetwork::approximateEdgeSearch(string estrada) {
 	set<string> nomes_estradas = graph.getEdgesNames();
 	set<string>::iterator it = nomes_estradas.begin();
 
+	int counter = 0;
+	vector<pair<int,string>> nomes_estradas_semelhantes;
 
-	cout << editDistance("A25 (Aveiro - Viseu)", estrada);
+	istringstream iss(estrada);
+	vector<string> splited_words_estrada{istream_iterator<string>{iss},
+									  istream_iterator<string>{}};
+
+	while(it != nomes_estradas.end()){
+		string nome = *it;
+		//istringstream iss(nome);
+		//vector<string> splited_words_nome{istream_iterator<string>{iss}, istream_iterator<string>{}};
+
+		//for(int i = 0; i < splited_words_nome.size(); i++){
+			for(int j = 0; j < splited_words_estrada.size(); j++){
+				counter += editDistance(nome,splited_words_estrada.at(j));
+			}
+		//}
+
+		nomes_estradas_semelhantes.push_back(make_pair(counter, nome));
+		counter = 0;
+		it++;
+	}
+
+	sort(nomes_estradas_semelhantes.begin(), nomes_estradas_semelhantes.end());
+	//só os 10 melhores resultados
+	cout << endl;
+	for(int i = 0; i < 10; i++){
+		cout << "[" << i + 1 << "] ";
+		cout << nomes_estradas_semelhantes.at(i).second << endl;
+	}
+
+	//selecionar uma opção e apagar a edge
 }
