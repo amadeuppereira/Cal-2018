@@ -117,7 +117,7 @@ public:
 	 */
 	bool isTemPercurso() const {return tem_percurso;}
 	/**
-	 * Define se o carro tem percurso ou não atribuido
+	 * Define se o carro tem percurso ou nï¿½o atribuido
 	 * @param temPercurso boolean do valor que quero atribuir
 	 */
 	void setTemPercurso(bool temPercurso = true) {tem_percurso = temPercurso;}
@@ -151,7 +151,7 @@ Carro<T>::Carro(T id_inicio, T id_fim, T id):id_inicio(id_inicio), id_fim(id_fim
 template <class T>
 class Vertex {
 	/**
-	 * informação do vertice
+	 * informaï¿½ï¿½o do vertice
 	 */
 	T info;
 	/**
@@ -163,7 +163,7 @@ class Vertex {
 	 */
 	bool visited;
 	/**
-	 * indegree do vertice para a ordenação topologica
+	 * indegree do vertice para a ordenaï¿½ï¿½o topologica
 	 */
 	int indegree;
 	/**
@@ -197,7 +197,7 @@ class Vertex {
 public:
 	/**
 	 * construtor da class Vertex
-	 * @param in informação do vertice
+	 * @param in informaï¿½ï¿½o do vertice
 	 * @param name nome do vertice
 	 * @param lon londitude do vertice
 	 * @param lat latitude do vertice
@@ -211,7 +211,7 @@ public:
 	bool operator<(Vertex<T> & vertex) const;
 	/**
 	 *
-	 * @return returna a informação do vertice
+	 * @return returna a informaï¿½ï¿½o do vertice
 	 */
 	T getInfo() const;
 	/**
@@ -223,7 +223,7 @@ public:
 	 * Adiciona uma aresta nova ao vector de arestas
 	 * @param d destino da aresta
 	 * @param w peso da aresta
-	 * @param tw se é de 2 sentidos a estrada
+	 * @param tw se ï¿½ de 2 sentidos a estrada
 	 * @param n nome da aresta
 	 * @param id id da aresta
 	 * @param block se esta bloqueada
@@ -409,7 +409,7 @@ public:
 	 * Construtor da class Edge
 	 * @param d destinho da aresta
 	 * @param w peso da aresta
-	 * @param tw se é uma aresta de 2 sentidos
+	 * @param tw se ï¿½ uma aresta de 2 sentidos
 	 * @param n nome da aresta
 	 * @param id id da aresta
 	 * @param block se a aresta esta bloqueada
@@ -427,7 +427,7 @@ public:
 	Vertex<T>* getDest() const;
 	/**
 	 *
-	 * @return returna se a aresta é de dois sentidos
+	 * @return returna se a aresta ï¿½ de dois sentidos
 	 */
 	bool getTwoWays() const;
 	/**
@@ -447,11 +447,11 @@ public:
 	bool getBlocked() const;
 	/**
 	 *
-	 * @return returna a quantidade de carros que estão na aresta
+	 * @return returna a quantidade de carros que estï¿½o na aresta
 	 */
 	int getQuantidade() const;
 	/**
-	 * Define se a aresta esta bloqueada ou não
+	 * Define se a aresta esta bloqueada ou nï¿½o
 	 * @param blocked true se quero que a aresta esteja bloqueada ou false caso contrario
 	 */
 	void setBlocked(bool blocked);
@@ -542,20 +542,20 @@ class Graph {
 	 */
 	vector<Carro<T>*> carros;
 	/**
-	 * função auxiliar para a pesquisa em profundidade
+	 * funï¿½ï¿½o auxiliar para a pesquisa em profundidade
 	 * @param v vetor de ids
 	 * @param res resultado
 	 */
 	void dfsVisit(Vertex<T> *v,  vector<T> & res) const;
 	/**
-	 * função auxiliar para a pesquisa em profundidade
+	 * funï¿½ï¿½o auxiliar para a pesquisa em profundidade
 	 * @param v vetor de ids
 	 * @param name nome da aresta
 	 * @param blocked estado a mudar
 	 */
 	void dfsVisitSetEdgeBlocked(Vertex<T> *v, const string &name ,const  bool & blocked);
 	/**
-	 * Função que procura o vertice do grafo
+	 * Funï¿½ï¿½o que procura o vertice do grafo
 	 * @param in id do vertice
 	 * @return vertice que esta a ser procurado ou null caso contrario
 	 */
@@ -569,7 +569,7 @@ public:
 	/**
 	 * Returna o index de um vertice
 	 * @param v id do vertice que quero encontrar
-	 * @return returna o index do vertice no vector de vertices ou -1 caso não exista
+	 * @return returna o index do vertice no vector de vertices ou -1 caso nï¿½o exista
 	 */
 	int getIndex(const T &v) const;
 	/**
@@ -601,7 +601,7 @@ public:
 	/**
 	 * Remove um vertice do grafo
 	 * @param in id do vertice
-	 * @return true caso exista e removido ou false caso não exista
+	 * @return true caso exista e removido ou false caso nï¿½o exista
 	 */
 	bool removeVertex(const T &in);
 	/**
@@ -609,7 +609,7 @@ public:
 	 * @param sourc id de inicio da aresta
 	 * @param dest id de destino da aresta
 	 * @param w peso da aresta
-	 * @param tw se a aresta é de 2 sentidos
+	 * @param tw se a aresta ï¿½ de 2 sentidos
 	 * @param n nome da aresta
 	 * @param id id da aresta
 	 * @param block estado de bloqueio da aresta
@@ -620,7 +620,7 @@ public:
 	 * Remove uma aresta do grafo
 	 * @param sourc id de inicio da aresta
 	 * @param dest id de destino da aresta
-	 * @return true caso exista e retire ou false caso não exista
+	 * @return true caso exista e retire ou false caso nï¿½o exista
 	 */
 	bool removeEdge(const T &sourc, const T &dest);
 	/**
@@ -641,8 +641,8 @@ public:
 	 */
 	vector<T> bfs(const T &source) const;
 	/**
-	 * Faz uma organização topologica do grafo
-	 * @return returna um vetor com a organização topologica
+	 * Faz uma organizaï¿½ï¿½o topologica do grafo
+	 * @return returna um vetor com a organizaï¿½ï¿½o topologica
 	 */
 	vector<T> topsort() const;
 	/**
@@ -1084,5 +1084,40 @@ void Graph<T>::eraseAll(){
 	this->carros.clear();
 	this->vertexSet.clear();
 }
+
+//vector<int> cpf(string pattern){
+//	int m = pattern.length();
+//	vector<int> prefix(m);
+//	prefix[0] = -1;
+//	int k = -1;
+//	for(int q = 1; q < m; q++){
+//		while(k > -1 && pattern[k+1] != pattern[q]) {
+//			k = prefix[k];
+//		}
+//		if(pattern[k+1] == pattern[q])
+//			k = k+1;
+//		prefix[q] = k;
+//	}
+//	return prefix;
+//}
+//
+//int kmpMatcher(string text, string pattern) {
+//	int num = 0;
+//	int n = text.length();
+//	int m = pattern.length();
+//	vector<int> prefix = cpf(pattern);
+//	int q = -1;
+//	for(int i = 0; i < n; i++){
+//		while(q > -1 && pattern[q+1]!=text[i])
+//			q = prefix[q];
+//		if(pattern[q+1] == text[i])
+//			q++;
+//		if(q == m-1){
+//			num++;
+//			q = prefix[q];
+//		}
+//	}
+//	return num;
+//}
 
 #endif /* GRAPH_H_ */

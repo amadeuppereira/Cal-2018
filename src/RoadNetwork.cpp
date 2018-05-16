@@ -353,3 +353,38 @@ void RoadNetwork::updateInfo(){
 	graph.eraseAll();
 	readOSM();
 }
+
+vector<int> cpf(string pattern){
+	int m = pattern.length();
+	vector<int> prefix(m);
+	prefix[0] = -1;
+	int k = -1;
+	for(int q = 1; q < m; q++){
+		while(k > -1 && pattern[k+1] != pattern[q]) {
+			k = prefix[k];
+		}
+		if(pattern[k+1] == pattern[q])
+			k = k+1;
+		prefix[q] = k;
+	}
+	return prefix;
+}
+
+int kmpMatcher(string text, string pattern) {
+	int num = 0;
+	int n = text.length();
+	int m = pattern.length();
+	vector<int> prefix = cpf(pattern);
+	int q = -1;
+	for(int i = 0; i < n; i++){
+		while(q > -1 && pattern[q+1]!=text[i])
+			q = prefix[q];
+		if(pattern[q+1] == text[i])
+			q++;
+		if(q == m-1){
+			num++;
+			q = prefix[q];
+		}
+	}
+	return num;
+}
