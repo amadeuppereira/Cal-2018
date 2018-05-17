@@ -481,9 +481,23 @@ void RoadNetwork::approximateEdgeSearch(string estrada) {
 		first_point = nome.substr(road_name.length() + 2, nome.find(" -", 0) - road_name.length() - 2);
 		second_point = nome.substr(road_name.length() + 5 +first_point.length(), nome.find(")", 0) - (road_name.length() + 5 +first_point.length()));
 
+		int adicionar;
+
 		counter += editDistance(road_name, estrada);
-		counter += editDistance(first_point, estrada);
-		counter += editDistance(second_point, estrada);
+
+        adicionar = editDistance(first_point, estrada);
+        if (adicionar > 4){
+            counter += adicionar;
+        }
+        
+        adicionar = editDistance(second_point, estrada);
+        if (adicionar > 4){
+            counter += adicionar;
+        }
+
+        //counter += editDistance(road_name, estrada);
+		//counter += editDistance(first_point, estrada);
+		//counter += editDistance(second_point, estrada);
 
 		nomes_estradas_semelhantes.push_back(make_pair(counter, nome));
 		counter = 0;
@@ -509,9 +523,9 @@ void RoadNetwork::approximateEdgeSearch(string estrada) {
     }
 
     string nome = nomes_estradas_semelhantes.at(opcao - 1).second;
-    //setEdgeBlocked(nome, true);
 
-    cout << endl << "A estrada " << nome << " foi cortada com sucesso e foi calculada uma rota de evacuação para todos os carros." << endl;
+    //setEdgeBlocked(nome, true);
+    //cout << endl << "A estrada " << nome << " foi cortada com sucesso e foi calculada uma rota de evacuação para todos os carros." << endl;
 
     writeEdgeFile();
     updateInfo();
