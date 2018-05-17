@@ -471,20 +471,19 @@ void RoadNetwork::approximateEdgeSearch(string estrada) {
 	int counter = 0;
 	vector<pair<int,string>> nomes_estradas_semelhantes;
 
-	istringstream iss(estrada);
-	vector<string> splited_words_estrada{istream_iterator<string>{iss},
-									  istream_iterator<string>{}};
-
 	while(it != nomes_estradas.end()){
 		string nome = *it;
-		//istringstream iss(nome);
-		//vector<string> splited_words_nome{istream_iterator<string>{iss}, istream_iterator<string>{}};
+		string road_name;
+		string first_point;
+		string second_point;
 
-		//for(int i = 0; i < splited_words_nome.size(); i++){
-			for(int j = 0; j < splited_words_estrada.size(); j++){
-				counter += editDistance(nome,splited_words_estrada.at(j));
-			}
-		//}
+		road_name = nome.substr(0, nome.find(" (", 0) - 0);
+		first_point = nome.substr(road_name.length() + 2, nome.find(" -", 0) - road_name.length() - 2);
+		second_point = nome.substr(road_name.length() + 5 +first_point.length(), nome.find(")", 0) - (road_name.length() + 5 +first_point.length()));
+
+		counter += editDistance(road_name, estrada);
+		counter += editDistance(first_point, estrada);
+		counter += editDistance(second_point, estrada);
 
 		nomes_estradas_semelhantes.push_back(make_pair(counter, nome));
 		counter = 0;
@@ -492,6 +491,7 @@ void RoadNetwork::approximateEdgeSearch(string estrada) {
 	}
 
 	sort(nomes_estradas_semelhantes.begin(), nomes_estradas_semelhantes.end());
+
 	//só os 10 melhores resultados
 	cout << endl;
 	for(int i = 0; i < 10; i++){
@@ -499,5 +499,20 @@ void RoadNetwork::approximateEdgeSearch(string estrada) {
 		cout << nomes_estradas_semelhantes.at(i).second << endl;
 	}
 
-	//selecionar uma opção e apagar a edge
+    int opcao = -1;
+    cout << endl;
+    cout << "Indique o nome da estrada onde se encontra: ";
+    while (!(cin >> opcao) || opcao < 1 || opcao > 10) {
+        cout << "Opcao invalida! Escolha uma nova opcao: ";
+        cin.clear();
+        cin.ignore(1000, '\n');
+    }
+
+    string nome = nomes_estradas_semelhantes.at(opcao - 1).second;
+    //setEdgeBlocked(nome, true);
+
+    cout << endl << "A estrada " << nome << " foi cortada com sucesso e foi calculada uma rota de evacuação para todos os carros." << endl;
+
+    writeEdgeFile();
+    updateInfo();
 }

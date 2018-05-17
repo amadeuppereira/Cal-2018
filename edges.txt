@@ -14,7 +14,7 @@
 14;A7 (Codecal - Vila Pouca de Aguiar);False
 15;A4 (Porto - Vila Mea);False
 16;A4 (Vila Mea - Vila Real);False
-17;A4 (Vila Real - Mirandela);False
+17;A4 (Vila Real - Mirandela);True
 18;A4 (Mirandela - Braganca);True
 19;A24 (Chaves - Vila Pouca de Aguiar);False
 20;A24 (Vila Real - Vila Pouca de Aguiar);False
