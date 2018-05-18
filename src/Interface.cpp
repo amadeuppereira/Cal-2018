@@ -211,21 +211,49 @@ void Interface::evacuationRoute(){
 
     string estrada;
     cout << endl;
-    if(opcao == 1)
-        cout << "Introduza a sua localizacao exata: ";
+    if(opcao == 1){
+		cout << "Introduza a sua localizacao exata: ";
+		cin.clear();
+		cin.ignore(1000, '\n');
+		getline(cin, estrada);
+		roadnetwork->exactEdgeSearch(estrada);
+    }
     if(opcao == 2)
-        cout << "Introduza a sua localizacao aproximada: ";
-    cin.clear();
-    cin.ignore(1000, '\n');
-    getline(cin, estrada);
-
-	if(opcao == 1)
-    	roadnetwork->exactEdgeSearch(estrada);
-	if(opcao == 2)
-		roadnetwork->approximateEdgeSearch(estrada);
+		approximateSearchAlgorithm();
 
     returnMenu2();
 }
+
+void Interface::approximateSearchAlgorithm() {
+	cout << "-------------------" << endl;
+	cout << "Pesquisa Aproximada" << endl;
+	cout << "-------------------" << endl;
+	cout << endl;
+
+	int opcao;
+	cout << "Algoritmo de pesquisa: " << endl;
+	cout << "[1] - Edit Distance" << endl;
+	cout << "[2] - Levenshtein" << endl << endl;
+	cout << "Escolha uma opcao: ";
+	while (!(cin >> opcao) || opcao < 1 || opcao > 2) {
+		cout << "Opcao Invalida! Escolha uma nova opcao: ";
+		cin.clear();
+		cin.ignore(1000, '\n');
+	}
+
+	string estrada;
+	cout << "\nIntroduza a sua localizacao aproximada: ";
+	cin.clear();
+	cin.ignore(1000, '\n');
+	getline(cin, estrada);
+
+	if(opcao == 1)
+		roadnetwork->approximateEdgeSearch(estrada, 1);
+	if(opcao == 2)
+		roadnetwork->approximateEdgeSearch(estrada, 2);
+
+}
+
 
 void Interface::updateMap() {
 	roadnetwork->updateMap();
@@ -267,7 +295,7 @@ void Interface::returnMenu2(){
 	cout << "[0] Sair" << endl;
 	cout << endl;
 	cout << "Escolha uma opcao: ";
-	while (!(cin >> opcao) || opcao < 0 || opcao > 1) {
+	while (!(cin >> opcao) || opcao < 0 || opcao > 1 ) {
 		cout << "Opcao invalida! Escolha uma nova opcao: ";
 		cin.clear();
 		cin.ignore(1000, '\n');

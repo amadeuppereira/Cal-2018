@@ -7,10 +7,10 @@
 #include <string>
 #include <algorithm>
 #include <vector>
+#include <set>
 #include "Graph.h"
 #include "graphviewer.h"
 #include "Utils.h"
-#include <set>
 
 /**
  * Cor padrao dos vertices
@@ -171,7 +171,7 @@ public:
 
 	void exactEdgeSearch(string estrada);
 
-	void approximateEdgeSearch(string estrada);
+	void approximateEdgeSearch(string estrada, int op);
 };
 
 

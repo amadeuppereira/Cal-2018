@@ -1,5 +1,6 @@
 #include "RoadNetwork.h"
 
+const unsigned int cost_del = 1 , cost_ins = 1 , cost_sub = 1;
 
 RoadNetwork::RoadNetwork() {
 	gv = NULL;
@@ -402,7 +403,7 @@ int editDistance(string pattern, string text) {
 	for(int i = 1; i < m+1; i++){
 		old_value = d[0];
 		d[0] = 1;
-		for(int j = 1; j < n +1; j++){
+		for(int j = 1; j < n + 1; j++){
 			if(pattern[i-1] == text[j-1])
 				new_value = old_value;
 			else{
@@ -414,6 +415,34 @@ int editDistance(string pattern, string text) {
 		}
 	}
 	return d[n];
+}
+
+unsigned int levenshtein(const string & s1, const string & s2) {
+    unsigned int i,j, n1 = s1.length() , n2 = s2.length();
+    unsigned int * p = new unsigned int[n2+1] , * q = new unsigned int[n2+1];
+
+    p[0] = 0;
+    for( j = 1; j <= n2; ++j )
+        p[j] = p[j-1] + cost_ins;
+
+    for( i = 1; i <= n1; ++i )
+    {
+        q[0] = p[0] + cost_del;
+        for( j = 1; j <= n2; ++j )
+        {
+            unsigned int d_del = p[j] + cost_del;
+            unsigned int d_ins = q[j-1] + cost_ins;
+            unsigned int d_sub = p[j-1] + ( s1[i-1] == s2[j-1] ? 0 : cost_sub );
+            q[j] = min( min( d_del, d_ins ), d_sub );
+        }
+        unsigned int * temp = p;
+        p = q;
+        q = temp;
+    }
+    unsigned int dist = p[n2];
+    delete[] p;  delete[] q;
+
+    return dist;
 }
 
 void RoadNetwork::exactEdgeSearch(string estrada) {
@@ -464,7 +493,7 @@ void RoadNetwork::exactEdgeSearch(string estrada) {
 	updateInfo();
 }
 
-void RoadNetwork::approximateEdgeSearch(string estrada) {
+void RoadNetwork::approximateEdgeSearch(string estrada, int op) {
 	set<string> nomes_estradas = graph.getEdgesNames();
 	set<string>::iterator it = nomes_estradas.begin();
 
@@ -483,17 +512,20 @@ void RoadNetwork::approximateEdgeSearch(string estrada) {
 
 		int adicionar;
 
-		counter += editDistance(road_name, estrada);
+		if(op == 1) counter += editDistance(road_name, estrada);
+		else counter += levenshtein(road_name, estrada);
 
-        adicionar = editDistance(first_point, estrada);
-        if (adicionar > 4){
-            counter += adicionar;
-        }
+        if(op == 1) adicionar = editDistance(first_point, estrada);
+        else adicionar = levenshtein(first_point, estrada);
+//        if (adicionar > 4){
+//            counter += adicionar;
+//        }
         
-        adicionar = editDistance(second_point, estrada);
-        if (adicionar > 4){
-            counter += adicionar;
-        }
+        if (op == 1) adicionar = editDistance(second_point, estrada);
+        else adicionar = levenshtein(second_point, estrada);
+//        if (adicionar > 4){
+//            counter += adicionar;
+//        }
 
         //counter += editDistance(road_name, estrada);
 		//counter += editDistance(first_point, estrada);
@@ -512,21 +544,24 @@ void RoadNetwork::approximateEdgeSearch(string estrada) {
 		cout << "[" << i + 1 << "] ";
 		cout << nomes_estradas_semelhantes.at(i).second << endl;
 	}
+	cout << "[0] Nenhum\n";
 
     int opcao = -1;
     cout << endl;
     cout << "Indique o nome da estrada onde se encontra: ";
-    while (!(cin >> opcao) || opcao < 1 || opcao > 10) {
+    while (!(cin >> opcao) || opcao < 0 || opcao > 10) {
         cout << "Opcao invalida! Escolha uma nova opcao: ";
         cin.clear();
         cin.ignore(1000, '\n');
     }
 
-    string nome = nomes_estradas_semelhantes.at(opcao - 1).second;
+    if(opcao != 0) {
+		string nome = nomes_estradas_semelhantes.at(opcao - 1).second;
 
-    //setEdgeBlocked(nome, true);
-    //cout << endl << "A estrada " << nome << " foi cortada com sucesso e foi calculada uma rota de evacuação para todos os carros." << endl;
+		//setEdgeBlocked(nome, true);
+		//cout << endl << "A estrada " << nome << " foi cortada com sucesso e foi calculada uma rota de evacuação para todos os carros." << endl;
 
-    writeEdgeFile();
-    updateInfo();
+		writeEdgeFile();
+		updateInfo();
+    }
 }

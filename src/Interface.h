@@ -66,6 +66,11 @@ public:
  	*	Calcula uma rota de evacuação
  	*/
 	void evacuationRoute();
+
+	/**
+	 * Escolha do algoritmo para a pesquisa aproximada
+	 */
+	void approximateSearchAlgorithm();
 	/**
 	 *	Volta ao menu inicial
 	 */
