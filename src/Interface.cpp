@@ -308,7 +308,6 @@ void Interface::returnMenu2(){
 		sleep(1);
 	}
 	else if (opcao == 0){
-		this->closeMapWindow();
 		exit(0);
 	}
 }
