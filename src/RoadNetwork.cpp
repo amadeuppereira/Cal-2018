@@ -391,9 +391,36 @@ int kmpMatcher(string text, string pattern) {
 }
 
 int editDistance(string pattern, string text) {
+	cout << pattern << " " << text << endl;
+	int d[pattern.length()+1][text.length()+1]={0};
 	int n = text.length();
 	int m = pattern.length();
-	int old_value, new_value;
+
+	for(int i=0;i<=m;i++) d[i][0]=i;
+	for(int j=0;j<=n;j++) d[0][j]=j;
+
+	for(int i=1;i<=m;i++)
+	{
+		for(int j=1;j<=n;j++)
+		{
+			if(pattern[i]==text[j])
+			{
+				d[i][j]=d[i-1][j-1];
+			}
+			else
+			{
+				if(d[i-1][j-1]<=d[i-1][j] && d[i-1][j-1]<=d[i][j-1])
+					d[i][j]=1+ d[i-1][j-1];
+				else if(d[i-1][j]<d[i][j-1])
+					d[i][j]=1+d[i-1][j];
+				else
+					d[i][j]=1+d[i][j-1];
+			}
+		}
+	}
+	/*int old_value, new_value;
+	int n = text.length();
+	int m = pattern.length();
 	int d[n+1];
 
 	for(int j = 0; j < n+1; j++){
@@ -413,8 +440,9 @@ int editDistance(string pattern, string text) {
 			old_value = d[j];
 			d[j] = new_value;
 		}
-	}
-	return d[n];
+	}*/
+	cout << d[m][n] << endl;
+	return d[m][n];
 }
 
 unsigned int levenshtein(const string & s1, const string & s2) {
@@ -511,26 +539,27 @@ void RoadNetwork::approximateEdgeSearch(string estrada, int op) {
 		second_point = nome.substr(road_name.length() + 5 +first_point.length(), nome.find(")", 0) - (road_name.length() + 5 +first_point.length()));
 
 		int adicionar;
+		int adicionar2;
+		int adicionar3;
 
-		if(op == 1) counter += editDistance(road_name, estrada);
-		else counter += levenshtein(road_name, estrada);
+		if(op == 1) adicionar3 = editDistance(road_name, estrada);
+		else adicionar3= levenshtein(road_name, estrada);
 
         if(op == 1) adicionar = editDistance(first_point, estrada);
         else adicionar = levenshtein(first_point, estrada);
-//        if (adicionar > 4){
-//            counter += adicionar;
-//        }
         
-        if (op == 1) adicionar = editDistance(second_point, estrada);
-        else adicionar = levenshtein(second_point, estrada);
-//        if (adicionar > 4){
-//            counter += adicionar;
-//        }
+        if (op == 1) adicionar2 = editDistance(second_point, estrada);
+        else adicionar2 = levenshtein(second_point, estrada);
 
-        //counter += editDistance(road_name, estrada);
-		//counter += editDistance(first_point, estrada);
-		//counter += editDistance(second_point, estrada);
-
+        if(adicionar3 ==0 || adicionar ==0 || adicionar2==0)
+        {
+        	counter=0;
+        }
+        else
+        {
+        	counter=adicionar+adicionar2+adicionar3;
+        }
+        cout << "counter: " << counter << endl;
 		nomes_estradas_semelhantes.push_back(make_pair(counter, nome));
 		counter = 0;
 		it++;
