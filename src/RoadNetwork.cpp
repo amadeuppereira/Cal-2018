@@ -594,3 +594,5 @@ void RoadNetwork::approximateEdgeSearch(string estrada, int op) {
 		updateInfo();
     }
 }
+
+
