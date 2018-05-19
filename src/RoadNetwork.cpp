@@ -361,10 +361,10 @@ vector<int> cpf(string pattern){
 	prefix[0] = -1;
 	int k = -1;
 	for(int q = 1; q < m; q++){
-		while(k > -1 && pattern[k+1] != pattern[q]) {
+		while(k > -1 && tolower(pattern[k+1]) != tolower(pattern[q])) {
 			k = prefix[k];
 		}
-		if(pattern[k+1] == pattern[q])
+		if(tolower(pattern[k+1]) == tolower(pattern[q]))
 			k = k+1;
 		prefix[q] = k;
 	}
@@ -378,9 +378,9 @@ int kmpMatcher(string text, string pattern) {
 	vector<int> prefix = cpf(pattern);
 	int q = -1;
 	for(int i = 0; i < n; i++){
-		while(q > -1 && pattern[q+1]!=text[i])
+		while(q > -1 && tolower(pattern[q+1]) != tolower(text[i]))
 			q = prefix[q];
-		if(pattern[q+1] == text[i])
+		if(tolower(pattern[q+1]) == tolower(text[i]))
 			q++;
 		if(q == m-1){
 			num++;
@@ -404,7 +404,7 @@ int editDistance(string pattern, string text) {
 		old_value = d[0];
 		d[0] = 1;
 		for(int j = 1; j < n + 1; j++){
-			if(pattern[i-1] == text[j-1])
+			if(tolower(pattern[i-1]) == tolower(text[j-1]))
 				new_value = old_value;
 			else{
 				new_value = min(old_value,d[j]);
@@ -432,7 +432,7 @@ unsigned int levenshtein(const string & s1, const string & s2) {
         {
             unsigned int d_del = p[j] + cost_del;
             unsigned int d_ins = q[j-1] + cost_ins;
-            unsigned int d_sub = p[j-1] + ( s1[i-1] == s2[j-1] ? 0 : cost_sub );
+            unsigned int d_sub = p[j-1] + ( tolower(s1[i-1]) == tolower(s2[j-1]) ? 0 : cost_sub );
             q[j] = min( min( d_del, d_ins ), d_sub );
         }
         unsigned int * temp = p;
@@ -517,19 +517,16 @@ void RoadNetwork::approximateEdgeSearch(string estrada, int op) {
 
         if(op == 1) adicionar = editDistance(first_point, estrada);
         else adicionar = levenshtein(first_point, estrada);
-//        if (adicionar > 4){
-//            counter += adicionar;
-//        }
+        if (adicionar > 4){
+            counter += adicionar;
+        }
         
         if (op == 1) adicionar = editDistance(second_point, estrada);
         else adicionar = levenshtein(second_point, estrada);
-//        if (adicionar > 4){
-//            counter += adicionar;
-//        }
+        if (adicionar > 4){
+            counter += adicionar;
+        }
 
-        //counter += editDistance(road_name, estrada);
-		//counter += editDistance(first_point, estrada);
-		//counter += editDistance(second_point, estrada);
 
 		nomes_estradas_semelhantes.push_back(make_pair(counter, nome));
 		counter = 0;
@@ -558,8 +555,8 @@ void RoadNetwork::approximateEdgeSearch(string estrada, int op) {
     if(opcao != 0) {
 		string nome = nomes_estradas_semelhantes.at(opcao - 1).second;
 
-		//setEdgeBlocked(nome, true);
-		//cout << endl << "A estrada " << nome << " foi cortada com sucesso e foi calculada uma rota de evacuação para todos os carros." << endl;
+		setEdgeBlocked(nome, true);
+		cout << endl << "A estrada " << nome << " foi cortada com sucesso e foi calculada uma rota de evacuação para todos os carros." << endl;
 
 		writeEdgeFile();
 		updateInfo();
