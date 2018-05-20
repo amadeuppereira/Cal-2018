@@ -1,0 +1,275 @@
+\hypertarget{class_carro}{}\section{Carro$<$ T $>$ Class Template Reference}
+\label{class_carro}\index{Carro$<$ T $>$@{Carro$<$ T $>$}}
+
+
+{\ttfamily \#include $<$Graph.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_carro_ace81433a19d4303c0b2862f04bff8299}{Carro}} (T \mbox{\hyperlink{class_carro_ac1142f0e001f982a7789fe20514f5db7}{id\+\_\+inicio}}, T \mbox{\hyperlink{class_carro_a6d4a8cf39f76caecafa0bffcedc50efc}{id\+\_\+fim}}, T \mbox{\hyperlink{class_carro_ab7edb4871bda624992f83ef2b9d1babf}{id}})
+\item 
+const vector$<$ \mbox{\hyperlink{class_edge}{Edge}}$<$ T $>$ $\ast$ $>$ \& \mbox{\hyperlink{class_carro_a4d9a743b0a85dfb370f9b359d78f2514}{get\+Edge\+Path}} () const
+\item 
+void \mbox{\hyperlink{class_carro_a56188f8ca0f9d234afffe7217dd815e2}{set\+Edge\+Path}} (const vector$<$ \mbox{\hyperlink{class_edge}{Edge}}$<$ T $>$ $\ast$$>$ \&edge\+Path)
+\item 
+T \mbox{\hyperlink{class_carro_aa6284214e8970464875ca6186937addd}{get\+Id\+Fim}} () const
+\item 
+void \mbox{\hyperlink{class_carro_aabd6aa0f101beb395c1a35f10ad396e5}{set\+Id\+Fim}} (T id\+Fim)
+\item 
+T \mbox{\hyperlink{class_carro_afc97b5bbf41b203cb80c10ea4628fc0a}{get\+Id\+Inicio}} () const
+\item 
+void \mbox{\hyperlink{class_carro_a842e35fbf2fc1735b43ceef5edbbf16b}{set\+Id\+Inicio}} (T id\+Inicio)
+\item 
+const vector$<$ \mbox{\hyperlink{class_vertex}{Vertex}}$<$ T $>$ $\ast$ $>$ \& \mbox{\hyperlink{class_carro_a25901ca0dfa975e9b818b76934ec26ad}{get\+Nodes\+Path}} () const
+\item 
+void \mbox{\hyperlink{class_carro_a0fad21bc608f882261552c7bd1b08989}{set\+Nodes\+Path}} (const vector$<$ \mbox{\hyperlink{class_vertex}{Vertex}}$<$ T $>$ $\ast$$>$ \&nodes\+Path)
+\item 
+bool \mbox{\hyperlink{class_carro_ac73955dd65c1a78d3faa267900b44094}{is\+Tem\+Percurso}} () const
+\item 
+void \mbox{\hyperlink{class_carro_a00026726b81377887e49ff9efcb7dd5d}{set\+Tem\+Percurso}} (bool tem\+Percurso=true)
+\item 
+T \mbox{\hyperlink{class_carro_ab5aec5bb1cf78174bf9babbfe2b98738}{get\+Id}} () const
+\item 
+void \mbox{\hyperlink{class_carro_a2318f898be3f5950e19326d740a7073e}{set\+Id}} (T \mbox{\hyperlink{class_carro_ab7edb4871bda624992f83ef2b9d1babf}{id}})
+\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+T \mbox{\hyperlink{class_carro_ac1142f0e001f982a7789fe20514f5db7}{id\+\_\+inicio}}
+\item 
+T \mbox{\hyperlink{class_carro_a6d4a8cf39f76caecafa0bffcedc50efc}{id\+\_\+fim}}
+\item 
+T \mbox{\hyperlink{class_carro_ab7edb4871bda624992f83ef2b9d1babf}{id}}
+\item 
+vector$<$ \mbox{\hyperlink{class_vertex}{Vertex}}$<$ T $>$ $\ast$ $>$ \mbox{\hyperlink{class_carro_a4cc76ed6acda558805f6039ec35ca53f}{nodes\+\_\+path}}
+\item 
+vector$<$ \mbox{\hyperlink{class_edge}{Edge}}$<$ T $>$ $\ast$ $>$ \mbox{\hyperlink{class_carro_a2c552e1d0d83a841c3ce9def21b7956b}{edge\+\_\+path}}
+\item 
+bool \mbox{\hyperlink{class_carro_a6d26498b0d2bbe5729f2ba0464d873cb}{tem\+\_\+percurso}} = true
+\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_carro_aefa9b76cd57411c5354e5620dc2d84dd}{Graph$<$ T $>$}}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$class T$>$\newline
+class Carro$<$ T $>$}
+
+class que representa um carro do grafo 
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_carro_ace81433a19d4303c0b2862f04bff8299}\label{class_carro_ace81433a19d4303c0b2862f04bff8299}} 
+\index{Carro@{Carro}!Carro@{Carro}}
+\index{Carro@{Carro}!Carro@{Carro}}
+\subsubsection{\texorpdfstring{Carro()}{Carro()}}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+\mbox{\hyperlink{class_carro}{Carro}}$<$ T $>$\+::\mbox{\hyperlink{class_carro}{Carro}} (\begin{DoxyParamCaption}\item[{T}]{id\+\_\+inicio,  }\item[{T}]{id\+\_\+fim,  }\item[{T}]{id }\end{DoxyParamCaption})}
+
+Construtor da class \mbox{\hyperlink{class_carro}{Carro}}, cria um novo carro com os parametros indicados 
+\begin{DoxyParams}{Parameters}
+{\em id\+\_\+inicio} & id de inicio do percurso \\
+\hline
+{\em id\+\_\+fim} & id de fim do percurso \\
+\hline
+{\em id} & id do veiculo \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_carro_a4d9a743b0a85dfb370f9b359d78f2514}\label{class_carro_a4d9a743b0a85dfb370f9b359d78f2514}} 
+\index{Carro@{Carro}!get\+Edge\+Path@{get\+Edge\+Path}}
+\index{get\+Edge\+Path@{get\+Edge\+Path}!Carro@{Carro}}
+\subsubsection{\texorpdfstring{get\+Edge\+Path()}{getEdgePath()}}
+{\footnotesize\ttfamily template$<$class T$>$ \\
+const vector$<$\mbox{\hyperlink{class_edge}{Edge}}$<$T$>$ $\ast$$>$\& \mbox{\hyperlink{class_carro}{Carro}}$<$ T $>$\+::get\+Edge\+Path (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\begin{DoxyReturn}{Returns}
+returna o caminho pelas arestas 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_carro_ab5aec5bb1cf78174bf9babbfe2b98738}\label{class_carro_ab5aec5bb1cf78174bf9babbfe2b98738}} 
+\index{Carro@{Carro}!get\+Id@{get\+Id}}
+\index{get\+Id@{get\+Id}!Carro@{Carro}}
+\subsubsection{\texorpdfstring{get\+Id()}{getId()}}
+{\footnotesize\ttfamily template$<$class T$>$ \\
+T \mbox{\hyperlink{class_carro}{Carro}}$<$ T $>$\+::get\+Id (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\begin{DoxyReturn}{Returns}
+returna o id do carro 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_carro_aa6284214e8970464875ca6186937addd}\label{class_carro_aa6284214e8970464875ca6186937addd}} 
+\index{Carro@{Carro}!get\+Id\+Fim@{get\+Id\+Fim}}
+\index{get\+Id\+Fim@{get\+Id\+Fim}!Carro@{Carro}}
+\subsubsection{\texorpdfstring{get\+Id\+Fim()}{getIdFim()}}
+{\footnotesize\ttfamily template$<$class T$>$ \\
+T \mbox{\hyperlink{class_carro}{Carro}}$<$ T $>$\+::get\+Id\+Fim (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\begin{DoxyReturn}{Returns}
+returna o id de destino do carro 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_carro_afc97b5bbf41b203cb80c10ea4628fc0a}\label{class_carro_afc97b5bbf41b203cb80c10ea4628fc0a}} 
+\index{Carro@{Carro}!get\+Id\+Inicio@{get\+Id\+Inicio}}
+\index{get\+Id\+Inicio@{get\+Id\+Inicio}!Carro@{Carro}}
+\subsubsection{\texorpdfstring{get\+Id\+Inicio()}{getIdInicio()}}
+{\footnotesize\ttfamily template$<$class T$>$ \\
+T \mbox{\hyperlink{class_carro}{Carro}}$<$ T $>$\+::get\+Id\+Inicio (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\begin{DoxyReturn}{Returns}
+returna o id de incio do carro 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_carro_a25901ca0dfa975e9b818b76934ec26ad}\label{class_carro_a25901ca0dfa975e9b818b76934ec26ad}} 
+\index{Carro@{Carro}!get\+Nodes\+Path@{get\+Nodes\+Path}}
+\index{get\+Nodes\+Path@{get\+Nodes\+Path}!Carro@{Carro}}
+\subsubsection{\texorpdfstring{get\+Nodes\+Path()}{getNodesPath()}}
+{\footnotesize\ttfamily template$<$class T$>$ \\
+const vector$<$\mbox{\hyperlink{class_vertex}{Vertex}}$<$T$>$ $\ast$$>$\& \mbox{\hyperlink{class_carro}{Carro}}$<$ T $>$\+::get\+Nodes\+Path (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\begin{DoxyReturn}{Returns}
+returna o vector$<$Vertex$<$\+T$>$$\ast$$>$ do carro 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_carro_ac73955dd65c1a78d3faa267900b44094}\label{class_carro_ac73955dd65c1a78d3faa267900b44094}} 
+\index{Carro@{Carro}!is\+Tem\+Percurso@{is\+Tem\+Percurso}}
+\index{is\+Tem\+Percurso@{is\+Tem\+Percurso}!Carro@{Carro}}
+\subsubsection{\texorpdfstring{is\+Tem\+Percurso()}{isTemPercurso()}}
+{\footnotesize\ttfamily template$<$class T$>$ \\
+bool \mbox{\hyperlink{class_carro}{Carro}}$<$ T $>$\+::is\+Tem\+Percurso (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\begin{DoxyReturn}{Returns}
+returna o valor da variavel tem\+\_\+percurso, true se o carro tem um valor atribuido ou false caso contrario 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_carro_a56188f8ca0f9d234afffe7217dd815e2}\label{class_carro_a56188f8ca0f9d234afffe7217dd815e2}} 
+\index{Carro@{Carro}!set\+Edge\+Path@{set\+Edge\+Path}}
+\index{set\+Edge\+Path@{set\+Edge\+Path}!Carro@{Carro}}
+\subsubsection{\texorpdfstring{set\+Edge\+Path()}{setEdgePath()}}
+{\footnotesize\ttfamily template$<$class T$>$ \\
+void \mbox{\hyperlink{class_carro}{Carro}}$<$ T $>$\+::set\+Edge\+Path (\begin{DoxyParamCaption}\item[{const vector$<$ \mbox{\hyperlink{class_edge}{Edge}}$<$ T $>$ $\ast$$>$ \&}]{edge\+Path }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Faz com que o edge\+\_\+path do carro seja o que eu pretendo 
+\begin{DoxyParams}{Parameters}
+{\em edge\+Path} & vector$<$Edge$<$\+T$>$$\ast$$>$ que pretendo atribuir para o carro \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_carro_a2318f898be3f5950e19326d740a7073e}\label{class_carro_a2318f898be3f5950e19326d740a7073e}} 
+\index{Carro@{Carro}!set\+Id@{set\+Id}}
+\index{set\+Id@{set\+Id}!Carro@{Carro}}
+\subsubsection{\texorpdfstring{set\+Id()}{setId()}}
+{\footnotesize\ttfamily template$<$class T$>$ \\
+void \mbox{\hyperlink{class_carro}{Carro}}$<$ T $>$\+::set\+Id (\begin{DoxyParamCaption}\item[{T}]{id }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Define o id do carro 
+\begin{DoxyParams}{Parameters}
+{\em id} & o id que eu quero que o carro tenha \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_carro_aabd6aa0f101beb395c1a35f10ad396e5}\label{class_carro_aabd6aa0f101beb395c1a35f10ad396e5}} 
+\index{Carro@{Carro}!set\+Id\+Fim@{set\+Id\+Fim}}
+\index{set\+Id\+Fim@{set\+Id\+Fim}!Carro@{Carro}}
+\subsubsection{\texorpdfstring{set\+Id\+Fim()}{setIdFim()}}
+{\footnotesize\ttfamily template$<$class T$>$ \\
+void \mbox{\hyperlink{class_carro}{Carro}}$<$ T $>$\+::set\+Id\+Fim (\begin{DoxyParamCaption}\item[{T}]{id\+Fim }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Coloca o id de destino que eu pertendo para o carro 
+\begin{DoxyParams}{Parameters}
+{\em id\+Fim} & id de destino que quero que o carro tenha \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_carro_a842e35fbf2fc1735b43ceef5edbbf16b}\label{class_carro_a842e35fbf2fc1735b43ceef5edbbf16b}} 
+\index{Carro@{Carro}!set\+Id\+Inicio@{set\+Id\+Inicio}}
+\index{set\+Id\+Inicio@{set\+Id\+Inicio}!Carro@{Carro}}
+\subsubsection{\texorpdfstring{set\+Id\+Inicio()}{setIdInicio()}}
+{\footnotesize\ttfamily template$<$class T$>$ \\
+void \mbox{\hyperlink{class_carro}{Carro}}$<$ T $>$\+::set\+Id\+Inicio (\begin{DoxyParamCaption}\item[{T}]{id\+Inicio }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Coloca o id de inicio do carro para o que pretendo 
+\begin{DoxyParams}{Parameters}
+{\em id\+Inicio} & id de inicio que eu quero que o carro tenha \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_carro_a0fad21bc608f882261552c7bd1b08989}\label{class_carro_a0fad21bc608f882261552c7bd1b08989}} 
+\index{Carro@{Carro}!set\+Nodes\+Path@{set\+Nodes\+Path}}
+\index{set\+Nodes\+Path@{set\+Nodes\+Path}!Carro@{Carro}}
+\subsubsection{\texorpdfstring{set\+Nodes\+Path()}{setNodesPath()}}
+{\footnotesize\ttfamily template$<$class T$>$ \\
+void \mbox{\hyperlink{class_carro}{Carro}}$<$ T $>$\+::set\+Nodes\+Path (\begin{DoxyParamCaption}\item[{const vector$<$ \mbox{\hyperlink{class_vertex}{Vertex}}$<$ T $>$ $\ast$$>$ \&}]{nodes\+Path }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Define a variavel nodes\+\_\+path para o que eu pretendo 
+\begin{DoxyParams}{Parameters}
+{\em nodes\+Path} & o vector de vertexs para qual eu pretendo mudar \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_carro_a00026726b81377887e49ff9efcb7dd5d}\label{class_carro_a00026726b81377887e49ff9efcb7dd5d}} 
+\index{Carro@{Carro}!set\+Tem\+Percurso@{set\+Tem\+Percurso}}
+\index{set\+Tem\+Percurso@{set\+Tem\+Percurso}!Carro@{Carro}}
+\subsubsection{\texorpdfstring{set\+Tem\+Percurso()}{setTemPercurso()}}
+{\footnotesize\ttfamily template$<$class T$>$ \\
+void \mbox{\hyperlink{class_carro}{Carro}}$<$ T $>$\+::set\+Tem\+Percurso (\begin{DoxyParamCaption}\item[{bool}]{tem\+Percurso = {\ttfamily true} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Define se o carro tem percurso ou n�o atribuido 
+\begin{DoxyParams}{Parameters}
+{\em tem\+Percurso} & boolean do valor que quero atribuir \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Friends And Related Function Documentation}
+\mbox{\Hypertarget{class_carro_aefa9b76cd57411c5354e5620dc2d84dd}\label{class_carro_aefa9b76cd57411c5354e5620dc2d84dd}} 
+\index{Carro@{Carro}!Graph$<$ T $>$@{Graph$<$ T $>$}}
+\index{Graph$<$ T $>$@{Graph$<$ T $>$}!Carro@{Carro}}
+\subsubsection{\texorpdfstring{Graph$<$ T $>$}{Graph< T >}}
+{\footnotesize\ttfamily template$<$class T$>$ \\
+friend class \mbox{\hyperlink{class_graph}{Graph}}$<$ T $>$\hspace{0.3cm}{\ttfamily [friend]}}
+
+
+
+\subsection{Member Data Documentation}
+\mbox{\Hypertarget{class_carro_a2c552e1d0d83a841c3ce9def21b7956b}\label{class_carro_a2c552e1d0d83a841c3ce9def21b7956b}} 
+\index{Carro@{Carro}!edge\+\_\+path@{edge\+\_\+path}}
+\index{edge\+\_\+path@{edge\+\_\+path}!Carro@{Carro}}
+\subsubsection{\texorpdfstring{edge\+\_\+path}{edge\_path}}
+{\footnotesize\ttfamily template$<$class T$>$ \\
+vector$<$\mbox{\hyperlink{class_edge}{Edge}}$<$T$>$$\ast$$>$ \mbox{\hyperlink{class_carro}{Carro}}$<$ T $>$\+::edge\+\_\+path\hspace{0.3cm}{\ttfamily [private]}}
+
+vetor de arestas do caminho do carro \mbox{\Hypertarget{class_carro_ab7edb4871bda624992f83ef2b9d1babf}\label{class_carro_ab7edb4871bda624992f83ef2b9d1babf}} 
+\index{Carro@{Carro}!id@{id}}
+\index{id@{id}!Carro@{Carro}}
+\subsubsection{\texorpdfstring{id}{id}}
+{\footnotesize\ttfamily template$<$class T$>$ \\
+T \mbox{\hyperlink{class_carro}{Carro}}$<$ T $>$\+::id\hspace{0.3cm}{\ttfamily [private]}}
+
+id do carro \mbox{\Hypertarget{class_carro_a6d4a8cf39f76caecafa0bffcedc50efc}\label{class_carro_a6d4a8cf39f76caecafa0bffcedc50efc}} 
+\index{Carro@{Carro}!id\+\_\+fim@{id\+\_\+fim}}
+\index{id\+\_\+fim@{id\+\_\+fim}!Carro@{Carro}}
+\subsubsection{\texorpdfstring{id\+\_\+fim}{id\_fim}}
+{\footnotesize\ttfamily template$<$class T$>$ \\
+T \mbox{\hyperlink{class_carro}{Carro}}$<$ T $>$\+::id\+\_\+fim\hspace{0.3cm}{\ttfamily [private]}}
+
+id de destino do carro \mbox{\Hypertarget{class_carro_ac1142f0e001f982a7789fe20514f5db7}\label{class_carro_ac1142f0e001f982a7789fe20514f5db7}} 
+\index{Carro@{Carro}!id\+\_\+inicio@{id\+\_\+inicio}}
+\index{id\+\_\+inicio@{id\+\_\+inicio}!Carro@{Carro}}
+\subsubsection{\texorpdfstring{id\+\_\+inicio}{id\_inicio}}
+{\footnotesize\ttfamily template$<$class T$>$ \\
+T \mbox{\hyperlink{class_carro}{Carro}}$<$ T $>$\+::id\+\_\+inicio\hspace{0.3cm}{\ttfamily [private]}}
+
+Id de inicio do percurso do carro \mbox{\Hypertarget{class_carro_a4cc76ed6acda558805f6039ec35ca53f}\label{class_carro_a4cc76ed6acda558805f6039ec35ca53f}} 
+\index{Carro@{Carro}!nodes\+\_\+path@{nodes\+\_\+path}}
+\index{nodes\+\_\+path@{nodes\+\_\+path}!Carro@{Carro}}
+\subsubsection{\texorpdfstring{nodes\+\_\+path}{nodes\_path}}
+{\footnotesize\ttfamily template$<$class T$>$ \\
+vector$<$\mbox{\hyperlink{class_vertex}{Vertex}}$<$T$>$$\ast$$>$ \mbox{\hyperlink{class_carro}{Carro}}$<$ T $>$\+::nodes\+\_\+path\hspace{0.3cm}{\ttfamily [private]}}
+
+vetor de vertices do caminho do carro \mbox{\Hypertarget{class_carro_a6d26498b0d2bbe5729f2ba0464d873cb}\label{class_carro_a6d26498b0d2bbe5729f2ba0464d873cb}} 
+\index{Carro@{Carro}!tem\+\_\+percurso@{tem\+\_\+percurso}}
+\index{tem\+\_\+percurso@{tem\+\_\+percurso}!Carro@{Carro}}
+\subsubsection{\texorpdfstring{tem\+\_\+percurso}{tem\_percurso}}
+{\footnotesize\ttfamily template$<$class T$>$ \\
+bool \mbox{\hyperlink{class_carro}{Carro}}$<$ T $>$\+::tem\+\_\+percurso = true\hspace{0.3cm}{\ttfamily [private]}}
+
+true caso o carro tenha percurso, false caso contrario 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/\+Users/amadeuppereira/\+F\+E\+U\+P/2ano/\+Cal-\/2018/src/\mbox{\hyperlink{_graph_8h}{Graph.\+h}}\end{DoxyCompactItemize}

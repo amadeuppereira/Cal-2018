@@ -1,0 +1,347 @@
+\hypertarget{class_road_network}{}\section{Road\+Network Class Reference}
+\label{class_road_network}\index{Road\+Network@{Road\+Network}}
+
+
+{\ttfamily \#include $<$Road\+Network.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_road_network_a635cd53a27194c18870f6afc1f9e54cf}{Road\+Network}} ()
+\item 
+virtual \mbox{\hyperlink{class_road_network_a03a442c7c5c89bab9bb10632caefd2eb}{$\sim$\+Road\+Network}} ()
+\item 
+void \mbox{\hyperlink{class_road_network_abf74962fc6a63d82efcd0073c48b0d35}{read\+O\+SM}} ()
+\item 
+void \mbox{\hyperlink{class_road_network_a8b2c18eac996760101db4afc6c114b14}{write\+Edge\+File}} ()
+\item 
+void \mbox{\hyperlink{class_road_network_a280633c5b00df3dfc59bc677fc12daa3}{convert\+To\+GV}} ()
+\item 
+const \mbox{\hyperlink{class_graph}{Graph}}$<$ int $>$ \& \mbox{\hyperlink{class_road_network_a869771d158ffe75a2d87dd300d54281a}{get\+Graph}} () const
+\item 
+bool \mbox{\hyperlink{class_road_network_a60e0a20c8e393740c81fa47bc42bf9cd}{get\+Edge\+Blocked\+Status}} (string name)
+\item 
+void \mbox{\hyperlink{class_road_network_a981b13a5dcab7fb5a1089d0a53fc788d}{set\+Edge\+Blocked}} (string edge\+\_\+name, bool blocked)
+\item 
+double \mbox{\hyperlink{class_road_network_a66f44792ce48ef5b11a4f3871e7f0627}{get\+Weight\+Of\+Path}} (vector$<$ \mbox{\hyperlink{class_vertex}{Vertex}}$<$ int $>$ $\ast$$>$ vec)
+\item 
+void \mbox{\hyperlink{class_road_network_ae48e55423eb4341d38634ecaa2c5f928}{print\+Path}} (int node\+Start\+ID, int node\+Destination\+ID)
+\item 
+void \mbox{\hyperlink{class_road_network_a23597085b3fb2412a3a6a173e8d792fb}{print\+All\+Car\+Path}} () const
+\item 
+void \mbox{\hyperlink{class_road_network_a17723d3dcfae26cc499871334391d9b1}{print\+Car\+ID}} () const
+\item 
+bool \mbox{\hyperlink{class_road_network_a47cedd456d5f101e2759237f65bb0ff1}{remove\+Car}} (int id)
+\item 
+void \mbox{\hyperlink{class_road_network_ac84b2b00026bff9f86b176eeea850c85}{write\+Cars\+File}} ()
+\item 
+void \mbox{\hyperlink{class_road_network_aaab4512e908b04bd6e71ce828a22034d}{highlight\+Node}} (int id) const
+\item 
+void \mbox{\hyperlink{class_road_network_aae482bce48ecbd4487306e72d9e77f28}{highlight\+Edge}} (int id) const
+\item 
+void \mbox{\hyperlink{class_road_network_a7b186cdb92006a41431f89df8b55c9ec}{update\+Map}} () const
+\item 
+void \mbox{\hyperlink{class_road_network_a03686fe29593c83864244d8a20bd63ed}{close\+Map\+Window}} () const
+\item 
+void \mbox{\hyperlink{class_road_network_ad0d2c77f25ade353665e8ca11e1775fa}{update\+Info}} ()
+\item 
+void \mbox{\hyperlink{class_road_network_abeb6a77a05ebd0283b00f439f5d96989}{exact\+Edge\+Search}} (string estrada)
+\item 
+void \mbox{\hyperlink{class_road_network_abea5273df933a75aa0a32c437b68d9b8}{approximate\+Edge\+Search}} (string estrada, int op)
+\item 
+vector$<$ int $>$ \mbox{\hyperlink{class_road_network_a489db20f9d1673d607312bfd9574e3d8}{cpf}} (string pattern)
+\item 
+int \mbox{\hyperlink{class_road_network_ad18485ed1a0f77084570e79dad17f0fc}{kmp\+Matcher}} (string text, string pattern)
+\item 
+int \mbox{\hyperlink{class_road_network_ab0b036ff84a1e057d28d42bfeaae27dd}{edit\+Distance}} (string pattern, string text)
+\item 
+unsigned int \mbox{\hyperlink{class_road_network_ab44b652ce962b708421da08cd05e7477}{levenshtein}} (const string \&s1, const string \&s2)
+\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_graph}{Graph}}$<$ int $>$ \mbox{\hyperlink{class_road_network_aecef1ce1d95a05cccb98b345bae951ad}{graph}}
+\item 
+\mbox{\hyperlink{class_graph_viewer}{Graph\+Viewer}} $\ast$ \mbox{\hyperlink{class_road_network_a3512bc7d6e202925537873f3e769141c}{gv}}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Classe que guarda todas as informacoes necessarias, que faz todos os calculos necessarios com essas informacoes e atualiza o graphviewer 
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_road_network_a635cd53a27194c18870f6afc1f9e54cf}\label{class_road_network_a635cd53a27194c18870f6afc1f9e54cf}} 
+\index{Road\+Network@{Road\+Network}!Road\+Network@{Road\+Network}}
+\index{Road\+Network@{Road\+Network}!Road\+Network@{Road\+Network}}
+\subsubsection{\texorpdfstring{Road\+Network()}{RoadNetwork()}}
+{\footnotesize\ttfamily Road\+Network\+::\+Road\+Network (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Construtor \mbox{\Hypertarget{class_road_network_a03a442c7c5c89bab9bb10632caefd2eb}\label{class_road_network_a03a442c7c5c89bab9bb10632caefd2eb}} 
+\index{Road\+Network@{Road\+Network}!````~Road\+Network@{$\sim$\+Road\+Network}}
+\index{````~Road\+Network@{$\sim$\+Road\+Network}!Road\+Network@{Road\+Network}}
+\subsubsection{\texorpdfstring{$\sim$\+Road\+Network()}{~RoadNetwork()}}
+{\footnotesize\ttfamily Road\+Network\+::$\sim$\+Road\+Network (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+Destrutor 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_road_network_abea5273df933a75aa0a32c437b68d9b8}\label{class_road_network_abea5273df933a75aa0a32c437b68d9b8}} 
+\index{Road\+Network@{Road\+Network}!approximate\+Edge\+Search@{approximate\+Edge\+Search}}
+\index{approximate\+Edge\+Search@{approximate\+Edge\+Search}!Road\+Network@{Road\+Network}}
+\subsubsection{\texorpdfstring{approximate\+Edge\+Search()}{approximateEdgeSearch()}}
+{\footnotesize\ttfamily void Road\+Network\+::approximate\+Edge\+Search (\begin{DoxyParamCaption}\item[{string}]{estrada,  }\item[{int}]{op }\end{DoxyParamCaption})}
+
+Procura aproximada das estradas 
+\begin{DoxyParams}{Parameters}
+{\em estrada} & localização introduzida \\
+\hline
+{\em op} & opção entre o método de Levenshtein ou Edit Distance \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_road_network_a03686fe29593c83864244d8a20bd63ed}\label{class_road_network_a03686fe29593c83864244d8a20bd63ed}} 
+\index{Road\+Network@{Road\+Network}!close\+Map\+Window@{close\+Map\+Window}}
+\index{close\+Map\+Window@{close\+Map\+Window}!Road\+Network@{Road\+Network}}
+\subsubsection{\texorpdfstring{close\+Map\+Window()}{closeMapWindow()}}
+{\footnotesize\ttfamily void Road\+Network\+::close\+Map\+Window (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Fecha a janela do graphviewer \mbox{\Hypertarget{class_road_network_a280633c5b00df3dfc59bc677fc12daa3}\label{class_road_network_a280633c5b00df3dfc59bc677fc12daa3}} 
+\index{Road\+Network@{Road\+Network}!convert\+To\+GV@{convert\+To\+GV}}
+\index{convert\+To\+GV@{convert\+To\+GV}!Road\+Network@{Road\+Network}}
+\subsubsection{\texorpdfstring{convert\+To\+G\+V()}{convertToGV()}}
+{\footnotesize\ttfamily void Road\+Network\+::convert\+To\+GV (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Converte a informacao contida no grafo numa do tipo graphviewer \mbox{\Hypertarget{class_road_network_a489db20f9d1673d607312bfd9574e3d8}\label{class_road_network_a489db20f9d1673d607312bfd9574e3d8}} 
+\index{Road\+Network@{Road\+Network}!cpf@{cpf}}
+\index{cpf@{cpf}!Road\+Network@{Road\+Network}}
+\subsubsection{\texorpdfstring{cpf()}{cpf()}}
+{\footnotesize\ttfamily vector$<$ int $>$ Road\+Network\+::cpf (\begin{DoxyParamCaption}\item[{string}]{pattern }\end{DoxyParamCaption})}
+
+Pré-\/processamento do padrão 
+\begin{DoxyParams}{Parameters}
+{\em pattern} & expressão a procurar \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+valor do deslocamento a utilizar no algoritmo de Knuth-\/\+Morris-\/\+Pratt 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_road_network_ab0b036ff84a1e057d28d42bfeaae27dd}\label{class_road_network_ab0b036ff84a1e057d28d42bfeaae27dd}} 
+\index{Road\+Network@{Road\+Network}!edit\+Distance@{edit\+Distance}}
+\index{edit\+Distance@{edit\+Distance}!Road\+Network@{Road\+Network}}
+\subsubsection{\texorpdfstring{edit\+Distance()}{editDistance()}}
+{\footnotesize\ttfamily int Road\+Network\+::edit\+Distance (\begin{DoxyParamCaption}\item[{string}]{pattern,  }\item[{string}]{text }\end{DoxyParamCaption})}
+
+Algoritmo de Pesquisa Aproximada Edit Distance 
+\begin{DoxyParams}{Parameters}
+{\em pattern} & expressão a procurar \\
+\hline
+{\em text} & texto onde vai ser procurada a expressão \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+número mínimo de operações necessárias para transformar uma expressão na outra 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_road_network_abeb6a77a05ebd0283b00f439f5d96989}\label{class_road_network_abeb6a77a05ebd0283b00f439f5d96989}} 
+\index{Road\+Network@{Road\+Network}!exact\+Edge\+Search@{exact\+Edge\+Search}}
+\index{exact\+Edge\+Search@{exact\+Edge\+Search}!Road\+Network@{Road\+Network}}
+\subsubsection{\texorpdfstring{exact\+Edge\+Search()}{exactEdgeSearch()}}
+{\footnotesize\ttfamily void Road\+Network\+::exact\+Edge\+Search (\begin{DoxyParamCaption}\item[{string}]{estrada }\end{DoxyParamCaption})}
+
+Procura exata das estradas 
+\begin{DoxyParams}{Parameters}
+{\em estrada} & localização introduzida \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_road_network_a60e0a20c8e393740c81fa47bc42bf9cd}\label{class_road_network_a60e0a20c8e393740c81fa47bc42bf9cd}} 
+\index{Road\+Network@{Road\+Network}!get\+Edge\+Blocked\+Status@{get\+Edge\+Blocked\+Status}}
+\index{get\+Edge\+Blocked\+Status@{get\+Edge\+Blocked\+Status}!Road\+Network@{Road\+Network}}
+\subsubsection{\texorpdfstring{get\+Edge\+Blocked\+Status()}{getEdgeBlockedStatus()}}
+{\footnotesize\ttfamily bool Road\+Network\+::get\+Edge\+Blocked\+Status (\begin{DoxyParamCaption}\item[{string}]{name }\end{DoxyParamCaption})}
+
+Indica se uma estrada se encontra bloqueada ou nao 
+\begin{DoxyParams}{Parameters}
+{\em name} & nome da estrada que se pretende verificar \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true se estiver bloqueada, false se nao 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_road_network_a869771d158ffe75a2d87dd300d54281a}\label{class_road_network_a869771d158ffe75a2d87dd300d54281a}} 
+\index{Road\+Network@{Road\+Network}!get\+Graph@{get\+Graph}}
+\index{get\+Graph@{get\+Graph}!Road\+Network@{Road\+Network}}
+\subsubsection{\texorpdfstring{get\+Graph()}{getGraph()}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{class_graph}{Graph}}$<$ int $>$ \& Road\+Network\+::get\+Graph (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Devolve o grafo \begin{DoxyReturn}{Returns}
+grafo 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_road_network_a66f44792ce48ef5b11a4f3871e7f0627}\label{class_road_network_a66f44792ce48ef5b11a4f3871e7f0627}} 
+\index{Road\+Network@{Road\+Network}!get\+Weight\+Of\+Path@{get\+Weight\+Of\+Path}}
+\index{get\+Weight\+Of\+Path@{get\+Weight\+Of\+Path}!Road\+Network@{Road\+Network}}
+\subsubsection{\texorpdfstring{get\+Weight\+Of\+Path()}{getWeightOfPath()}}
+{\footnotesize\ttfamily double Road\+Network\+::get\+Weight\+Of\+Path (\begin{DoxyParamCaption}\item[{vector$<$ \mbox{\hyperlink{class_vertex}{Vertex}}$<$ int $>$ $\ast$$>$}]{vec }\end{DoxyParamCaption})}
+
+Devolve o peso total de um percurso 
+\begin{DoxyParams}{Parameters}
+{\em vec} & vetor com os vertices do percurso a calcular \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+valor do peso do percurso 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_road_network_aae482bce48ecbd4487306e72d9e77f28}\label{class_road_network_aae482bce48ecbd4487306e72d9e77f28}} 
+\index{Road\+Network@{Road\+Network}!highlight\+Edge@{highlight\+Edge}}
+\index{highlight\+Edge@{highlight\+Edge}!Road\+Network@{Road\+Network}}
+\subsubsection{\texorpdfstring{highlight\+Edge()}{highlightEdge()}}
+{\footnotesize\ttfamily void Road\+Network\+::highlight\+Edge (\begin{DoxyParamCaption}\item[{int}]{id }\end{DoxyParamCaption}) const}
+
+Atualiza a cor de uma edge no graphviewer para amarelo (percurso) 
+\begin{DoxyParams}{Parameters}
+{\em id} & id da edge a atualizar \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_road_network_aaab4512e908b04bd6e71ce828a22034d}\label{class_road_network_aaab4512e908b04bd6e71ce828a22034d}} 
+\index{Road\+Network@{Road\+Network}!highlight\+Node@{highlight\+Node}}
+\index{highlight\+Node@{highlight\+Node}!Road\+Network@{Road\+Network}}
+\subsubsection{\texorpdfstring{highlight\+Node()}{highlightNode()}}
+{\footnotesize\ttfamily void Road\+Network\+::highlight\+Node (\begin{DoxyParamCaption}\item[{int}]{id }\end{DoxyParamCaption}) const}
+
+Atualiza a cor de um vertice no graphviewer para amarelo (percurso) 
+\begin{DoxyParams}{Parameters}
+{\em id} & id do vertice a atualizar \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_road_network_ad18485ed1a0f77084570e79dad17f0fc}\label{class_road_network_ad18485ed1a0f77084570e79dad17f0fc}} 
+\index{Road\+Network@{Road\+Network}!kmp\+Matcher@{kmp\+Matcher}}
+\index{kmp\+Matcher@{kmp\+Matcher}!Road\+Network@{Road\+Network}}
+\subsubsection{\texorpdfstring{kmp\+Matcher()}{kmpMatcher()}}
+{\footnotesize\ttfamily int Road\+Network\+::kmp\+Matcher (\begin{DoxyParamCaption}\item[{string}]{text,  }\item[{string}]{pattern }\end{DoxyParamCaption})}
+
+Algoritmo de Knuth-\/\+Morris-\/\+Pratt 
+\begin{DoxyParams}{Parameters}
+{\em text} & texto onde vai ser procurada a expressão \\
+\hline
+{\em pattern} & expressão a procurar \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+número de vezes que podemos encontrar a expressão pattern em text 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_road_network_ab44b652ce962b708421da08cd05e7477}\label{class_road_network_ab44b652ce962b708421da08cd05e7477}} 
+\index{Road\+Network@{Road\+Network}!levenshtein@{levenshtein}}
+\index{levenshtein@{levenshtein}!Road\+Network@{Road\+Network}}
+\subsubsection{\texorpdfstring{levenshtein()}{levenshtein()}}
+{\footnotesize\ttfamily unsigned int Road\+Network\+::levenshtein (\begin{DoxyParamCaption}\item[{const string \&}]{s1,  }\item[{const string \&}]{s2 }\end{DoxyParamCaption})}
+
+Algoritmo de Levenshtein 
+\begin{DoxyParams}{Parameters}
+{\em s1} & expressão a comparar \\
+\hline
+{\em s2} & expressão a comparar \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+número mínimo de operações necessárias para transformar uma expressão na outra 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_road_network_a23597085b3fb2412a3a6a173e8d792fb}\label{class_road_network_a23597085b3fb2412a3a6a173e8d792fb}} 
+\index{Road\+Network@{Road\+Network}!print\+All\+Car\+Path@{print\+All\+Car\+Path}}
+\index{print\+All\+Car\+Path@{print\+All\+Car\+Path}!Road\+Network@{Road\+Network}}
+\subsubsection{\texorpdfstring{print\+All\+Car\+Path()}{printAllCarPath()}}
+{\footnotesize\ttfamily void Road\+Network\+::print\+All\+Car\+Path (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Imprime o percurso completo de todos os carros \mbox{\Hypertarget{class_road_network_a17723d3dcfae26cc499871334391d9b1}\label{class_road_network_a17723d3dcfae26cc499871334391d9b1}} 
+\index{Road\+Network@{Road\+Network}!print\+Car\+ID@{print\+Car\+ID}}
+\index{print\+Car\+ID@{print\+Car\+ID}!Road\+Network@{Road\+Network}}
+\subsubsection{\texorpdfstring{print\+Car\+I\+D()}{printCarID()}}
+{\footnotesize\ttfamily void Road\+Network\+::print\+Car\+ID (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Imprime o inicio e o fim do percurso de todos os carros \mbox{\Hypertarget{class_road_network_ae48e55423eb4341d38634ecaa2c5f928}\label{class_road_network_ae48e55423eb4341d38634ecaa2c5f928}} 
+\index{Road\+Network@{Road\+Network}!print\+Path@{print\+Path}}
+\index{print\+Path@{print\+Path}!Road\+Network@{Road\+Network}}
+\subsubsection{\texorpdfstring{print\+Path()}{printPath()}}
+{\footnotesize\ttfamily void Road\+Network\+::print\+Path (\begin{DoxyParamCaption}\item[{int}]{node\+Start\+ID,  }\item[{int}]{node\+Destination\+ID }\end{DoxyParamCaption})}
+
+Imprime a informacao relativa a um percurso, atualizando, tambem, o graphviewer com. Adiciona um novo carro ao programa cada vez que é executada. 
+\begin{DoxyParams}{Parameters}
+{\em node\+Start\+ID} & \\
+\hline
+{\em node\+Destination\+ID} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_road_network_abf74962fc6a63d82efcd0073c48b0d35}\label{class_road_network_abf74962fc6a63d82efcd0073c48b0d35}} 
+\index{Road\+Network@{Road\+Network}!read\+O\+SM@{read\+O\+SM}}
+\index{read\+O\+SM@{read\+O\+SM}!Road\+Network@{Road\+Network}}
+\subsubsection{\texorpdfstring{read\+O\+S\+M()}{readOSM()}}
+{\footnotesize\ttfamily void Road\+Network\+::read\+O\+SM (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Le os ficheiros com informacao relativa aos vertices, as edges e aos carros e atualiza o grafo com essa informacao \mbox{\Hypertarget{class_road_network_a47cedd456d5f101e2759237f65bb0ff1}\label{class_road_network_a47cedd456d5f101e2759237f65bb0ff1}} 
+\index{Road\+Network@{Road\+Network}!remove\+Car@{remove\+Car}}
+\index{remove\+Car@{remove\+Car}!Road\+Network@{Road\+Network}}
+\subsubsection{\texorpdfstring{remove\+Car()}{removeCar()}}
+{\footnotesize\ttfamily bool Road\+Network\+::remove\+Car (\begin{DoxyParamCaption}\item[{int}]{id }\end{DoxyParamCaption})}
+
+Remove um carro do programa 
+\begin{DoxyParams}{Parameters}
+{\em id} & id do carro a remover \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true so foi possivel remover, falso se nao 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_road_network_a981b13a5dcab7fb5a1089d0a53fc788d}\label{class_road_network_a981b13a5dcab7fb5a1089d0a53fc788d}} 
+\index{Road\+Network@{Road\+Network}!set\+Edge\+Blocked@{set\+Edge\+Blocked}}
+\index{set\+Edge\+Blocked@{set\+Edge\+Blocked}!Road\+Network@{Road\+Network}}
+\subsubsection{\texorpdfstring{set\+Edge\+Blocked()}{setEdgeBlocked()}}
+{\footnotesize\ttfamily void Road\+Network\+::set\+Edge\+Blocked (\begin{DoxyParamCaption}\item[{string}]{edge\+\_\+name,  }\item[{bool}]{blocked }\end{DoxyParamCaption})}
+
+Altera o estado de bloqueada, ou nao, de uma estrada 
+\begin{DoxyParams}{Parameters}
+{\em edge\+\_\+name} & nome da estrada que se pretende alterar \\
+\hline
+{\em blocked} & novo valor \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_road_network_ad0d2c77f25ade353665e8ca11e1775fa}\label{class_road_network_ad0d2c77f25ade353665e8ca11e1775fa}} 
+\index{Road\+Network@{Road\+Network}!update\+Info@{update\+Info}}
+\index{update\+Info@{update\+Info}!Road\+Network@{Road\+Network}}
+\subsubsection{\texorpdfstring{update\+Info()}{updateInfo()}}
+{\footnotesize\ttfamily void Road\+Network\+::update\+Info (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Atualiza o conteudo do grafo \mbox{\Hypertarget{class_road_network_a7b186cdb92006a41431f89df8b55c9ec}\label{class_road_network_a7b186cdb92006a41431f89df8b55c9ec}} 
+\index{Road\+Network@{Road\+Network}!update\+Map@{update\+Map}}
+\index{update\+Map@{update\+Map}!Road\+Network@{Road\+Network}}
+\subsubsection{\texorpdfstring{update\+Map()}{updateMap()}}
+{\footnotesize\ttfamily void Road\+Network\+::update\+Map (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Atualiza a cor das edges tendo em conta o numero de carros que por ela circulam e se se encontra bloqueada ou nao \mbox{\Hypertarget{class_road_network_ac84b2b00026bff9f86b176eeea850c85}\label{class_road_network_ac84b2b00026bff9f86b176eeea850c85}} 
+\index{Road\+Network@{Road\+Network}!write\+Cars\+File@{write\+Cars\+File}}
+\index{write\+Cars\+File@{write\+Cars\+File}!Road\+Network@{Road\+Network}}
+\subsubsection{\texorpdfstring{write\+Cars\+File()}{writeCarsFile()}}
+{\footnotesize\ttfamily void Road\+Network\+::write\+Cars\+File (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Escreve a informacao relativa a todos os carros no ficheiro \mbox{\Hypertarget{class_road_network_a8b2c18eac996760101db4afc6c114b14}\label{class_road_network_a8b2c18eac996760101db4afc6c114b14}} 
+\index{Road\+Network@{Road\+Network}!write\+Edge\+File@{write\+Edge\+File}}
+\index{write\+Edge\+File@{write\+Edge\+File}!Road\+Network@{Road\+Network}}
+\subsubsection{\texorpdfstring{write\+Edge\+File()}{writeEdgeFile()}}
+{\footnotesize\ttfamily void Road\+Network\+::write\+Edge\+File (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Escreve a informacao das edges no ficheiro correspondente 
+
+\subsection{Member Data Documentation}
+\mbox{\Hypertarget{class_road_network_aecef1ce1d95a05cccb98b345bae951ad}\label{class_road_network_aecef1ce1d95a05cccb98b345bae951ad}} 
+\index{Road\+Network@{Road\+Network}!graph@{graph}}
+\index{graph@{graph}!Road\+Network@{Road\+Network}}
+\subsubsection{\texorpdfstring{graph}{graph}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_graph}{Graph}}$<$int$>$ Road\+Network\+::graph\hspace{0.3cm}{\ttfamily [private]}}
+
+Variavel que guarda o grafo \mbox{\Hypertarget{class_road_network_a3512bc7d6e202925537873f3e769141c}\label{class_road_network_a3512bc7d6e202925537873f3e769141c}} 
+\index{Road\+Network@{Road\+Network}!gv@{gv}}
+\index{gv@{gv}!Road\+Network@{Road\+Network}}
+\subsubsection{\texorpdfstring{gv}{gv}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_graph_viewer}{Graph\+Viewer}}$\ast$ Road\+Network\+::gv\hspace{0.3cm}{\ttfamily [private]}}
+
+Variavel que guarda o graphviewer 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/\+Users/amadeuppereira/\+F\+E\+U\+P/2ano/\+Cal-\/2018/src/\mbox{\hyperlink{_road_network_8h}{Road\+Network.\+h}}\item 
+/\+Users/amadeuppereira/\+F\+E\+U\+P/2ano/\+Cal-\/2018/src/\mbox{\hyperlink{_road_network_8cpp}{Road\+Network.\+cpp}}\end{DoxyCompactItemize}
