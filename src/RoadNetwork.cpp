@@ -339,7 +339,7 @@ void RoadNetwork::updateInfo(){
 	readOSM();
 }
 
-vector<int> cpf(string pattern){
+vector<int> RoadNetwork::cpf(string pattern){
 	int m = pattern.length();
 	vector<int> prefix(m);
 	prefix[0] = -1;
@@ -355,7 +355,7 @@ vector<int> cpf(string pattern){
 	return prefix;
 }
 
-int kmpMatcher(string text, string pattern) {
+int RoadNetwork::kmpMatcher(string text, string pattern) {
 	int num = 0;
 	int n = text.length();
 	int m = pattern.length();
@@ -374,7 +374,7 @@ int kmpMatcher(string text, string pattern) {
 	return num;
 }
 
-int editDistance(string pattern, string text) {
+int RoadNetwork::editDistance(string pattern, string text) {
 	int d[pattern.length()+1][text.length()+1];
 	int n = text.length();
 	int m = pattern.length();
@@ -404,7 +404,7 @@ int editDistance(string pattern, string text) {
 	return d[m][n];
 }
 
-unsigned int levenshtein(const string & s1, const string & s2) {
+unsigned int RoadNetwork::levenshtein(const string & s1, const string & s2) {
     unsigned int i,j, n1 = s1.length() , n2 = s2.length();
     unsigned int * p = new unsigned int[n2+1] , * q = new unsigned int[n2+1];
 

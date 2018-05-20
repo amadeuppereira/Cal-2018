@@ -159,11 +159,34 @@ public:
 	 * @param op opção entre o método de Levenshtein ou Edit Distance
 	 */
 	void approximateEdgeSearch(string estrada, int op);
+	/**
+ 	 * Pré-processamento do padrão
+ 	 * @param pattern expressão a procurar
+	 * @return valor do deslocamento a utilizar no algoritmo de Knuth-Morris-Pratt
+ 	*/
+	vector<int> cpf(string pattern);
+	/**
+	 * Algoritmo de Knuth-Morris-Pratt
+	 * @param text texto onde vai ser procurada a expressão
+	 * @param pattern expressão a procurar
+	 * @return número de vezes que podemos encontrar a expressão pattern em text
+	 */
+	int kmpMatcher(string text, string pattern);
+	/**
+ 	 * Algoritmo de Pesquisa Aproximada Edit Distance
+ 	 * @param pattern expressão a procurar
+ 	 * @param text texto onde vai ser procurada a expressão
+ 	 * @return número mínimo de operações necessárias para transformar uma expressão na outra
+ 	 */
+	int editDistance(string pattern, string text);
+	/**
+ 	 * Algoritmo de Levenshtein
+ 	 * @param s1 expressão a comparar
+ 	 * @param s2 expressão a comparar
+ 	 * @return número mínimo de operações necessárias para transformar uma expressão na outra
+ 	 */
+	unsigned int levenshtein(const string & s1, const string & s2);
 };
-
-
-
-
 
 #endif /* SRC_ROADNETWORK_H_ */
 
