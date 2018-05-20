@@ -43,11 +43,6 @@ public:
 	void showMap();
 
 	/**
-	 *	Atualiza o mapa
-	 */
-	void updateMap();
-
-	/**
 	 *	Fecha o mapa do GraphViewer
 	 */
 	void closeMapWindow();

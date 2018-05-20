@@ -136,26 +136,6 @@ public:
 	*/
 	void highlightEdge(int id) const;
 	/**
-	 * Atualiza a cor de um vertice para a sua cor padrao
-	 * @param id id do vertice a atualizar
-	 */
-	void removeHighlightNode(int id) const;
-	/**
-	 * Atualiza a cor de uma edge para a sua cor padrao
-	 * @param id id da edge a atualizar
-	 */
-	void removeHighlightEdge(int id) const;
-	/**
-	 * Atualiza a cor de uma edge para a preto (bloqueada)
-	 * @param id id da edge a atualizar
-	 */
-	void blockEdge(int id) const;
-	/**
-	 * Atualiza a cor de uma edge para a sua cor padrao
-	 * @param id id da edge a atualizar
-	 */
-	void removeBlockEdge(int id) const;
-	/**
 	 * Atualiza a cor das edges tendo em conta o numero de carros que por ela circulam
 	 * e se se encontra bloqueada ou nao
 	 */
@@ -168,9 +148,16 @@ public:
 	 * Atualiza o conteudo do grafo
 	 */
 	void updateInfo();
-
+	/**
+	 * Procura exata das estradas
+	 * @param estrada localização introduzida
+	 */
 	void exactEdgeSearch(string estrada);
-
+	/**
+	 * Procura aproximada das estradas
+	 * @param estrada localização introduzida
+	 * @param op opção entre o método de Levenshtein ou Edit Distance
+	 */
 	void approximateEdgeSearch(string estrada, int op);
 };
 

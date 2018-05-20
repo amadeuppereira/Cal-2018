@@ -293,22 +293,6 @@ void RoadNetwork::highlightEdge(int id) const {
 	gv->setEdgeColor(id, HIGHLIGHTED_EDGE_COLOR);
 }
 
-void RoadNetwork::removeHighlightNode(int id) const {
-	gv->setVertexColor(id, DEFAULT_VERTEX_COLOR);
-}
-
-void RoadNetwork::removeHighlightEdge(int id) const {
-	gv->setEdgeColor(id, DEFAULT_EDGE_COLOR);
-}
-
-void RoadNetwork::blockEdge(int id) const {
-	gv->setEdgeColor(id, BLOCKED_EDGE_COLOR);
-}
-
-void RoadNetwork::removeBlockEdge(int id) const {
-	gv->setEdgeColor(id, DEFAULT_EDGE_COLOR);
-}
-
 void RoadNetwork::closeMapWindow() const{
 	gv->closeWindow();
 }

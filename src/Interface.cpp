@@ -254,11 +254,6 @@ void Interface::approximateSearchAlgorithm() {
 
 }
 
-
-void Interface::updateMap() {
-	roadnetwork->updateMap();
-}
-
 void Interface::closeMapWindow(){
 	roadnetwork->closeMapWindow();
 }
