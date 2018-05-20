@@ -391,8 +391,7 @@ int kmpMatcher(string text, string pattern) {
 }
 
 int editDistance(string pattern, string text) {
-	cout << pattern << " " << text << endl;
-	int d[pattern.length()+1][text.length()+1]={0};
+	int d[pattern.length()+1][text.length()+1];
 	int n = text.length();
 	int m = pattern.length();
 
@@ -418,30 +417,6 @@ int editDistance(string pattern, string text) {
 			}
 		}
 	}
-	/*int old_value, new_value;
-	int n = text.length();
-	int m = pattern.length();
-	int d[n+1];
-
-	for(int j = 0; j < n+1; j++){
-		d[j] = j;
-	}
-
-	for(int i = 1; i < m+1; i++){
-		old_value = d[0];
-		d[0] = 1;
-		for(int j = 1; j < n + 1; j++){
-			if(pattern[i-1] == text[j-1])
-				new_value = old_value;
-			else{
-				new_value = min(old_value,d[j]);
-				new_value = 1 + min(new_value,d[j-1]);
-			}
-			old_value = d[j];
-			d[j] = new_value;
-		}
-	}*/
-	cout << d[m][n] << endl;
 	return d[m][n];
 }
 
@@ -555,11 +530,9 @@ void RoadNetwork::approximateEdgeSearch(string estrada, int op) {
         {
         	counter=0;
         }
-        else
-        {
+        else {
         	counter=adicionar+adicionar2+adicionar3;
         }
-        cout << "counter: " << counter << endl;
 		nomes_estradas_semelhantes.push_back(make_pair(counter, nome));
 		counter = 0;
 		it++;
@@ -587,8 +560,8 @@ void RoadNetwork::approximateEdgeSearch(string estrada, int op) {
     if(opcao != 0) {
 		string nome = nomes_estradas_semelhantes.at(opcao - 1).second;
 
-		//setEdgeBlocked(nome, true);
-		//cout << endl << "A estrada " << nome << " foi cortada com sucesso e foi calculada uma rota de evacuação para todos os carros." << endl;
+		setEdgeBlocked(nome, true);
+		cout << endl << "A estrada " << nome << " foi cortada com sucesso e foi calculada uma rota de evacuação para todos os carros." << endl;
 
 		writeEdgeFile();
 		updateInfo();
